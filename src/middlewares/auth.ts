@@ -11,7 +11,7 @@ export const authMiddleware = createMiddleware(async (c, next) => {
 
   try {
     const decoded = await verify(token, process.env.JWT_SECRET!, 'HS256');
-    
+
     c.set('jwtPayload', decoded);
     await next();
   } catch (error) {
