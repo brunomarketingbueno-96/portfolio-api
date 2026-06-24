@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
+
 import {
   getProjects,
   getProjectById,
@@ -6,6 +7,7 @@ import {
   updateProject,
   deleteProject
 } from '../../controllers/projects.controller.js'
+
 import {
   findAllProjects,
   findProjectById,

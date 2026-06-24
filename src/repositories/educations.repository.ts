@@ -2,7 +2,11 @@ import { db } from '../db/index.js';
 import { education, educationTranslations } from '../db/schema.js';
 import { eq } from 'drizzle-orm';
 
-export const findAllEducations = async () => {
+type Education = typeof education.$inferSelect;
+type EducationTranslation = typeof educationTranslations.$inferSelect;
+type NewEducation = typeof education.$inferInsert;
+
+export const findAllEducations = async (): Promise<Array<Education & { translations: EducationTranslation[] }>> => {
   return await db.query.education.findMany({
     with: {
       translations: true,
@@ -10,7 +14,7 @@ export const findAllEducations = async () => {
   });
 };
 
-export const findEducationById = async (id: string) => {
+export const findEducationById = async (id: string): Promise<(Education & { translations: EducationTranslation[] }) | undefined> => {
   return await db.query.education.findFirst({
     where: eq(education.id, id),
     with: {
@@ -19,51 +23,57 @@ export const findEducationById = async (id: string) => {
   });
 };
 
-export const createEducationRecord = async (educationData: any, translationsData: any[]) => {
-  const insertedEducation = await db.insert(education).values(educationData).returning();
-  const eduRecord = insertedEducation[0];
+export const createEducationRecord = async (
+  educationData: NewEducation,
+  translationsData: Omit<EducationTranslation, 'id' | 'educationId' | 'createdAt' | 'updatedAt'>[]
+) => {
+  return await db.transaction(async (tx) => {
+    const insertedEducation = await tx.insert(education).values(educationData).returning();
+    const eduRecord = insertedEducation[0];
 
-  if (!eduRecord) {
-    throw new Error('Falha ao inserir registro de educação no banco de dados.');
-  }
+    if (!eduRecord) {
+      throw new Error('Falha ao inserir registro de educação no banco de dados.');
+    }
 
-  if (translationsData && Array.isArray(translationsData) && translationsData.length > 0) {
-    const translationsWithId = translationsData.map((t: any) => ({
-      educationId: eduRecord.id,
-      language: t.language,
-      institution: t.institution,
-      name: t.name,
-      description: t.description,
-    }));
+    if (translationsData?.length) {
+      await tx.insert(educationTranslations).values(
+        translationsData.map((t) => ({
+          ...t,
+          educationId: eduRecord.id,
+        }))
+      );
+    }
 
-    await db.insert(educationTranslations).values(translationsWithId);
-  }
-
-  return eduRecord;
+    return eduRecord;
+  });
 };
 
-export const updateEducationRecord = async (id: any, educationData: any, translationsData: any[]) => {
-  await db.update(education)
-    .set({
-      ...educationData,
-      updatedAt: new Date()
-    })
-    .where(eq(education.id, id));
+export const updateEducationRecord = async (
+  id: string,
+  educationData: Partial<NewEducation>,
+  translationsData: Omit<EducationTranslation, 'id' | 'educationId' | 'createdAt' | 'updatedAt'>[]
+) => {
+  await db.transaction(async (tx) => {
+    await tx.update(education)
+      .set({
+        ...educationData,
+        updatedAt: new Date()
+      })
+      .where(eq(education.id, id));
 
-  if (translationsData && Array.isArray(translationsData)) {
-    await db.delete(educationTranslations).where(eq(educationTranslations.educationId, id));
+    if (translationsData && Array.isArray(translationsData)) {
+      await tx.delete(educationTranslations).where(eq(educationTranslations.educationId, id));
 
-    if (translationsData.length > 0) {
-      const translationsWithId = translationsData.map((t: any) => ({
-        educationId: id,
-        language: t.language,
-        institution: t.institution,
-        name: t.name,
-        description: t.description,
-      }));
-      await db.insert(educationTranslations).values(translationsWithId);
+      if (translationsData.length > 0) {
+        await tx.insert(educationTranslations).values(
+          translationsData.map((t) => ({
+            ...t,
+            educationId: id,
+          }))
+        );
+      }
     }
-  }
+  });
 };
 
 export const deleteEducationRecord = async (id: string) => {

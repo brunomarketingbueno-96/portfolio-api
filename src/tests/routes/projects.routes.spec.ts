@@ -67,6 +67,16 @@ describe('Projects Routes', () => {
       expect(data).toEqual({ success: true })
     })
 
+    it('should delete a project if user is authenticated on DELETE /api/projects/:id', async () => {
+      const res = await app.request('/api/projects/1', {
+        method: 'DELETE'
+      })
+
+      expect(res.status).toBe(200)
+      const data = await res.json()
+      expect(data).toEqual({ message: 'Deleted' })
+    })
+
     it('should block POST /api/projects if user is not authenticated', async () => {
       vi.mocked(authMiddleware).mockImplementationOnce(async (c) => {
         return c.json({ message: 'Unauthorized' }, 401)

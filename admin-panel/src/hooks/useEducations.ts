@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { EducationService } from '@/services/educationsService';
+import { EducationService } from '@/services/educationService';
 
 const initialForm: Education = {
   type: 'college',

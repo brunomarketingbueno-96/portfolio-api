@@ -1,25 +1,27 @@
 import { db } from '../db/index.js';
 import { projects, githubStats } from '../db/schema.js';
 
-export const getAllProjectsForSync = async () => {
+type Project = typeof projects.$inferSelect;
+type NewGithubStat = typeof githubStats.$inferInsert;
+
+export const getAllProjectsForSync = async (): Promise<Project[]> => {
   return await db.select().from(projects);
 };
 
-export const upsertProjectGithubStats = async (projectId: string, stats: any) => {
+export const upsertProjectGithubStats = async (
+  projectId: string,
+  stats: Omit<NewGithubStat, 'id' | 'projectId' | 'syncedAt'>
+): Promise<void> => {
   await db.insert(githubStats)
     .values({
+      ...stats,
       projectId,
-      stars: stats.stars,
-      languages: stats.languages,
-      topics: stats.topics,
       syncedAt: new Date(),
     })
     .onConflictDoUpdate({
       target: githubStats.projectId,
       set: {
-        stars: stats.stars,
-        languages: stats.languages,
-        topics: stats.topics,
+        ...stats,
         syncedAt: new Date(),
       },
     });

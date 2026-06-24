@@ -15,6 +15,9 @@ import CreateProject from '@/pages/Projects/CreateProject';
 import EditProject from '@/pages/Projects/EditProject';
 
 import NotFound from '@/pages/NotFound';
+import Services from '@/pages/Services';
+import CreateService from '@/pages/Services/CreateService';
+import EditService from '@/pages/Services/EditService';
 
 export const router = createBrowserRouter([
   {
@@ -55,7 +58,19 @@ export const router = createBrowserRouter([
       {
         path: '/educations/edit/:id',
         element: <EditEducation />,
-      }
+      },
+      {
+        path: '/services',
+        element: <Services />,
+      },
+      {
+        path: '/services/create',
+        element: <CreateService />,
+      },
+      {
+        path: '/services/edit/:id',
+        element: <EditService />,
+      },
     ],
   },
   {
