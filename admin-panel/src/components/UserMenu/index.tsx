@@ -15,12 +15,12 @@ export default function UserMenu() {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleLogout = async () => {
-    if (!window.confirm(t('header.confirm_logout', { defaultValue: 'Tem certeza que deseja sair?' }))) return;
+    if (!window.confirm(t('header.confirm_logout', { defaultValue: 'Are you sure you want to logout?' }))) return;
     try {
       await logout();
       setIsOpen(false);
     } catch (err) {
-      alert(t('header.error_logout', { defaultValue: 'Erro ao sair da conta.' }));
+      alert(t('header.error_logout', { defaultValue: 'Error logging out.' }));
     }
   };
 
@@ -67,13 +67,13 @@ export default function UserMenu() {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
-            {t('header.edit_profile', { defaultValue: 'Meu Perfil' })}
+            {t('header.edit_profile', { defaultValue: 'My profile' })}
           </Link>
 
           <div className="h-px bg-gray-100 my-1"></div>
 
           <LogoutButton onClick={handleLogout}
-            label={t('header.logout', { defaultValue: 'Sair' })}
+            label={t('header.logout', { defaultValue: 'Logout' })}
           />
         </div>
       )}

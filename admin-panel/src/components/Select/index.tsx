@@ -17,8 +17,8 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         </label>
         <select
           id={id}
-          ref={ref} // O Hook Form assume o controle aqui
-          {...props} // Injeta name, onChange, onBlur, disabled, etc.
+          ref={ref}
+          {...props}
           className="
             w-full px-4 py-3 rounded-lg text-sm transition-all duration-300
             bg-zinc-50 border border-zinc-200 text-zinc-900 

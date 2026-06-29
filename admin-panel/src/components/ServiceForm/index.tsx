@@ -50,7 +50,7 @@ export default function ServiceForm({
               id="link"
               label={t('services.form.labels.link', { defaultValue: 'Service Link' })}
               type="url"
-              placeholder={t('services.form.placeholders.link', { defaultValue: 'https://exemplo.com/servico' })}
+              placeholder={t('services.form.placeholders.link', { defaultValue: 'https://example.com/service' })}
               {...register('link')}
             >
               <IconWrapper>🔗</IconWrapper>

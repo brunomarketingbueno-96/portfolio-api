@@ -35,12 +35,12 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
         <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
           <EditButton
             to={{ pathname: `/projects/edit/${project.id}` }}
-            title={t('buttons.edit', { defaultValue: 'Editar' })}
+            title={t('buttons.edit', { defaultValue: 'Edit' })}
           />
 
           <DeleteButton
             onDelete={() => onDelete(project.id!)}
-            title={t('buttons.delete', { defaultValue: 'Excluir' })}
+            title={t('buttons.delete', { defaultValue: 'Delete' })}
           />
         </div>
       </div>
