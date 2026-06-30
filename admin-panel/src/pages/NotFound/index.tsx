@@ -13,7 +13,6 @@ export default function NotFound() {
   if (isAuthenticated) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Header />
 
         <main className="flex flex-col items-center justify-center min-h-[calc(100vh-64px)] p-4">
           <h1 className="text-6xl font-bold text-gray-800 mb-4">404</h1>

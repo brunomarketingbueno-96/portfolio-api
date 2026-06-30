@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import { useProjects } from '@/hooks/useProjects';
 
-import Header from '@/components/Header';
 import ProjectCard from '@/components/ProjectCard';
 
 export default function Projects() {
@@ -18,7 +17,6 @@ export default function Projects() {
 
   return (
     <div className="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
-      <Header />
 
       <main className="flex-1 px-8 py-8 w-full">
 

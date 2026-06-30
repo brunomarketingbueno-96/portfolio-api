@@ -1,91 +1,284 @@
 {
-  "menu": {
-    "home": "Inicio",
-    "about": "Sobre mí",
-    "projects": "Proyectos",
-    "educations": "Educación",
-    "contact": "Contacto"
+  "menu": {},
+  "header": {
+    "title": "Panel Admin",
+    "logout": "Cerrar sesión",
+    "confirm_logout": "¿Seguro que deseas cerrar sesión?",
+    "error_logout": "Error al cerrar sesión. Inténtalo de nuevo.",
+    "edit_profile": "Mi Perfil"
   },
-  "hero": {
-    "availability": "Disponible para nuevos proyectos",
-    "description": "Construyendo el futuro de la web con",
-    "descriptionHighlight": "Creatividad, Código y Compromiso.",
-    "subtext": "Desarrollador full-stack apasionado por las interfaces elegantes y el código limpio. Transformando ideas en productos digitales que a las personas les encanta usar.",
-    "cta-button-cv": "Descargar Currículum",
-    "cta-button-projects": "Ver Proyectos"
+  "buttons": {
+    "back_to_panel": "Volver al Panel",
+    "add_language": "+ Agregar Idioma",
+    "saving": "Guardando...",
+    "save_changes": "Guardar Cambios",
+    "back": "Volver",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "add": "Agregar"
   },
-  "about": {
-    "title": "Sobre mí",
-    "nacionality": "Brasileño",
-    "age": "{{year}} Años",
-    "location": "Cachoeirinha - RS, Brasil",
-    "university": "Análisis y Desarrollo de Sistemas",
-    "bio": {
-      "title": "Desarrollador Web Full-Stack",
-      "paragraph1": "¡Hola! Soy un **desarrollador Full Stack** con enfoque en Front-end. Uniendo mi visión estratégica de **redes sociales** con la tecnología, he construido una base práctica sólida: 2 años de experiencia como freelance y 1 año en el mercado de e-commerce. Actualmente, estoy finalizando mi carrera de **Análisis y Desarrollo de Sistemas**.",
-      "paragraph2": "Tengo un fuerte dominio de **React** y **Node.js**, com experiencia práctica en la implementación de interfaces fieles al diseño (**UX/UI**) y creación de funciones de **CRO** para potenciar conversiones. Ya sea creando APIs en el backend o front-ends dinámicos, mi enfoque es entregar código limpio, alto rendimiento y experiencias de usuario excepcionales."
+  "login": {
+    "titles": {
+      "admin_access": "Acceso Admin",
+      "panel_subtitle": "Panel del Portafolio",
+      "sign_in": "Iniciar sesión",
+      "credentials_subtitle": "Ingresa tus credenciales"
     },
     "labels": {
-      "nacionality": "Nacionalidad",
-      "age": "Edad",
-      "location": "Ubicación",
-      "cursing": "Cursando"
+      "email": "E-mail",
+      "password": "Contraseña"
+    },
+    "placeholders": {
+      "email": "admin@example.com",
+      "password": "••••••••"
+    },
+    "buttons": {
+      "signing_in": "Iniciando sesión...",
+      "access_panel": "Acceder al Panel"
+    },
+    "error": {
+      "email": "E-mail inválido",
+      "password": "La contraseña debe tener al menos 6 caracteres"
     }
   },
   "projects": {
-    "readMore": "Seguir leyendo",
-    "showLess": "Mostrar menos",
-    "viewProject": "Ver Proyecto",
-    "code": "Código"
-  },
-  "educations": {
-    "title": "Educación",
-    "viewCertificate": "Ver Certificado",
-    "Educations": {
-      "types": {
-        "college": "Facultad",
-        "course": "Curso",
-        "certification": "Certificación",
-        "bootcamp": "Bootcamp"
+    "page": {
+      "list": {
+        "title": "Proyectos",
+        "error_title": "Error",
+        "empty_list_title": "No se encontraron proyectos.",
+        "empty_list_description": "Crea tu primer proyecto para verlo aquí."
+      },
+      "create": {
+        "title": "Crear Nuevo Proyecto",
+        "description": "Completa los detalles a continuación para agregar un nuevo proyecto a tu catálogo."
+      },
+      "edit": {
+        "title": "Editar Proyecto",
+        "description": "Actualiza la información de tu proyecto."
       }
     },
-    "date": {
-      "present": "Presente"
+    "cards": {
+      "no_image": "Sin imagen",
+      "image_alt": "Imagen del proyecto",
+      "live_url": "Ver Online",
+      "repo_url": "Repositorio"
     },
-    "readMore": "Seguir leyendo"
-  },
-  "contact": {
-    "title": "Contacto",
+    "buttons": {
+      "new_project": "Nuevo Proyecto",
+      "back_to_projects": "Volver a proyectos",
+      "save_project": "Guardar Proyecto"
+    },
     "form": {
-      "name": {
-        "label": "Nombre",
-        "placeholder": "Tu nombre"
+      "titles": {
+        "translations": "Traducciones y Contenido"
       },
-      "company": {
-        "label": "Empresa",
-        "placeholder": "Tu empresa"
+      "labels": {
+        "liveUrl": "URL del Proyecto",
+        "repoUrl": "URL del Repositorio",
+        "language": "Idioma",
+        "title": "Título del Proyecto",
+        "description": "Descripción del Proyecto"
       },
-      "email": {
-        "label": "E-mail",
-        "placeholder": " Tu e-mail"
+      "placeholders": {
+        "live_url": "https://myproject.com/",
+        "repo_url": "https://github.com/...",
+        "title": "Ej: Desarrollo de Sitios Web",
+        "description": "Describe en detalle lo que ofrece este proyecto..."
+      }
+    },
+    "error": {
+      "live_url": "URL inválida",
+      "repo_url": "URL inválida",
+      "title": "Título inválido - Obligatorio",
+      "description": "Descripción inválida - Obligatorio"
+    }
+  },
+  "educations": {
+    "page": {
+      "list": {
+        "title": "Formaciones",
+        "error_title": "Error",
+        "empty_list_title": "No se encontraron formaciones.",
+        "empty_list_description": "Crea tu primera formación para verla aquí."
       },
-      "whatsapp": {
-        "label": "WhatsApp",
-        "placeholder": "Tu número de WhatsApp"
+      "create": {
+        "title": "Crear Nueva Formación",
+        "description": "Completa los detalles a continuación para agregar una nueva formación."
       },
-      "message": {
-        "label": "Mensaje",
-        "placeholder": "Escribe tu mensaje aquí..."
+      "edit": {
+        "title": "Editar Formación",
+        "description": "Actualiza la información de tu formación."
+      }
+    },
+    "cards": {
+      "no_image": "Sin imagen",
+      "image_alt": "Imagen de la formación",
+      "certificate_url": "Certificado"
+    },
+    "buttons": {
+      "new_education": "Nueva Formación",
+      "back_to_educations": "Volver a formaciones",
+      "save_education": "Guardar Formación"
+    },
+    "form": {
+      "titles": {
+        "translations": "Traducciones y Contenido"
       },
-      "submit": "Enviar Mensaje",
-      "messages": {
-        "success": "¡Mensaje enviado con éxito!",
-        "validationError": "Por favor, completa un correo electrónico o número de WhatsApp.",
-        "genericError": "Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde."
+      "labels": {
+        "type": "Tipo de Formación",
+        "status": "Estado",
+        "startDate": "Fecha de Inicio",
+        "endDate": "Fecha de Finalización",
+        "duration": "Duración (en horas)",
+        "institution": "Institución",
+        "course_name": "Nombre de la Formación",
+        "description": "Descripción de la Formación",
+        "certificate_url": "URL del Certificado",
+        "language": "Idioma"
+      },
+      "placeholders": {
+        "duration": "Ej: 100",
+        "certificate_url": "https://mycertificate.com/xxxxxx",
+        "institution": "Ej: Harvard University",
+        "course_name": "Ej: Ciencia de Datos",
+        "description": "Describe detalladamente la formación..."
+      }
+    },
+    "error": {
+      "start_date": "Fecha inválida - Obligatorio",
+      "end_date": "Fecha inválida",
+      "duration": "Duración inválida - Obligatorio",
+      "institution": "Institución inválida - Obligatorio",
+      "name": "Nombre de la formación inválido - Obligatorio",
+      "description": "Descripción inválida - Obligatorio",
+      "certificate_url": "URL inválida"
+    },
+    "type": {
+      "college": "Universidad",
+      "course": "Curso",
+      "certification": "Certificación",
+      "bootcamp": "Bootcamp"
+    },
+    "status": {
+      "completed": "Completado",
+      "in_progress": "En progreso",
+      "paused": "Pausado"
+    }
+  },
+  "services": {
+    "page": {
+      "list": {
+        "title": "Servicios",
+        "error_title": "Error",
+        "empty_list_title": "No se encontraron servicios.",
+        "empty_list_description": "Crea tu primer servicio para verlo aquí."
+      },
+      "create": {
+        "title": "Crear Nuevo Servicio",
+        "description": "Completa los detalles a continuación para agregar un nuevo servicio a tu catálogo."
+      },
+      "edit": {
+        "title": "Editar Servicio",
+        "description": "Actualiza la información de tu servicio."
+      }
+    },
+    "buttons": {
+      "new_service": "Nuevo Servicio",
+      "back_to_services": "Volver a servicios",
+      "save_service": "Guardar Servicio"
+    },
+    "form": {
+      "titles": {
+        "translations": "Traducciones y Contenido"
+      },
+      "labels": {
+        "link": "Link del Servicio",
+        "info_link": "* Opcional: Ingresa un enlace externo para más detalles o contratación.",
+        "language": "Idioma",
+        "title": "Título del Servicio",
+        "description": "Descripción del Servicio"
+      },
+      "placeholders": {
+        "link": "https://",
+        "title": "Ej: Desarrollo de Sitios Web",
+        "description": "Describe detalladamente lo que ofrece este servicio..."
+      }
+    },
+    "error": {
+      "link": "URL inválida",
+      "title": "Título inválido - Obligatorio",
+      "description": "Descripción inválida - Obligatorio"
+    }
+  },
+  "loader": {
+    "verifying_session": "Verificando sesión..."
+  },
+  "image_selector": {
+    "label": "Imagen (Logo o Portada)",
+    "preview_alt": "Vista previa",
+    "click_to_change": "Haz clic para cambiar",
+    "click_to_upload": "Haz clic para subir",
+    "file_limits": "PNG, JPG hasta 5MB"
+  },
+  "panel_card": {
+    "soon": "Próximamente",
+    "access": "Acceder"
+  },
+  "panel": {
+    "title": "¡Bienvenido de nuevo!",
+    "description": "¿Qué te gustaría gestionar hoy?",
+    "cards": {
+      "projects": {
+        "title": "Mis Proyectos",
+        "description": "Gestiona, edita y agrega nuevos proyectos al portafolio."
+      },
+      "educations": {
+        "title": "Mis Formaciones",
+        "description": "Gestiona, edita y agrega nuevas formaciones al portafolio."
+      },
+      "services": {
+        "title": "Mis Servicios",
+        "description": "Gestiona, edita y agrega nuevos servicios al portafolio."
+      },
+      "config": {
+        "title": "Configuraciones",
+        "description": "Cambiar configuraciones del panel."
+      },
+      "public_website": {
+        "title": "Visitar Sitio",
+        "description": "Acceder al sitio público del portafolio."
       }
     }
   },
-  "footer": {
-    "rights": "Todos los derechos reservados © {{year}} | Desarrollado con ❤️ por Willian D. Daniel"
+  "languages": {
+    "pt": "🇧🇷 Portugués",
+    "en": "🇺🇸 English",
+    "es": "🇪🇸 Español"
+  },
+  "settings": {
+    "title": "Configuraciones",
+    "description": "Gestiona las configuraciones del panel.",
+    "themes": {
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema"
+    },
+    "form": {
+      "labels": {
+        "theme": "Tema del Panel",
+        "panel_language": "Idioma del Panel",
+        "site_url": "URL del Sitio",
+        "public_email": "E-mail Público",
+        "logo_url": "URL del Logo",
+        "custom_config": "Configuraciones personalizadas",
+        "logo": "Logo del Sitio (Favicon)"
+      },
+      "placeholders": {
+        "site_url": "https://",
+        "public_email": "mi-email@mi-dominio.com"
+      }
+    }
   }
 }

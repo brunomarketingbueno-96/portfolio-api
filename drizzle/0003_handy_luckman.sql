@@ -1,0 +1,1 @@
+ALTER TABLE "settings" ALTER COLUMN "panel_language" SET DEFAULT 'en';

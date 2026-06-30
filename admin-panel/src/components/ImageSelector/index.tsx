@@ -4,20 +4,21 @@ import { useTranslation } from 'react-i18next';
 interface ImageSelectorProps {
   imagePreview: string | null;
   onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  label?: string
 }
 
-export default function ImageSelector({ imagePreview, onFileChange }: ImageSelectorProps) {
+export default function ImageSelector({ imagePreview, onFileChange, label }: ImageSelectorProps) {
   const { t } = useTranslation();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className="space-y-2">
       <label className="block text-sm font-semibold text-zinc-900 ml-1">
-        {t('image_selector.label')}
+        {label || t('image_selector.label', { defaultValue: 'Image' })}
       </label>
       <div
         onClick={() => fileInputRef.current?.click()}
-        className={`relative border-2 border-dashed rounded-lg transition-colors p-4 flex flex-col items-center justify-center text-center cursor-pointer min-h-[200px] ${imagePreview ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:bg-gray-50'
+        className={`relative border-2 border-dashed rounded-lg transition-colors p-4 flex flex-col items-center justify-center text-center cursor-pointer min-h-50 ${imagePreview ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:bg-gray-50'
           }`}
       >
         <input

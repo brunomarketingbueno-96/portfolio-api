@@ -1,6 +1,8 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 
+import Header from '../Header';
+
 import FullScreenLoader from '@/components/FullScreenLoader';
 
 export default function ProtectedRoute() {
@@ -14,5 +16,10 @@ export default function ProtectedRoute() {
     return <Navigate to="/login" replace />;
   }
 
-  return <Outlet />;
+  return (
+    <>
+      <Header />
+      <Outlet />
+    </>
+  );
 }

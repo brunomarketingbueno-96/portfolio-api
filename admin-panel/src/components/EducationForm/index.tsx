@@ -8,7 +8,7 @@ import ImageSelector from '@/components/ImageSelector';
 import IconWrapper from '@/components/IconWrapper';
 
 import { z } from 'zod';
-import { educationSchema } from '../../../../src/schemas/educations.schema'; // Ajuste o caminho se necessário
+import { educationSchema } from '../../../../src/schemas/educations.schema';
 
 type EducationFormData = z.infer<typeof educationSchema>;
 

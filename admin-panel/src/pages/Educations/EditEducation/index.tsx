@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import { useEducations } from '@/hooks/useEducations';
 
-import Header from '@/components/Header';
 import EducationForm from '@/components/EducationForm';
 
 export default function EditEducation() {
@@ -27,7 +26,6 @@ export default function EditEducation() {
 
   return (
     <div className="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
-      <Header />
 
       {loading ? (
         <div className="flex-1 flex items-center justify-center">

@@ -1,4 +1,284 @@
 {
   "menu": {},
-  "educations": {}
+  "header": {
+    "title": "Admin Panel",
+    "logout": "Logout",
+    "confirm_logout": "Are you sure you want to log out?",
+    "error_logout": "Error while logging out. Please try again.",
+    "edit_profile": "My Profile"
+  },
+  "buttons": {
+    "back_to_panel": "Back to Panel",
+    "add_language": "+ Add Language",
+    "saving": "Saving...",
+    "save_changes": "Save Changes",
+    "back": "Back",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add"
+  },
+  "login": {
+    "titles": {
+      "admin_access": "Admin Access",
+      "panel_subtitle": "Portfolio Panel",
+      "sign_in": "Sign In",
+      "credentials_subtitle": "Enter your credentials"
+    },
+    "labels": {
+      "email": "E-mail",
+      "password": "Password"
+    },
+    "placeholders": {
+      "email": "admin@example.com",
+      "password": "••••••••"
+    },
+    "buttons": {
+      "signing_in": "Signing in...",
+      "access_panel": "Access Panel"
+    },
+    "error": {
+      "email": "Invalid e-mail",
+      "password": "Password must be at least 6 characters long"
+    }
+  },
+  "projects": {
+    "page": {
+      "list": {
+        "title": "Projects",
+        "error_title": "Error",
+        "empty_list_title": "No projects found.",
+        "empty_list_description": "Create your first project to see it here."
+      },
+      "create": {
+        "title": "Create New Project",
+        "description": "Fill in the details below to add a new project to your catalog."
+      },
+      "edit": {
+        "title": "Edit Project",
+        "description": "Update your project information."
+      }
+    },
+    "cards": {
+      "no_image": "No image",
+      "image_alt": "Project image",
+      "live_url": "View Online",
+      "repo_url": "Repository"
+    },
+    "buttons": {
+      "new_project": "New Project",
+      "back_to_projects": "Back to projects",
+      "save_project": "Save Project"
+    },
+    "form": {
+      "titles": {
+        "translations": "Translations & Content"
+      },
+      "labels": {
+        "liveUrl": "Project URL",
+        "repoUrl": "Repository URL",
+        "language": "Language",
+        "title": "Project Title",
+        "description": "Project Description"
+      },
+      "placeholders": {
+        "live_url": "https://myproject.com/",
+        "repo_url": "https://github.com/...",
+        "title": "Ex: Website Development",
+        "description": "Describe in detail what this project offers..."
+      }
+    },
+    "error": {
+      "live_url": "Invalid URL",
+      "repo_url": "Invalid URL",
+      "title": "Invalid title - Required",
+      "description": "Invalid description - Required"
+    }
+  },
+  "educations": {
+    "page": {
+      "list": {
+        "title": "Education",
+        "error_title": "Error",
+        "empty_list_title": "No education records found.",
+        "empty_list_description": "Create your first education record to see it here."
+      },
+      "create": {
+        "title": "Create New Education",
+        "description": "Fill in the details below to add a new education record."
+      },
+      "edit": {
+        "title": "Edit Education",
+        "description": "Update your education information."
+      }
+    },
+    "cards": {
+      "no_image": "No image",
+      "image_alt": "Education image",
+      "certificate_url": "Certificate"
+    },
+    "buttons": {
+      "new_education": "New Education",
+      "back_to_educations": "Back to education",
+      "save_education": "Save Education"
+    },
+    "form": {
+      "titles": {
+        "translations": "Translations & Content"
+      },
+      "labels": {
+        "type": "Education Type",
+        "status": "Status",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "duration": "Duration (in hours)",
+        "institution": "Institution",
+        "course_name": "Education Name",
+        "description": "Education Description",
+        "certificate_url": "Certificate URL",
+        "language": "Language"
+      },
+      "placeholders": {
+        "duration": "Ex: 100",
+        "certificate_url": "https://mycertificate.com/xxxxxx",
+        "institution": "Ex: Harvard University",
+        "course_name": "Ex: Data Science",
+        "description": "Describe the education in detail..."
+      }
+    },
+    "error": {
+      "start_date": "Invalid date - Required",
+      "end_date": "Invalid date",
+      "duration": "Invalid duration - Required",
+      "institution": "Invalid institution - Required",
+      "name": "Invalid education name - Required",
+      "description": "Invalid description - Required",
+      "certificate_url": "Invalid URL"
+    },
+    "type": {
+      "college": "College",
+      "course": "Course",
+      "certification": "Certification",
+      "bootcamp": "Bootcamp"
+    },
+    "status": {
+      "completed": "Completed",
+      "in_progress": "In Progress",
+      "paused": "Paused"
+    }
+  },
+  "services": {
+    "page": {
+      "list": {
+        "title": "Services",
+        "error_title": "Error",
+        "empty_list_title": "No services found.",
+        "empty_list_description": "Create your first service to see it here."
+      },
+      "create": {
+        "title": "Create New Service",
+        "description": "Fill in the details below to add a new service to your catalog."
+      },
+      "edit": {
+        "title": "Edit Service",
+        "description": "Update your service information."
+      }
+    },
+    "buttons": {
+      "new_service": "New Service",
+      "back_to_services": "Back to services",
+      "save_service": "Save Service"
+    },
+    "form": {
+      "titles": {
+        "translations": "Translations & Content"
+      },
+      "labels": {
+        "link": "Service Link",
+        "info_link": "* Optional: Enter an external link for more details or hiring.",
+        "language": "Language",
+        "title": "Service Title",
+        "description": "Service Description"
+      },
+      "placeholders": {
+        "link": "https://",
+        "title": "Ex: Website Development",
+        "description": "Describe in detail what this service offers..."
+      }
+    },
+    "error": {
+      "link": "Invalid URL",
+      "title": "Invalid title - Required",
+      "description": "Invalid description - Required"
+    }
+  },
+  "loader": {
+    "verifying_session": "Verifying session..."
+  },
+  "image_selector": {
+    "label": "Image (Logo or Cover)",
+    "preview_alt": "Preview",
+    "click_to_change": "Click to change",
+    "click_to_upload": "Click to upload",
+    "file_limits": "PNG, JPG up to 5MB"
+  },
+  "panel_card": {
+    "soon": "Coming Soon",
+    "access": "Access"
+  },
+  "panel": {
+    "title": "Welcome back!",
+    "description": "What would you like to manage today?",
+    "cards": {
+      "projects": {
+        "title": "My Projects",
+        "description": "Manage, edit, and add new projects to the portfolio."
+      },
+      "educations": {
+        "title": "My Education",
+        "description": "Manage, edit, and add new education records to the portfolio."
+      },
+      "services": {
+        "title": "My Services",
+        "description": "Manage, edit, and add new services to the portfolio."
+      },
+      "config": {
+        "title": "Settings",
+        "description": "Change panel settings."
+      },
+      "public_website": {
+        "title": "Visit Website",
+        "description": "Access the public portfolio website."
+      }
+    }
+  },
+  "languages": {
+    "pt": "🇧🇷 Portuguese",
+    "en": "🇺🇸 English",
+    "es": "🇪🇸 Spanish"
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Manage panel settings.",
+    "themes": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "form": {
+      "labels": {
+        "theme": "Panel Theme",
+        "panel_language": "Panel Language",
+        "site_url": "Site URL",
+        "public_email": "Public E-mail",
+        "logo_url": "Logo URL",
+        "custom_config": "Custom Settings",
+        "logo": "Site Logo (Favicon)"
+      },
+      "placeholders": {
+        "site_url": "https://",
+        "public_email": "my-email@my-domain.com"
+      }
+    }
+  }
 }

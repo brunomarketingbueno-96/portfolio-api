@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import { useProjects } from '@/hooks/useProjects';
 
-import Header from '@/components/Header';
 import ProjectForm from '@/components/ProjectForm';
 
 export default function EditProject() {
@@ -27,7 +26,6 @@ export default function EditProject() {
 
   return (
     <div className="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
-      <Header />
 
       {loading ? (
         <div className="flex-1 flex items-center justify-center">

@@ -4,12 +4,14 @@
     "title": "Painel Admin",
     "logout": "Sair",
     "confirm_logout": "Tem certeza que deseja sair?",
-    "error_logout": "Erro ao sair. Tente novamente."
+    "error_logout": "Erro ao sair. Tente novamente.",
+    "edit_profile": "Meu Perfil"
   },
   "buttons": {
     "back_to_panel": "Voltar ao Painel",
     "add_language": "+ Adicionar Idioma",
     "saving": "Salvando...",
+    "save_changes": "Salvar Alterações",
     "back": "Voltar",
     "save": "Salvar",
     "edit": "Editar",
@@ -229,7 +231,7 @@
     "description": "O que você gostaria de gerenciar hoje?",
     "cards": {
       "projects": {
-        "title": "MeusProjetos",
+        "title": "Meus Projetos",
         "description": "Gerenciar, editar e adicionar novos projetos ao portfólio."
       },
       "educations": {
@@ -242,7 +244,7 @@
       },
       "config": {
         "title": "Configurações",
-        "description": "Alterar as configurações do portfólio."
+        "description": "Alterar as configurações do painel."
       },
       "public_website": {
         "title": "Visitar Site",
@@ -254,5 +256,29 @@
     "pt": "🇧🇷 Português",
     "en": "🇺🇸 English",
     "es": "🇪🇸 Español"
+  },
+  "settings": {
+    "title": "Configurações",
+    "description": "Gerencie as configurações do painel.",
+    "themes": {
+      "light": "Claro",
+      "dark": "Escuro",
+      "system": "Sistema"
+    },
+    "form": {
+      "labels": {
+        "theme": "Tema do Painel",
+        "panel_language": "Idioma do Painel",
+        "site_url": "URL do Site",
+        "public_email": "E-mail Público",
+        "logo_url": "URL da Logo",
+        "custom_config": "Configurações personalizadas",
+        "logo": "Logo do Site (Favicon)"
+      },
+      "placeholders": {
+        "site_url": "https://",
+        "public_email": "meu-email@meu-domínio.com"
+      }
+    }
   }
 }

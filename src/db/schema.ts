@@ -138,7 +138,7 @@ export const serviceTranslationRelations = relations(serviceTranslations, ({ one
 export const settings = pgTable('settings', {
   id: uuid('id').defaultRandom().primaryKey(),
   theme: text('theme').$type<'light' | 'dark' | 'system'>().default('system').notNull(),
-  panelLanguage: text('panel_language').default('pt').notNull(),
+  panelLanguage: text('panel_language').default('en').notNull(),
   siteUrl: text('site_url'),
   publicEmail: text('public_email'),
   logoUrl: text('logo_url'),

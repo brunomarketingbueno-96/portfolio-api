@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import { useServices } from '@/hooks/useServices';
 
-import Header from '@/components/Header';
 import ServiceForm from '@/components/ServiceForm';
 
 export default function EditService() {
@@ -26,7 +25,6 @@ export default function EditService() {
 
   return (
     <div className="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
-      <Header />
 
       {loading ? (
         <div className="flex-1 flex items-center justify-center">

@@ -6,6 +6,7 @@ import { serveStatic } from '@hono/node-server/serve-static'
 import { i18nMiddleware } from './middlewares/i18n.js';
 
 import authRoutes from './routes/auth.routes.js';
+import settingsRoutes from './routes/settings.routes.js';
 import userRoutes from './routes/user.routes.js';
 import projectsRoutes from './routes/projects.routes.js';
 import uploadRoutes from './routes/upload.routes.js';
@@ -32,6 +33,7 @@ app.use('*', cors({
 app.use('*', i18nMiddleware);
 
 app.route('/auth', authRoutes);
+app.route('/api/settings', settingsRoutes);
 app.route('/api/user', userRoutes);
 app.route('/api/projects', projectsRoutes);
 app.route('/api/uploads', uploadRoutes);

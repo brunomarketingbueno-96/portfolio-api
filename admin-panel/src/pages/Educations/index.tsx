@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import { useEducations } from '@/hooks/useEducations';
 
-import Header from '@/components/Header';
 import EducationCard from '@/components/EducationCard';
 
 export default function Educations() {
@@ -13,7 +12,6 @@ export default function Educations() {
 
   return (
     <div className="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
-      <Header />
 
       <main className="flex-1 px-8 py-8 w-full">
 

@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import Login from '@/pages/Login';
+import Settings from '@/pages/Settings';
 
 import ProtectedRoute from '@/components/ProtectedRoute';
 
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: '/panel',
         element: <Panel />,
+      },
+      {
+        path: '/settings',
+        element: <Settings />,
       },
       {
         path: '/projects',

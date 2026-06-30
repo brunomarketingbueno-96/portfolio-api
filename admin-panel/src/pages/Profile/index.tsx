@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useProfile } from '@/hooks/useProfile';
 
-import Header from '@/components/Header';
 import Input from '@/components/Input';
 import IconWrapper from '@/components/IconWrapper';
 import ImageSelector from '@/components/ImageSelector';
@@ -22,7 +21,6 @@ export default function Profile() {
 
   return (
     <div className="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
-      <Header />
 
       {loading ? (
         <div className="flex-1 flex items-center justify-center">

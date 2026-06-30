@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import { useServices } from '@/hooks/useServices';
 
-import Header from '@/components/Header';
 import ServiceForm from '@/components/ServiceForm';
 
 export default function CreateService() {
@@ -18,7 +17,6 @@ export default function CreateService() {
 
   return (
     <div className="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
-      <Header />
 
       <main className="flex-1 px-8 py-8 w-full">
         <div className="flex items-center justify-between mb-8">
