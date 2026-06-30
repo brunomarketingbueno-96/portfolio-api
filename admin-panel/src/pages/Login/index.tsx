@@ -52,18 +52,18 @@ export default function Login() {
   if (checkingAuth) return <FullScreenLoader />;
 
   return (
-    <div className="flex h-screen w-full flex-col overflow-hidden bg-white md:flex-row">
+    <div className="flex h-screen w-full flex-col overflow-hidden bg-white dark:bg-zinc-900 md:flex-row">
       <WelcomePanel />
 
       <div className="flex h-full w-full flex-1 items-center justify-center p-6 md:w-1/2">
         <div className="w-full max-w-sm">
           <div className="mb-8 text-center md:hidden">
-            <h2 className="text-2xl font-bold text-gray-900">{t('login.titles.admin_access', { defaultValue: 'Admin Access' })}</h2>
-            <p className="text-sm text-gray-500">{t('login.titles.panel_subtitle', { defaultValue: 'Access to the admin panel' })}</p>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-zinc-50">{t('login.titles.admin_access', { defaultValue: 'Admin Access' })}</h2>
+            <p className="text-sm text-gray-500 dark:text-zinc-400">{t('login.titles.panel_subtitle', { defaultValue: 'Access to the admin panel' })}</p>
           </div>
           <div className="hidden md:block mb-8 text-center">
-            <h2 className="text-2xl font-bold text-gray-900">{t('login.titles.sign_in', { defaultValue: 'Sign In' })}</h2>
-            <p className="text-sm text-gray-500">{t('login.titles.credentials_subtitle', { defaultValue: 'Enter your credentials to access the admin panel' })}</p>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-zinc-50">{t('login.titles.sign_in', { defaultValue: 'Sign In' })}</h2>
+            <p className="text-sm text-gray-500 dark:text-zinc-400">{t('login.titles.credentials_subtitle', { defaultValue: 'Enter your credentials to access the admin panel' })}</p>
           </div>
 
           <LoginForm

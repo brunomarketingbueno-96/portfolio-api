@@ -9,7 +9,7 @@ export default function Logo({ title }: { title: string }) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
           </svg>
         </div>
-        <span className="font-bold text-gray-900 text-lg">{title}</span>
+        <span className="font-bold dark:text-white/90 text-gray-900 text-lg">{title}</span>
       </div>
     </Link>
   );

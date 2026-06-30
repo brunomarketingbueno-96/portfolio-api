@@ -17,9 +17,9 @@ export default function ServiceCard({ service, onDelete }: ServiceCardProps) {
   const description = getServiceData(service, 'description', i18n.language) || t('services.card.no_description', { defaultValue: 'No description' });
 
   return (
-    <div className="bg-white shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 p-3 flex flex-col group rounded-lg">
+    <div className="bg-white dark:bg-zinc-800 shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 dark:border-zinc-700 p-3 flex flex-col group rounded-lg">
 
-      <div className="relative w-full bg-gray-100 overflow-hidden mb-4 flex items-center justify-center aspect-16/10">
+      <div className="relative w-full bg-gray-100 dark:bg-zinc-900 overflow-hidden mb-4 flex items-center justify-center aspect-16/10">
         {service.imageUrl ? (
           <img
             src={service.imageUrl}
@@ -27,7 +27,7 @@ export default function ServiceCard({ service, onDelete }: ServiceCardProps) {
             className="w-full h-full object-contain block group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
-          <div className="flex flex-col items-center justify-center w-full h-full text-gray-400">
+          <div className="flex flex-col items-center justify-center w-full h-full text-gray-400 dark:text-zinc-600">
             <span className="text-3xl mb-2">🖼️</span>
             <span className="text-sm">{t('services.card.no_image', { defaultValue: 'No image' })}</span>
           </div>
@@ -46,22 +46,22 @@ export default function ServiceCard({ service, onDelete }: ServiceCardProps) {
         </div>
       </div>
 
-      <h3 className="text-lg font-bold text-gray-900 mb-1 truncate" title={title}>
+      <h3 className="text-lg font-bold text-gray-900 dark:text-zinc-100 mb-1 truncate" title={title}>
         {title}
       </h3>
 
-      <p className="text-xs text-gray-500 line-clamp-2 mb-4" title={description}>
+      <p className="text-xs text-gray-500 dark:text-zinc-400 line-clamp-2 mb-4" title={description}>
         {description}
       </p>
 
-      <div className="mt-auto pt-2 border-t border-gray-50">
+      <div className="mt-auto pt-2 border-t border-gray-50 dark:border-zinc-700">
         {service.link ? (
           <a href={service.link} target="_blank" rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 transition-colors rounded-lg w-full">
+            className="flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors rounded-lg w-full">
             🔗 {t('services.card.link', { defaultValue: 'Access Service' })}
           </a>
         ) : (
-          <span className="flex items-center justify-center px-3 py-2 text-xs font-medium text-gray-400 bg-gray-100 cursor-not-allowed rounded-lg w-full">
+          <span className="flex items-center justify-center px-3 py-2 text-xs font-medium text-gray-400 dark:text-zinc-500 bg-gray-100 dark:bg-zinc-700 cursor-not-allowed rounded-lg w-full">
             {t('services.card.no_link', { defaultValue: 'Indisponible link' })}
           </span>
         )}

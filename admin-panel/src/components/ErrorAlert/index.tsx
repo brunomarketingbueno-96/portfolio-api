@@ -1,7 +1,7 @@
 export default function ErrorAlert({ message }: { message: string | null }) {
   return (
     <div className="flex items-start gap-2 rounded border-l-4
-      border-red-500 bg-red-50 p-4 text-sm text-red-700"
+      border-red-500 bg-red-50 dark:bg-red-900/20 p-4 text-sm text-red-700 dark:text-red-400"
     >
 
       <svg className="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20">

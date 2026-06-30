@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useProfile } from '@/hooks/useProfile';
 
+import Background from '@/components/Background';
 import Input from '@/components/Input';
 import IconWrapper from '@/components/IconWrapper';
 import ImageSelector from '@/components/ImageSelector';
@@ -20,28 +21,30 @@ export default function Profile() {
   } = useProfile();
 
   return (
-    <div className="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+    <div className="dark:bg-zinc-900 bg-gray-50 text-gray-800 dark:text-zinc-100 min-h-screen flex flex-col relative overflow-hidden">
+
+      <Background />
 
       {loading ? (
         <div className="flex-1 flex items-center justify-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600 dark:border-blue-400"></div>
         </div>
       ) : (
-        <main className="flex-1 px-8 py-8 w-full space-y-8">
+        <main className="flex-1 px-8 py-8 w-full space-y-8 relative z-10">
 
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">{t('profile.title', { defaultValue: 'Meu Perfil' })}</h1>
-              <p className="text-sm text-gray-500">{t('profile.description', { defaultValue: 'Gerencie suas informações cadastrais e segurança da conta.' })}</p>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('profile.title', { defaultValue: 'Meu Perfil' })}</h1>
+              <p className="text-sm text-gray-500 dark:text-zinc-400">{t('profile.description', { defaultValue: 'Gerencie suas informações cadastrais e segurança da conta.' })}</p>
             </div>
-            <Link to="/panel" className="text-sm text-gray-600 hover:text-blue-600 font-medium flex items-center gap-1 transition-colors">
+            <Link to="/panel" className="text-sm text-gray-600 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium flex items-center gap-1 transition-colors">
               ← {t('profile.back', { defaultValue: 'Voltar ao painel' })}
             </Link>
           </div>
 
-          <form onSubmit={updateProfileSubmit} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+          <form onSubmit={updateProfileSubmit} className="bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-gray-200 dark:border-zinc-700 overflow-hidden">
             <div className="p-6 md:p-8 space-y-6">
-              <h2 className="text-lg font-bold text-gray-900 border-b border-gray-100 pb-3">
+              <h2 className="text-lg font-bold text-gray-900 dark:text-zinc-100 border-b border-gray-100 dark:border-zinc-700 pb-3">
                 👤 {t('profile.sections.personal_info', { defaultValue: 'Informações Pessoais' })}
               </h2>
 
@@ -83,11 +86,11 @@ export default function Profile() {
                 </div>
               </div>
 
-              {globalErrorProfile && <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded text-red-700 text-sm">{globalErrorProfile}</div>}
-              {successProfile && <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded text-green-700 text-sm">{t('profile.messages.profile_success', { defaultValue: 'Perfil atualizado com sucesso!' })}</div>}
+              {globalErrorProfile && <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 rounded text-red-700 dark:text-red-400 text-sm">{globalErrorProfile}</div>}
+              {successProfile && <div className="bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500 p-4 rounded text-green-700 dark:text-green-400 text-sm">{t('profile.messages.profile_success', { defaultValue: 'Perfil atualizado com sucesso!' })}</div>}
             </div>
 
-            <div className="bg-gray-50 px-6 py-4 flex items-center justify-end border-t border-gray-200">
+            <div className="bg-gray-50 dark:bg-zinc-900 px-6 py-4 flex items-center justify-end border-t border-gray-200 dark:border-zinc-700">
               <button
                 type="submit"
                 disabled={isSubmittingProfile}
@@ -98,9 +101,9 @@ export default function Profile() {
             </div>
           </form>
 
-          <form onSubmit={updatePasswordSubmit} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+          <form onSubmit={updatePasswordSubmit} className="bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-gray-200 dark:border-zinc-700 overflow-hidden">
             <div className="p-6 md:p-8 space-y-6">
-              <h2 className="text-lg font-bold text-gray-900 border-b border-gray-100 pb-3">
+              <h2 className="text-lg font-bold text-gray-900 dark:text-zinc-100 border-b border-gray-100 dark:border-zinc-700 pb-3">
                 🔒 {t('profile.sections.security', { defaultValue: 'Segurança e Senha' })}
               </h2>
 
@@ -151,11 +154,11 @@ export default function Profile() {
                 </div>
               </div>
 
-              {globalErrorPassword && <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded text-red-700 text-sm">{globalErrorPassword}</div>}
-              {successPassword && <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded text-green-700 text-sm">{t('profile.messages.password_success', { defaultValue: 'Senha alterada com sucesso!' })}</div>}
+              {globalErrorPassword && <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 rounded text-red-700 dark:text-red-400 text-sm">{globalErrorPassword}</div>}
+              {successPassword && <div className="bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500 p-4 rounded text-green-700 dark:text-green-400 text-sm">{t('profile.messages.password_success', { defaultValue: 'Senha alterada com sucesso!' })}</div>}
             </div>
 
-            <div className="bg-gray-50 px-6 py-4 flex items-center justify-end border-t border-gray-200">
+            <div className="bg-gray-50 dark:bg-zinc-900 px-6 py-4 flex items-center justify-end border-t border-gray-200 dark:border-zinc-700">
               <button
                 type="submit"
                 disabled={isSubmittingPassword}

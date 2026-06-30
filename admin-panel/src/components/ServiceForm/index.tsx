@@ -4,8 +4,8 @@ import type { UseFormRegister, FieldErrors, FieldArrayWithId } from 'react-hook-
 
 import Input from '@/components/Input';
 import Select from '@/components/Select';
-import IconWrapper from '@/components/IconWrapper';
 import ImageSelector from '@/components/ImageSelector';
+import IconWrapper from '@/components/IconWrapper';
 
 import { z } from 'zod';
 import { serviceSchema } from '../../../../src/schemas/services.schema';
@@ -36,10 +36,10 @@ export default function ServiceForm({
   const { t } = useTranslation();
 
   const getTextAreaClass = (hasError: boolean) =>
-    `w-full px-4 py-3 rounded-lg text-sm transition-all duration-300 bg-zinc-50 border text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900 ${hasError ? 'border-red-500 bg-red-50' : 'border-zinc-200'}`;
+    `w-full px-4 py-3 rounded-lg text-sm transition-all duration-300 bg-zinc-50 dark:bg-zinc-950 border text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-blue-500 ${hasError ? 'border-red-500 bg-red-50 dark:bg-red-900/20' : 'border-zinc-200 dark:border-zinc-700'}`;
 
   return (
-    <form onSubmit={onSubmitAction} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <form onSubmit={onSubmitAction} className="bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-gray-200 dark:border-zinc-700 overflow-hidden">
       <div className="p-6 md:p-8 space-y-8">
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -59,22 +59,22 @@ export default function ServiceForm({
               <span className="text-red-500 text-xs">{t(errors.link.message as string)}</span>
             )}
 
-            <p className="text-xs text-zinc-400 mt-2 italic">
+            <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-2 italic">
               {t('services.form.labels.info_link', { defaultValue: '* Optional: Insert a link to the service for more information.' })}
             </p>
           </div>
         </div>
 
-        <hr className="border-gray-200" />
+        <hr className="border-gray-200 dark:border-zinc-700" />
 
         <div>
           <div className="flex items-center justify-between mb-4">
 
-            <h3 className="text-lg font-medium text-gray-900">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100">
               {t('services.form.titles.translations', { defaultValue: 'Translations & Content' })}
             </h3>
 
-            <button type="button" onClick={appendTranslation} className="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
+            <button type="button" onClick={appendTranslation} className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center gap-1">
               {t('buttons.add_language', { defaultValue: '+ Add Language' })}
             </button>
 
@@ -85,7 +85,7 @@ export default function ServiceForm({
               const fieldErrors = errors.translations?.[index];
 
               return (
-                <div key={field.id} className="bg-zinc-50/50 p-5 rounded-lg border border-zinc-200 relative group">
+                <div key={field.id} className="bg-zinc-50/50 dark:bg-zinc-900/50 p-5 rounded-lg border border-zinc-200 dark:border-zinc-700 relative group">
                   {index !== 0 && (
                     <button type="button" onClick={() => removeTranslation(index)} className="absolute top-4 right-4 text-zinc-400 hover:text-red-500 transition-colors">✕</button>
                   )}
@@ -120,7 +120,7 @@ export default function ServiceForm({
                     </div>
 
                     <div className="md:col-span-4 mt-2 flex flex-col gap-2">
-                      <label className="ml-1 text-sm font-semibold text-zinc-900 transition-colors duration-300">
+                      <label className="ml-1 text-sm font-semibold text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
                         {t('services.form.labels.description', { defaultValue: 'Service Description' })}
                       </label>
                       <textarea
@@ -140,10 +140,10 @@ export default function ServiceForm({
           </div>
         </div>
 
-        {globalError && <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded text-red-700 text-sm">{globalError}</div>}
+        {globalError && <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 rounded text-red-700 dark:text-red-400 text-sm">{globalError}</div>}
       </div>
 
-      <div className="bg-gray-50 px-6 py-4 flex items-center justify-end border-t border-gray-200">
+      <div className="bg-gray-50 dark:bg-zinc-900 px-6 py-4 flex items-center justify-end border-t border-gray-200 dark:border-zinc-700">
         <button
           type="submit"
           disabled={isSubmitting}

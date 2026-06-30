@@ -22,6 +22,21 @@ const mapLanguageToLocale = (lang: string) => {
   return map[lang] || 'en-US';
 };
 
+const applyThemeToDOM = (theme: 'light' | 'dark' | 'system') => {
+  const root = window.document.documentElement;
+
+  root.classList.remove('dark');
+
+  if (theme === 'dark') {
+    root.classList.add('dark');
+  } else if (theme === 'system') {
+    const isDarkOS = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (isDarkOS) {
+      root.classList.add('dark');
+    }
+  }
+};
+
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const { isAuthenticated } = useAuth();
   const { i18n } = useTranslation();
@@ -35,10 +50,13 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       if (data?.panelLanguage) {
         const targetLocale = mapLanguageToLocale(data.panelLanguage);
 
-        // TRAVA 1: Só dispara a mudança de idioma se for realmente diferente.
         if (i18n.language !== targetLocale) {
           i18n.changeLanguage(targetLocale);
         }
+      }
+
+      if (data?.theme) {
+        applyThemeToDOM(data.theme);
       }
     });
 
@@ -48,6 +66,11 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     if (updated.panelLanguage) {
       i18n.changeLanguage(mapLanguageToLocale(updated.panelLanguage));
     }
+
+    if (updated.theme) {
+      applyThemeToDOM(updated.theme);
+    }
+
     loadSettings();
   };
 

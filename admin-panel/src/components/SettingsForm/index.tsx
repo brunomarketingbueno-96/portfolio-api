@@ -31,7 +31,7 @@ export default function SettingsForm({
   const { t } = useTranslation();
 
   return (
-    <form onSubmit={onSubmitAction} className="bg-white rounded-xl shadow-sm border border-gray-200  overflow-hidden">
+    <form onSubmit={onSubmitAction} className="bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-gray-200 dark:border-zinc-700 overflow-hidden">
       <div className="p-6 md:p-8 space-y-8">
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -66,7 +66,7 @@ export default function SettingsForm({
           </div>
         </div>
 
-        <hr className="border-gray-200" />
+        <hr className="border-gray-200 dark:border-zinc-700" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <Select
@@ -86,10 +86,10 @@ export default function SettingsForm({
           />
         </div>
 
-        {globalError && <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded text-red-700 text-sm">{globalError}</div>}
+        {globalError && <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 rounded text-red-700 dark:text-red-400 text-sm">{globalError}</div>}
       </div>
 
-      <div className="bg-gray-50 px-6 py-4 flex items-center justify-end border-t border-gray-200 ">
+      <div className="bg-gray-50 dark:bg-zinc-900 px-6 py-4 flex items-center justify-end border-t border-gray-200 dark:border-zinc-700">
         <button
           type="submit"
           disabled={isSubmitting}

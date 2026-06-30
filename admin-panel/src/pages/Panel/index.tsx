@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSettingsContext } from '@/contexts/SettingsContext';
 
 import PanelCard from '@/components/PanelCard';
+import Background from '@/components/Background';
 
 export default function Panel() {
   const { t } = useTranslation();
@@ -10,23 +11,16 @@ export default function Panel() {
   const { globalSettings } = useSettingsContext();
 
   return (
-    <div className="bg-gray-50 text-gray-800 min-h-screen flex flex-col relative overflow-hidden">
+    <div className="dark:bg-zinc-900 bg-gray-50 text-gray-800 dark:text-zinc-100 min-h-screen flex flex-col relative overflow-hidden">
 
-      {/* BACKGROUND IMAGE - Posicionado absolutamente por trás de tudo */}
-      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
-        <img
-          src="/white-background.png"
-          alt="Background"
-          className="w-full h-full object-cover"
-        />
-      </div>
+      <Background />
 
       <main className="flex-1 px-8 py-8 w-full">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold dark:text-white/90 text-gray-900">
             {t('panel.title', { defaultValue: 'Welcome back!' })}
           </h1>
-          <p className="text-gray-500">
+          <p className="dark:text-white/90 text-gray-500">
             {t('panel.description', { defaultValue: 'What would you like to manage today?' })}
           </p>
         </div>

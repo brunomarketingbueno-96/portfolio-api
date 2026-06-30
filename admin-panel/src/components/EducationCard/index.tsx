@@ -16,24 +16,22 @@ export default function EducationCard({ education, onDelete }: EducationCardProp
   const courseName = getEducationData(education, 'name', i18n.language) || t('educations.card.not_defined');
 
   return (
-    <div className="bg-white shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 p-3 flex flex-col group rounded-lg">
+    <div className="bg-white dark:bg-zinc-800 shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 dark:border-zinc-700 p-3 flex flex-col group rounded-lg">
 
-      <div className="relative w-full bg-gray-100 overflow-hidden mb-4 flex items-center
-        justify-center aspect-16/10
-      ">
+      <div className="relative w-full bg-gray-100 dark:bg-zinc-900 overflow-hidden mb-4 flex items-center justify-center aspect-16/10">
         {education.imageUrl ? (
           <img src={education.imageUrl} alt={t('educations.alt_image', { defaultValue: 'Imagem da formação' }) + ` - ${courseName}`}
             className="w-full h-full object-contain block group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
-          <div className="flex flex-col items-center justify-center w-full h-full text-gray-400">
+          <div className="flex flex-col items-center justify-center w-full h-full text-gray-400 dark:text-zinc-600">
             <span className="text-3xl mb-2">🏫</span>
             <span className="text-sm">{t('educations.card.no_image')}</span>
           </div>
         )}
 
         <div className="absolute top-2 left-2 flex flex-col gap-1">
-          <span className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-white/90 shadow-sm text-gray-700">
+          <span className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-white/90 dark:bg-zinc-950/80 dark:text-zinc-300 shadow-sm text-gray-700">
             {t(`educations.type.${education.type}`, { defaultValue: education.type })}
           </span>
         </div>
@@ -52,15 +50,15 @@ export default function EducationCard({ education, onDelete }: EducationCardProp
       </div>
 
       <div className="flex-1 flex flex-col">
-        <span className="text-xs font-semibold text-blue-600 mb-1 tracking-wide uppercase truncate">
+        <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 mb-1 tracking-wide uppercase truncate">
           {institutionName}
         </span>
 
-        <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight truncate" title={courseName}>
+        <h3 className="text-lg font-bold text-gray-900 dark:text-zinc-100 mb-2 leading-tight truncate" title={courseName}>
           {courseName}
         </h3>
 
-        <div className="flex items-center gap-2 text-xs text-gray-500 mb-4 mt-1">
+        <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-zinc-400 mb-4 mt-1">
           <span className={`px-2 py-0.5 rounded-full font-medium border ${getStatusColor(education.status)}`}>
             {t(`educations.status.${education.status}`, { defaultValue: education.status })}
           </span>
@@ -71,9 +69,9 @@ export default function EducationCard({ education, onDelete }: EducationCardProp
           )}
         </div>
 
-        <div className="mt-auto pt-4 border-t border-gray-50 flex justify-between items-center gap-2">
+        <div className="mt-auto pt-4 border-t border-gray-50 dark:border-zinc-700 flex justify-between items-center gap-2">
 
-          <div className="flex flex-col text-[10px] text-gray-500 leading-tight">
+          <div className="flex flex-col text-[10px] text-gray-500 dark:text-zinc-400 leading-tight">
             <span>{formatDate(education.startDate, i18n.language)}</span>
             {education.endDate && <span>{formatDate(education.endDate, i18n.language)}</span>}
           </div>
@@ -83,13 +81,13 @@ export default function EducationCard({ education, onDelete }: EducationCardProp
               href={education.certificateUrl}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-600 bg-white border border-blue-200 hover:bg-blue-50 hover:border-blue-300 transition-colors rounded shadow-sm shrink-0"
+              className="flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-600 dark:text-blue-300 bg-white dark:bg-zinc-900 border border-blue-200 dark:border-blue-900/50 hover:bg-blue-50 dark:hover:bg-zinc-700 hover:border-blue-300 dark:hover:border-blue-700 transition-colors rounded shadow-sm shrink-0"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
               {t('educations.cards.certificate_url', { defaultValue: 'Certificate URL' })}
             </a>
           ) : (
-            <span className="text-[10px] text-gray-400 italic shrink-0">{t('educations.card.no_link')}</span>
+            <span className="text-[10px] text-gray-400 dark:text-zinc-600 italic shrink-0">{t('educations.card.no_link')}</span>
           )}
         </div>
       </div>

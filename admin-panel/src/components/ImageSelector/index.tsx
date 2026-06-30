@@ -13,12 +13,14 @@ export default function ImageSelector({ imagePreview, onFileChange, label }: Ima
 
   return (
     <div className="space-y-2">
-      <label className="block text-sm font-semibold text-zinc-900 ml-1">
+      <label className="block text-sm font-semibold text-zinc-900 dark:text-zinc-100 ml-1">
         {label || t('image_selector.label', { defaultValue: 'Image' })}
       </label>
       <div
         onClick={() => fileInputRef.current?.click()}
-        className={`relative border-2 border-dashed rounded-lg transition-colors p-4 flex flex-col items-center justify-center text-center cursor-pointer min-h-50 ${imagePreview ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:bg-gray-50'
+        className={`relative border-2 border-dashed rounded-lg transition-colors p-4 flex flex-col items-center justify-center text-center cursor-pointer min-h-50 ${imagePreview
+          ? 'border-blue-500 bg-blue-50 dark:border-blue-500 dark:bg-blue-900/20'
+          : 'border-gray-300 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800'
           }`}
       >
         <input
@@ -37,15 +39,15 @@ export default function ImageSelector({ imagePreview, onFileChange, label }: Ima
               alt={t('image_selector.preview_alt')}
               className="max-h-40 rounded shadow-sm object-contain"
             />
-            <p className="text-xs text-blue-600 mt-3 font-medium">
+            <p className="text-xs text-blue-600 dark:text-blue-400 mt-3 font-medium">
               {t('image_selector.click_to_change')}
             </p>
           </div>
         ) : (
-          <div className="text-gray-500">
+          <div className="text-gray-500 dark:text-zinc-400">
             <span className="text-4xl block mb-2">🖼️</span>
             <p className="mt-1 text-sm">{t('image_selector.click_to_upload')}</p>
-            <p className="text-xs text-gray-400">{t('image_selector.file_limits')}</p>
+            <p className="text-xs text-gray-400 dark:text-zinc-500">{t('image_selector.file_limits')}</p>
           </div>
         )}
       </div>

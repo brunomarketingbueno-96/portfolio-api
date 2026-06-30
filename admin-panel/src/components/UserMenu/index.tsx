@@ -41,7 +41,7 @@ export default function UserMenu() {
         className="flex items-center gap-3 focus:outline-none group"
       >
         <div className="text-right hidden sm:block">
-          <p className="text-sm font-semibold text-gray-900 leading-tight">
+          <p className="text-sm font-semibold dark:text-white/90 text-gray-900 leading-tight">
             {user?.name || t('header.admin', { defaultValue: 'Admin' })}
           </p>
         </div>
