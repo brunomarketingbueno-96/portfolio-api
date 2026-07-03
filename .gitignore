@@ -31,4 +31,3 @@ lerna-debug.log*
 .DS_Store
 .vercel
 /coverage
-.github

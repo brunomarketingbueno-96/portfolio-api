@@ -1,0 +1,36 @@
+name: CI - Tests & Coverage
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+
+    - name: Install Backend Dependencies
+      run: npm ci
+
+    - name: Install Admin Panel Dependencies
+      run: npm ci --prefix admin-panel
+
+    - name: Run Backend Tests with Coverage
+      run: npm run test:coverage
+
+    - name: Run Admin Panel Tests with Coverage
+      run: npm run test --prefix admin-panel -- --run --coverage
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
