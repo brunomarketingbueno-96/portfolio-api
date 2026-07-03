@@ -19,10 +19,10 @@ jobs:
         node-version: '24'
 
     - name: Install Backend Dependencies
-      run: npm ci
+      run: npm install
 
     - name: Install Admin Panel Dependencies
-      run: npm ci --prefix admin-panel
+      run: npm install --prefix admin-panel
 
     - name: Run Backend Tests with Coverage
       run: npm run test:coverage
