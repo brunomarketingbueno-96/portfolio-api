@@ -1,4 +1,15 @@
-import { pgTable, uuid, text, integer, timestamp, jsonb, date } from 'drizzle-orm/pg-core';
+import {
+  pgTable,
+  uuid,
+  text,
+  integer,
+  timestamp,
+  boolean,
+  unique,
+  jsonb,
+  date
+} from 'drizzle-orm/pg-core';
+
 import { relations } from 'drizzle-orm';
 
 export const users = pgTable('users', {
@@ -146,3 +157,39 @@ export const settings = pgTable('settings', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
+
+export const blogPosts = pgTable('blog_posts', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  coverImageUrl: text('cover_image_url'),
+  isPublished: boolean('is_published').default(false).notNull(),
+  publishedAt: timestamp('published_at'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+export const blogPostTranslations = pgTable('blog_post_translations', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  postId: uuid('post_id')
+    .notNull()
+    .references(() => blogPosts.id, { onDelete: 'cascade' }),
+  language: text('language').notNull(),
+  slug: text('slug').notNull(),
+  title: text('title').notNull(),
+  excerpt: text('excerpt').notNull(),
+  content: text('content').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+}, (table) => ({
+  unqSlugLang: unique('unq_slug_lang').on(table.language, table.slug),
+}));
+
+export const blogPostRelations = relations(blogPosts, ({ many }) => ({
+  translations: many(blogPostTranslations),
+}));
+
+export const blogPostTranslationRelations = relations(blogPostTranslations, ({ one }) => ({
+  post: one(blogPosts, {
+    fields: [blogPostTranslations.postId],
+    references: [blogPosts.id],
+  }),
+}));

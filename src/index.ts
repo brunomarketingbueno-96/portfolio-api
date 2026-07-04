@@ -14,6 +14,7 @@ import githubRoutes from './routes/github.routes.js';
 import serviceRoutes from './routes/services.routes.js';
 import contactRoutes from './routes/contact.routes.js';
 import educationsRoutes from './routes/educations.routes.js';
+import blogPostRoutes from './routes/blog-posts.routes.js';
 
 type Variables = {
   jwtPayload: any;
@@ -41,6 +42,7 @@ app.route('/api/github', githubRoutes);
 app.route('/api/contact', contactRoutes);
 app.route('/api/educations', educationsRoutes);
 app.route('/api/services', serviceRoutes);
+app.route('/api/blog-posts', blogPostRoutes);
 
 app.use('/*', serveStatic({
   root: './public',
