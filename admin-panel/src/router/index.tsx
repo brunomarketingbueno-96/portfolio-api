@@ -16,10 +16,17 @@ import CreateProject from '@/pages/Projects/CreateProject';
 import EditProject from '@/pages/Projects/EditProject';
 
 import NotFound from '@/pages/NotFound';
+
 import Services from '@/pages/Services';
 import CreateService from '@/pages/Services/CreateService';
 import EditService from '@/pages/Services/EditService';
+
 import Profile from '@/pages/Profile';
+
+import BlogPosts from '@/pages/BlogPosts';
+import CreateBlogPost from '@/pages/BlogPosts/CreateBlogPost';
+import EditBlogPost from '@/pages/BlogPosts/EditBlogPost';
+import ViewBlogPost from '@/pages/BlogPosts/ViewBlogPost';
 
 export const router = createBrowserRouter([
   {
@@ -80,6 +87,22 @@ export const router = createBrowserRouter([
       {
         path: '/profile',
         element: <Profile />,
+      },
+      {
+        path: '/blog-posts',
+        element: <BlogPosts />,
+      },
+      {
+        path: 'blog-posts/create',
+        element: <CreateBlogPost />,
+      },
+      {
+        path: 'blog-posts/edit/:id',
+        element: <EditBlogPost />,
+      },
+      {
+        path: 'blog-posts/view/:id',
+        element: <ViewBlogPost />,
       },
     ],
   },

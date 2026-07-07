@@ -8,7 +8,7 @@ export const settingsSchema = z.object({
   panelLanguage: z.string().min(2, { error: 'settings.error.panel_language' }).default('pt'),
 
   siteUrl: z.url({ error: 'settings.error.site_url' })
-    .startsWith('http', { message: 'settings.error.site_url' })
+    .startsWith('http', { error: 'settings.error.site_url' })
     .optional()
     .or(z.literal(''))
     .nullable(),
@@ -19,7 +19,7 @@ export const settingsSchema = z.object({
     .nullable(),
 
   logoUrl: z.url({ error: 'settings.error.logo_url' })
-    .startsWith('http', { message: 'settings.error.logo_url' })
+    .startsWith('http', { error: 'settings.error.logo_url' })
     .optional()
     .or(z.literal(''))
     .nullable(),

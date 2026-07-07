@@ -2,10 +2,15 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { UseFormRegister, FieldErrors, FieldArrayWithId } from 'react-hook-form';
 
+import ImageSelector from '@/components/ImageSelector';
 import Input from '@/components/Input';
 import Select from '@/components/Select';
 import IconWrapper from '@/components/IconWrapper';
-import ImageSelector from '@/components/ImageSelector';
+import Textarea from '@/components/Textarea';
+
+import FormError from '@/components/FormError';
+
+import SaveButton from '@/components/Buttons/SaveButton';
 
 import { z } from 'zod';
 import { projectSchema } from '../../../../src/schemas/projects.schema';
@@ -24,19 +29,15 @@ interface ProjectFormProps {
   globalError: string | null;
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmitAction: (e: React.FormEvent<HTMLFormElement>) => void;
-  submitButtonText: string;
 }
 
 export default function ProjectForm({
   register, errors, fields, appendTranslation, removeTranslation,
   imagePreview, isSubmitting, globalError,
-  handleFileChange, onSubmitAction, submitButtonText
+  handleFileChange, onSubmitAction
 }: ProjectFormProps) {
 
   const { t } = useTranslation();
-
-  const getTextAreaClass = (hasError: boolean) =>
-    `w-full px-4 py-3 rounded-lg text-sm transition-all duration-300 bg-zinc-50 dark:bg-zinc-950 border text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-600 ${hasError ? 'border-red-500 bg-red-50 dark:bg-red-900/20' : 'border-zinc-200 dark:border-zinc-700'}`;
 
   return (
     <form onSubmit={onSubmitAction} className="bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-gray-200 dark:border-zinc-700 overflow-hidden">
@@ -56,9 +57,7 @@ export default function ProjectForm({
               >
                 <IconWrapper>🌐</IconWrapper>
               </Input>
-              {errors.liveUrl?.message && (
-                <span className="text-red-500 text-xs">{t(errors.liveUrl.message as string)}</span>
-              )}
+              <FormError error={!!errors.liveUrl} message={t(errors.liveUrl?.message as string)} />
             </div>
 
             <div>
@@ -71,9 +70,7 @@ export default function ProjectForm({
               >
                 <IconWrapper>📦</IconWrapper>
               </Input>
-              {errors.repoUrl?.message && (
-                <span className="text-red-500 text-xs">{t(errors.repoUrl.message as string)}</span>
-              )}
+              <FormError error={!!errors.repoUrl} message={t(errors.repoUrl?.message as string)} />
             </div>
           </div>
         </div>
@@ -116,9 +113,7 @@ export default function ProjectForm({
                         disabled={index === 0}
                         {...register(`translations.${index}.language` as const)}
                       />
-                      {fieldErrors?.language?.message && (
-                        <span className="text-red-500 text-xs">{t(fieldErrors.language.message as string)}</span>
-                      )}
+                      <FormError error={!!fieldErrors?.language} message={t(fieldErrors?.language?.message as string)} />
                     </div>
 
                     <div className="md:col-span-3">
@@ -130,24 +125,18 @@ export default function ProjectForm({
                       >
                         <IconWrapper>📝</IconWrapper>
                       </Input>
-                      {fieldErrors?.title?.message && (
-                        <span className="text-red-500 text-xs">{t(fieldErrors.title.message as string)}</span>
-                      )}
+                      <FormError error={!!fieldErrors?.title} message={t(fieldErrors?.title?.message as string)} />
                     </div>
 
                     <div className="md:col-span-4 mt-2 flex flex-col gap-2">
-                      <label className="ml-1 text-sm font-semibold text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
-                        {t('projects.form.labels.description', { defaultValue: 'Description' })}
-                      </label>
-                      <textarea
+                      <Textarea
+                        id={`description-${index}`}
+                        label={t('projects.form.labels.description', { defaultValue: 'Description' })}
                         rows={4}
                         placeholder={t('projects.form.placeholders.description', { defaultValue: 'Describe the technologies used, the goal of the project...' })}
-                        className={getTextAreaClass(!!fieldErrors?.description)}
                         {...register(`translations.${index}.description` as const)}
                       />
-                      {fieldErrors?.description?.message && (
-                        <span className="text-red-500 text-xs">{t(fieldErrors.description.message as string)}</span>
-                      )}
+                      <FormError error={!!fieldErrors?.description} message={t(fieldErrors?.description?.message as string)} />
                     </div>
                   </div>
                 </div>
@@ -160,13 +149,7 @@ export default function ProjectForm({
       </div>
 
       <div className="bg-gray-50 dark:bg-zinc-900 px-6 py-4 flex items-center justify-end border-t border-gray-200 dark:border-zinc-700">
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="cursor-pointer inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 transition-all"
-        >
-          {isSubmitting ? t('buttons.saving', { defaultValue: 'Saving...' }) : submitButtonText}
-        </button>
+        <SaveButton isSubmitting={isSubmitting} customLabel={t('projects.buttons.save_project', { defaultValue: 'Save Project' })} />
       </div>
     </form>
   );

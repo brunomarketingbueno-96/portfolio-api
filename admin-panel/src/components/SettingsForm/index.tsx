@@ -9,6 +9,7 @@ import ImageSelector from '@/components/ImageSelector';
 
 import { z } from 'zod';
 import { settingsSchema } from '../../../../src/schemas/settings.schema';
+import FormError from '../FormError';
 
 type SettingsFormData = z.infer<typeof settingsSchema>;
 
@@ -51,7 +52,8 @@ export default function SettingsForm({
             >
               <IconWrapper>🌐</IconWrapper>
             </Input>
-            {errors.siteUrl?.message && <span className="text-red-500 text-xs">{t(errors.siteUrl.message as string)}</span>}
+            <FormError error={!!errors.siteUrl} message={t(errors.siteUrl?.message as string)} />
+
 
             <Input
               id="publicEmail"
@@ -62,7 +64,7 @@ export default function SettingsForm({
             >
               <IconWrapper>📧</IconWrapper>
             </Input>
-            {errors.publicEmail?.message && <span className="text-red-500 text-xs">{t(errors.publicEmail.message as string)}</span>}
+            <FormError error={!!errors.publicEmail} message={t(errors.publicEmail?.message as string)} />
           </div>
         </div>
 

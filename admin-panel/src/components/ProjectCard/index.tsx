@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next';
 
 import { getProjectData } from '@/helpers/projectHelpers';
 
-import DeleteButton from '@/components/DeleteButton';
-import EditButton from '@/components/EditButton';
+import DeleteButton from '@/components/Buttons/DeleteButton';
+import EditButton from '@/components/Buttons/EditButton';
 
 interface ProjectCardProps {
   project: Project;

@@ -18,20 +18,20 @@ export const educationSchema = z.object({
   durationHours: z.literal('')
     .transform(() => undefined)
     .or(
-      z.coerce.number().int().positive({ message: 'educations.error.duration_hours' })
+      z.coerce.number().int().positive({ error: 'educations.error.duration_hours' })
     )
     .optional()
     .nullable(),
 
 
   imageUrl: z.url({ error: 'educations.error.image_url' })
-    .startsWith('http', { message: 'educations.error.image_url' })
+    .startsWith('http', { error: 'educations.error.image_url' })
     .optional()
     .nullable()
     .or(z.literal('')),
 
   certificateUrl: z.url({ error: 'educations.error.certificate_url' })
-    .startsWith('http', { message: 'educations.error.certificate_url' })
+    .startsWith('http', { error: 'educations.error.certificate_url' })
     .optional()
     .nullable()
     .or(z.literal('')),

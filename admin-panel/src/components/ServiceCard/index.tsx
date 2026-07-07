@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next';
 
 import { getServiceData } from '@/helpers/serviceHelpers';
 
-import DeleteButton from '@/components/DeleteButton';
-import EditButton from '@/components/EditButton';
+import DeleteButton from '@/components/Buttons/DeleteButton';
+import EditButton from '@/components/Buttons/EditButton';
 
 interface ServiceCardProps {
   service: Service;

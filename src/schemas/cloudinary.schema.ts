@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const cloudinarySignatureSchema = z.object({
-  folder: z.enum(['projects', 'services', 'educations', 'users', 'settings'], {
+  folder: z.enum(['projects', 'services', 'educations', 'users', 'settings', 'blog-posts'], {
     error: 'cloudinary.error.invalid_folder',
   }),
 

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
 
-import EditButton from '@/components/EditButton';
+import EditButton from '@/components/Buttons/EditButton';
 
 describe('EditButton Component', () => {
   it('should render the link with the correct title', () => {

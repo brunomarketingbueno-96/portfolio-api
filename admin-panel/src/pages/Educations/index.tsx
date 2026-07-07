@@ -1,39 +1,62 @@
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { useEducations } from '@/hooks/useEducations';
 
 import EducationCard from '@/components/EducationCard';
 import Background from '@/components/Background';
+import EmptyList from '@/components/EmptyList';
+import PageLoader from '@/components/PageLoader';
+import Heading from '@/components/Heading';
+
+import AddButton from '@/components/Buttons/AddButton';
+import BackButton from '@/components/Buttons/BackButton';
 
 export default function Educations() {
   const { t } = useTranslation();
 
   const { educations, loading, globalError, deleteEducation } = useEducations({ fetchList: true });
 
+  const render = () => {
+    if (loading) {
+      return (
+        <PageLoader />
+      );
+    }
+
+    if (educations.length === 0 && !globalError) {
+      return (
+        <EmptyList
+          icon="📚"
+          title={t('educations.page.list.empty_list_title', { defaultValue: 'No educations found.' })}
+          description={t('educations.page.list.empty_list_description', { defaultValue: 'Start by adding your courses and degrees.' })}
+        />
+      );
+    }
+
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+        {educations.map((education) => (
+          <EducationCard
+            key={education.id}
+            education={education}
+            onDelete={deleteEducation}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="dark:bg-zinc-900 bg-gray-50 text-gray-800 dark:text-zinc-100 min-h-screen flex flex-col relative overflow-hidden">
-
       <Background />
 
       <main className="flex-1 px-8 py-8 w-full relative z-10">
-
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
           <div>
-            <Link to="/panel" className="text-sm text-gray-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 mb-2 inline-flex items-center gap-1 transition-colors">
-              ← {t('buttons.back_to_panel', { defaultValue: 'Back to panel' })}
-            </Link>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-              <span className="text-2xl">🎓</span> {t('educations.page.list.title', { defaultValue: 'Educations' })}
-            </h1>
+            <BackButton to={{ pathname: '/panel' }} label={t('buttons.back_to_panel', { defaultValue: 'Back to panel' })} />
+            <Heading level={1} icon="🎓" title={t('educations.page.list.title', { defaultValue: 'Educations' })} />
           </div>
-
-          <Link
-            to="/educations/create"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 shadow-sm"
-          >
-            <span>➕ {t('educations.buttons.new_education', { defaultValue: 'New Education' })}</span>
-          </Link>
+          <AddButton to={{ pathname: '/educations/create' }} label={t('educations.buttons.new_education', { defaultValue: 'New Education' })} />
         </div>
 
         {globalError && (
@@ -43,31 +66,7 @@ export default function Educations() {
           </div>
         )}
 
-        {loading ? (
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600 dark:border-blue-400"></div>
-          </div>
-        ) : (
-          <>
-            {educations.length === 0 && !globalError ? (
-              <div className="text-center py-20 bg-white dark:bg-zinc-800 shadow-sm border border-gray-100 dark:border-zinc-700 rounded-lg">
-                <div className="text-gray-400 dark:text-zinc-500 text-5xl mb-4">📚</div>
-                <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-50">
-                  {t('educations.page.list.empty_list_title', { defaultValue: 'No educations found.' })}
-                </h3>
-                <p className="text-gray-500 dark:text-zinc-400 mt-1">
-                  {t('educations.page.list.empty_list_description', { defaultValue: 'Start by adding your courses and degrees.' })}
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-                {educations.map((education) => (
-                  <EducationCard key={education.id} education={education} onDelete={deleteEducation} />
-                ))}
-              </div>
-            )}
-          </>
-        )}
+        {render()}
       </main>
     </div>
   );

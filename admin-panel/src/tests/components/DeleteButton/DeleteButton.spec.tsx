@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
 
-import DeleteButton from '@/components/DeleteButton';
+import DeleteButton from '@/components/Buttons/DeleteButton';
 
 describe('DeleteButton Component', () => {
   it('should render the button with the correct title', () => {

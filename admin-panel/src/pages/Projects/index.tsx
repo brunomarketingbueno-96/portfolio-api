@@ -1,10 +1,16 @@
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { useProjects } from '@/hooks/useProjects';
 
 import ProjectCard from '@/components/ProjectCard';
 import Background from '@/components/Background';
+import EmptyList from '@/components/EmptyList';
+import PageLoader from '@/components/PageLoader';
+import Heading from '@/components/Heading';
+
+import AddButton from '@/components/Buttons/AddButton';
+import BackButton from '@/components/Buttons/BackButton';
+import GlobalError from '@/components/GlobalError';
 
 export default function Projects() {
   const { t } = useTranslation();
@@ -16,63 +22,48 @@ export default function Projects() {
     deleteProject,
   } = useProjects({ fetchList: true });
 
+  const render = () => {
+    if (loading) return <PageLoader />;
+
+    if (projects.length === 0 && !globalError) {
+      return (
+        <EmptyList
+          icon="📁"
+          title={t('projects.page.list.empty_list_title', { defaultValue: 'No projects found.' })}
+          description={t('projects.page.list.empty_list_description', { defaultValue: 'Start by adding your first project.' })}
+        />
+      );
+    };
+
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+        {projects.map((project) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            onDelete={deleteProject}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="dark:bg-zinc-900 bg-gray-50 text-gray-800 dark:text-zinc-100 min-h-screen flex flex-col relative overflow-hidden">
-
       <Background />
 
       <main className="flex-1 px-8 py-8 w-full relative z-10">
-
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
           <div>
-            <Link to="/panel" className="text-sm text-gray-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 mb-2 inline-flex items-center gap-1 transition-colors">
-              ← {t('buttons.back_to_panel', { defaultValue: 'Back to panel' })}
-            </Link>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-              <span className="text-2xl">👨‍💻</span> {t('projects.page.list.title', { defaultValue: 'My Projects' })}
-            </h1>
+            <BackButton to={{ pathname: '/panel' }} label={t('buttons.back_to_panel', { defaultValue: 'Back to panel' })} />
+            <Heading level={1} icon="👨‍💻" title={t('projects.page.list.title', { defaultValue: 'My Projects' })} />
           </div>
-
-          <Link
-            to="/projects/create"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 shadow-sm"
-          >
-            <span>➕ {t('projects.buttons.new_project', { defaultValue: 'New Project' })}</span>
-          </Link>
+          <AddButton to={{ pathname: '/projects/create' }} label={t('projects.buttons.new_project', { defaultValue: 'New Project' })} />
         </div>
 
-        {globalError && (
-          <div className="mb-6 bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 text-red-700 dark:text-red-400 rounded-lg">
-            <p className="font-bold">{t('projects.list.error_title', { defaultValue: 'Error' })}</p>
-            <p>{globalError}</p>
-          </div>
-        )}
+        <GlobalError error={globalError} message={t('projects.list.error_title', { defaultValue: 'Error' })} />
 
-        {loading ? (
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600 dark:border-blue-400"></div>
-          </div>
-        ) : (
-          <>
-            {projects.length === 0 && !globalError ? (
-              <div className="text-center py-20 bg-white dark:bg-zinc-800 shadow-sm border border-gray-100 dark:border-zinc-700 rounded-lg">
-                <div className="text-gray-400 dark:text-zinc-500 text-5xl mb-4">📁</div>
-                <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-50">{t('projects.page.list.empty_list_title', { defaultValue: 'No projects found.' })}</h3>
-                <p className="text-gray-500 dark:text-zinc-400 mt-1">{t('projects.page.list.empty_list_description', { defaultValue: 'Start by adding your first project.' })}</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-                {projects.map((project) => (
-                  <ProjectCard
-                    key={project.id}
-                    project={project}
-                    onDelete={deleteProject}
-                  />
-                ))}
-              </div>
-            )}
-          </>
-        )}
+        {render()}
       </main>
     </div>
   );

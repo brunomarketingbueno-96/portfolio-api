@@ -6,6 +6,10 @@ import Input from '@/components/Input';
 import Select from '@/components/Select';
 import ImageSelector from '@/components/ImageSelector';
 import IconWrapper from '@/components/IconWrapper';
+import FormError from '@/components/FormError';
+import Textarea from '@/components/Textarea';
+
+import SaveButton from '@/components/Buttons/SaveButton';
 
 import { z } from 'zod';
 import { serviceSchema } from '../../../../src/schemas/services.schema';
@@ -24,19 +28,15 @@ interface ServiceFormProps {
   globalError: string | null;
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmitAction: (e: React.FormEvent<HTMLFormElement>) => void;
-  submitButtonText: string;
 }
 
 export default function ServiceForm({
   register, errors, fields, appendTranslation, removeTranslation,
   imagePreview, isSubmitting, globalError,
-  handleFileChange, onSubmitAction, submitButtonText
+  handleFileChange, onSubmitAction
 }: ServiceFormProps) {
 
   const { t } = useTranslation();
-
-  const getTextAreaClass = (hasError: boolean) =>
-    `w-full px-4 py-3 rounded-lg text-sm transition-all duration-300 bg-zinc-50 dark:bg-zinc-950 border text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-blue-500 ${hasError ? 'border-red-500 bg-red-50 dark:bg-red-900/20' : 'border-zinc-200 dark:border-zinc-700'}`;
 
   return (
     <form onSubmit={onSubmitAction} className="bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-gray-200 dark:border-zinc-700 overflow-hidden">
@@ -55,9 +55,7 @@ export default function ServiceForm({
             >
               <IconWrapper>🔗</IconWrapper>
             </Input>
-            {errors.link?.message && (
-              <span className="text-red-500 text-xs">{t(errors.link.message as string)}</span>
-            )}
+            <FormError error={!!errors.link} message={t(errors.link?.message as string)} />
 
             <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-2 italic">
               {t('services.form.labels.info_link', { defaultValue: '* Optional: Insert a link to the service for more information.' })}
@@ -100,9 +98,7 @@ export default function ServiceForm({
                         disabled={index === 0}
                         {...register(`translations.${index}.language` as const)}
                       />
-                      {fieldErrors?.language?.message && (
-                        <span className="text-red-500 text-xs">{t(fieldErrors.language.message as string)}</span>
-                      )}
+                      <FormError error={!!fieldErrors?.language} message={t(fieldErrors?.language?.message as string)} />
                     </div>
 
                     <div className="md:col-span-3">
@@ -114,24 +110,17 @@ export default function ServiceForm({
                       >
                         <IconWrapper>🛠️</IconWrapper>
                       </Input>
-                      {fieldErrors?.title?.message && (
-                        <span className="text-red-500 text-xs">{t(fieldErrors.title.message as string)}</span>
-                      )}
+                      <FormError error={!!fieldErrors?.title} message={t(fieldErrors?.title?.message as string)} />
                     </div>
 
                     <div className="md:col-span-4 mt-2 flex flex-col gap-2">
-                      <label className="ml-1 text-sm font-semibold text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
-                        {t('services.form.labels.description', { defaultValue: 'Service Description' })}
-                      </label>
-                      <textarea
-                        rows={4}
+                      <Textarea
+                        id={`description-${index}`}
+                        label={t('services.form.labels.description', { defaultValue: 'Service Description' })}
                         placeholder={t('services.form.placeholders.description', { defaultValue: 'Describe the service...' })}
-                        className={getTextAreaClass(!!fieldErrors?.description)}
                         {...register(`translations.${index}.description` as const)}
                       />
-                      {fieldErrors?.description?.message && (
-                        <span className="text-red-500 text-xs">{t(fieldErrors.description.message as string)}</span>
-                      )}
+                      <FormError error={!!fieldErrors?.description} message={t(fieldErrors?.description?.message as string)} />
                     </div>
                   </div>
                 </div>
@@ -144,13 +133,7 @@ export default function ServiceForm({
       </div>
 
       <div className="bg-gray-50 dark:bg-zinc-900 px-6 py-4 flex items-center justify-end border-t border-gray-200 dark:border-zinc-700">
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="cursor-pointer inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 transition-all"
-        >
-          {isSubmitting ? t('buttons.saving', { defaultValue: 'Saving...' }) : submitButtonText}
-        </button>
+        <SaveButton isSubmitting={isSubmitting} customLabel={t('services.buttons.save_service', { defaultValue: 'Save Service' })} />
       </div>
     </form>
   );

@@ -149,7 +149,7 @@
     "error": {
       "start_date": "Data inválida - Obrigatório",
       "end_date": "Data inválida",
-      "duration": "Duração inválida - Obrigatório",
+      "duration_hours": "Duração inválida - Obrigatório",
       "institution": "Instituição inválida - Obrigatório",
       "name": "Nome da formação inválida - Obrigatório",
       "description": "Descrição inválida - Obrigatório",
@@ -212,6 +212,93 @@
       "description": "Descrição inválida - Obrigatório"
     }
   },
+  "blog_posts": {
+    "page": {
+      "list": {
+        "title": "Artigos do Blog",
+        "error_title": "Erro",
+        "empty_list_title": "Nenhum artigo encontrado.",
+        "empty_list_description": "Escreva seu primeiro artigo para vê-lo aqui."
+      },
+      "create": {
+        "title": "Criar Novo Artigo",
+        "description": "Crie um novo artigo para ser publicado no site."
+      },
+      "edit": {
+        "title": "Editar Artigo",
+        "description": "Atualize o conteúdo e as configurações do seu artigo."
+      },
+      "view": {
+        "translation_unavailable": "A tradução deste artigo ainda não está disponível no idioma selecionado.",
+        "available_in": "Leia este artigo em:",
+        "back_home": "Voltar para o início"
+      }
+    },
+    "buttons": {
+      "new_post": "Novo Artigo",
+      "back_to_posts": "Voltar para artigos",
+      "save_post": "Salvar Artigo",
+      "add_translation": "Adicionar Tradução"
+    },
+    "card": {
+      "no_title": "Sem título",
+      "no_excerpt": "Sem resumo disponível."
+    },
+    "status": {
+      "published": "Publicado",
+      "draft": "Rascunho"
+    },
+    "action": {
+      "confirm_delete": "Tem certeza que deseja excluir este artigo permanentemente?"
+    },
+    "form": {
+      "general_settings": "Configurações Gerais",
+      "cover_image": "Imagem de Capa",
+      "image_help": "PNG, JPG, WEBP até 2MB.",
+      "publish_now": "Publicar imediatamente",
+      "publish_help": "Se desmarcado, será salvo como rascunho e oculto do público.",
+      "translation_content": "Conteúdo",
+      "language": "Idioma",
+      "title": "Título",
+      "title_placeholder": "Ex: Como criar uma API com Hono",
+      "slug": "Slug da URL",
+      "excerpt": "Resumo Curto (SEO)",
+      "excerpt_placeholder": "Uma breve descrição deste artigo para listas e SEO...",
+      "content": "Conteúdo do Artigo"
+    },
+    "error": {
+      "image_url": "URL da imagem inválida",
+      "language": "Idioma é obrigatório",
+      "slug": "O slug deve ter pelo menos 3 caracteres",
+      "title": "O título deve ter pelo menos 3 caracteres",
+      "excerpt": "O resumo deve ter pelo menos 10 caracteres",
+      "content": "O conteúdo deve ter pelo menos 10 caracteres",
+      "translations_required": "Pelo menos um idioma é obrigatório",
+      "not_found": "Artigo não encontrado",
+      "list": "Erro ao listar os artigos",
+      "get_by_slug": "Erro ao buscar artigo pela URL",
+      "get_by_id": "Erro ao buscar artigo",
+      "create": "Erro ao criar o artigo",
+      "update": "Erro ao atualizar o artigo",
+      "delete": "Erro ao excluir o artigo"
+    },
+    "editor": {
+      "buttons": {
+        "preview": "Visualização",
+        "html_code": "Código Fonte"
+      },
+      "placeholders": {
+        "html": "<p>Escreva seu HTML aqui...</p>"
+      },
+      "prompts": {
+        "video_url": "Insira o link do vídeo (YouTube):"
+      },
+      "errors": {
+        "upload_log": "Erro ao fazer upload da imagem interna",
+        "upload_alert": "Falha ao subir a imagem."
+      }
+    }
+  },
   "loader": {
     "verifying_session": "Verificando sessão..."
   },
@@ -249,6 +336,10 @@
       "public_website": {
         "title": "Visitar Site",
         "description": "Acessar o site público do portfólio."
+      },
+      "blog_posts": {
+        "title": "Blog",
+        "description": "Gerencie seus artigos, rascunhos e publicações."
       }
     }
   },
@@ -279,6 +370,45 @@
         "site_url": "https://",
         "public_email": "meu-email@meu-domínio.com"
       }
+    },
+    "error": {
+      "site_url": "URL inválida"
+    }
+  },
+  "users": {
+    "error": {
+      "invalid_password": "Credenciais Inválidas",
+      "new_password": "Nova Senha Inválida"
+    }
+  },
+  "profile": {
+    "title": "Meu Perfil",
+    "description": "Gerencie as informações e a segurança da sua conta.",
+    "back": "Voltar ao Dashboard",
+    "sections": {
+      "personal_info": "Informações Pessoais",
+      "security": "Segurança e Senha"
+    },
+    "labels": {
+      "name": "Nome Completo",
+      "email": "E-mail",
+      "old_password": "Senha Atual",
+      "new_password": "Nova Senha",
+      "confirm_password": "Confirmar Nova Senha"
+    },
+    "placeholders": {
+      "name": "Seu Nome Completo",
+      "email": "seu.email@exemplo.com"
+    },
+    "messages": {
+      "profile_success": "Perfil atualizado com sucesso",
+      "password_success": "Senha atualizada com sucesso"
+    },
+    "buttons": {
+      "saving": "Salvando...",
+      "save_profile": "Salvar Perfil",
+      "updating": "Atualizando...",
+      "update_password": "Atualizar Senha"
     }
   }
 }

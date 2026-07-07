@@ -1,10 +1,16 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { useServices } from '@/hooks/useServices';
 
+import Heading from '@/components/Heading';
+import SubTitle from '@/components/SubTitle';
+
 import ServiceForm from '@/components/ServiceForm';
+import PageLoader from '@/components/PageLoader';
+
 import Background from '@/components/Background';
+import BackButton from '@/components/Buttons/BackButton';
 
 export default function EditService() {
   const { t } = useTranslation();
@@ -24,46 +30,40 @@ export default function EditService() {
     handleFileChange
   } = useServices({ editId: id });
 
+  const render = () => {
+    if (loading) return <PageLoader />;
+
+    return (
+      <ServiceForm
+        register={register}
+        errors={errors}
+        fields={fields}
+        appendTranslation={appendTranslation}
+        removeTranslation={removeTranslation}
+        imagePreview={imagePreview}
+        isSubmitting={isSubmitting}
+        globalError={globalError}
+        handleFileChange={handleFileChange}
+        onSubmitAction={updateService(id as string)}
+      />
+    )
+  };
+
   return (
     <div className="dark:bg-zinc-900 bg-gray-50 text-gray-800 dark:text-zinc-100 min-h-screen flex flex-col relative overflow-hidden">
-
       <Background />
 
-      {loading ? (
-        <div className="flex-1 flex items-center justify-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600 dark:border-blue-400"></div>
-        </div>
-      ) : (
-        <main className="flex-1 px-8 py-8 w-full relative z-10">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-zinc-50">
-                {t('services.page.edit.title', { defaultValue: 'Edit Service' })}
-              </h1>
-              <p className="text-sm text-gray-500 dark:text-zinc-400">
-                {t('services.page.edit.description', { defaultValue: 'Update the information for the selected service.' })}
-              </p>
-            </div>
-            <Link to="/services" className="text-sm text-gray-600 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium flex items-center gap-1 transition-colors">
-              ← {t('services.buttons.back_to_services', { defaultValue: 'Back to services' })}
-            </Link>
+      <main className="flex-1 px-8 py-8 w-full relative z-10">
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <Heading level={1} title={t('services.page.edit.title', { defaultValue: 'Edit Service' })} />
+            <SubTitle content={t('services.page.edit.description', { defaultValue: 'Update the information for the selected service.' })} />
           </div>
+          <BackButton to={{ pathname: '/services' }} label={t('services.buttons.back_to_services', { defaultValue: 'Back to services' })} />
+        </div>
 
-          <ServiceForm
-            register={register}
-            errors={errors}
-            fields={fields}
-            appendTranslation={appendTranslation}
-            removeTranslation={removeTranslation}
-            imagePreview={imagePreview}
-            isSubmitting={isSubmitting}
-            globalError={globalError}
-            handleFileChange={handleFileChange}
-            onSubmitAction={updateService(id as string)}
-            submitButtonText={t('services.buttons.save_service', { defaultValue: 'Save Service' })}
-          />
-        </main>
-      )}
+        {render()}
+      </main>
     </div>
   );
 }

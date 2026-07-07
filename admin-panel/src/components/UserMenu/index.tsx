@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useAuth } from "@/contexts/AuthContext";
 
-import LogoutButton from '@/components/LogoutButton';
+import LogoutButton from '@/components/Buttons/LogoutButton';
 
 export default function UserMenu() {
   const { user, logout } = useAuth();

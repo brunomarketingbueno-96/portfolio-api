@@ -2,7 +2,11 @@ import { useTranslation } from 'react-i18next';
 
 import { useSettingsContext } from '@/contexts/SettingsContext';
 
+import Heading from '@/components/Heading';
+import SubTitle from '@/components/SubTitle';
+
 import PanelCard from '@/components/PanelCard';
+
 import Background from '@/components/Background';
 
 export default function Panel() {
@@ -17,12 +21,8 @@ export default function Panel() {
 
       <main className="flex-1 px-8 py-8 w-full">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold dark:text-white/90 text-gray-900">
-            {t('panel.title', { defaultValue: 'Welcome back!' })}
-          </h1>
-          <p className="dark:text-white/90 text-gray-500">
-            {t('panel.description', { defaultValue: 'What would you like to manage today?' })}
-          </p>
+          <Heading level={1} title={t('panel.title', { defaultValue: 'Welcome back!' })} />
+          <SubTitle content={t('panel.description', { defaultValue: 'What would you like to manage today?' })} />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -76,6 +76,23 @@ export default function Panel() {
             bgIcon={
               <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            }
+          />
+
+          <PanelCard
+            type="internal"
+            url="/blog-posts"
+            title={t('panel.cards.blog_posts.title', { defaultValue: 'Blog Posts' })}
+            description={t('panel.cards.blog_posts.description', { defaultValue: 'Manage your articles, drafts, and publications.' })}
+            icon={
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+              </svg>
+            }
+            bgIcon={
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
               </svg>
             }
           />
