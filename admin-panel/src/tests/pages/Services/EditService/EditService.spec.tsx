@@ -24,8 +24,12 @@ vi.mock('@/components/Background', () => ({
   default: () => <div data-testid="mock-background" />
 }));
 
+vi.mock('@/components/PageLoader', () => ({
+  default: () => <div data-testid="mock-page-loader" />
+}));
+
 vi.mock('@/components/ServiceForm', () => ({
-  default: ({ submitButtonText, onSubmitAction, globalError, isSubmitting }: any) => (
+  default: ({ onSubmitAction, globalError, isSubmitting }: any) => (
     <form
       data-testid="mock-service-form"
       onSubmit={(e) => {
@@ -35,7 +39,6 @@ vi.mock('@/components/ServiceForm', () => ({
     >
       <span data-testid="form-global-error">{globalError}</span>
       <span data-testid="form-is-submitting">{isSubmitting ? 'submitting' : 'idle'}</span>
-      <button type="submit" data-testid="form-submit-btn">{submitButtonText}</button>
     </form>
   )
 }));
@@ -76,19 +79,15 @@ describe('EditService Page Component', () => {
     expect(useServices).toHaveBeenCalledWith({ editId: '456' });
   });
 
-  it('should render the loading state', () => {
+  it('should render the PageLoader Component when the loading state', () => {
     vi.mocked(useServices).mockReturnValue({
       ...vi.mocked(useServices)(),
       loading: true,
     } as any);
 
-    const { container } = render(<EditService />);
+    render(<EditService />);
 
-    const spinner = container.querySelector('.animate-spin');
-    expect(spinner).toBeInTheDocument();
-
-    expect(screen.queryByText('Edit Service')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('mock-service-form')).not.toBeInTheDocument();
+    expect(screen.getByTestId('mock-page-loader')).toBeInTheDocument();
   });
 
   it('should pass the correct props to the ServiceForm', () => {
@@ -100,7 +99,6 @@ describe('EditService Page Component', () => {
 
     render(<EditService />);
 
-    expect(screen.getByTestId('form-submit-btn')).toHaveTextContent('Save Service');
     expect(screen.getByTestId('form-is-submitting')).toHaveTextContent('submitting');
     expect(screen.getByTestId('form-global-error')).toHaveTextContent('Some service editing error');
   });

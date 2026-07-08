@@ -11,10 +11,6 @@ vi.mock('react-i18next', () => ({
   }),
 }));
 
-vi.mock('react-router-dom', () => ({
-  Link: ({ children, to }: any) => <a href={to} data-testid="mock-link">{children}</a>,
-}));
-
 vi.mock('@/contexts/SettingsContext', () => ({
   useSettingsContext: vi.fn(),
 }));
@@ -25,6 +21,22 @@ vi.mock('@/hooks/useSettings', () => ({
 
 vi.mock('@/components/Background', () => ({
   default: () => <div data-testid="mock-background" />
+}));
+
+vi.mock('@/components/Heading', () => ({
+  default: ({ title }: any) => <h1 data-testid="mock-heading">{title}</h1>
+}));
+
+vi.mock('@/components/SubTitle', () => ({
+  default: ({ content }: any) => <p data-testid="mock-subtitle">{content}</p>
+}));
+
+vi.mock('@/components/Buttons/BackButton', () => ({
+  default: ({ to, label }: any) => <a href={to.pathname} data-testid="mock-back-button">{label}</a>
+}));
+
+vi.mock('@/components/PageLoader', () => ({
+  default: () => <div data-testid="mock-page-loader" />
 }));
 
 vi.mock('@/components/SettingsForm', () => ({
@@ -91,21 +103,20 @@ describe('Settings Page Component', () => {
       applyNewSettings: mockApplyNewSettings,
     } as any);
 
-    const { container } = render(<Settings />);
+    render(<Settings />);
 
-    const spinner = container.querySelector('.animate-spin');
-    expect(spinner).toBeInTheDocument();
-    expect(screen.queryByText('Settings')).not.toBeInTheDocument();
+    expect(screen.getByTestId('mock-page-loader')).toBeInTheDocument();
+    expect(screen.queryByTestId('mock-settings-form')).not.toBeInTheDocument();
   });
 
   it('should render Layout, headers, background, back link and SettingsForm correctly when loaded', () => {
     render(<Settings />);
 
     expect(screen.getByTestId('mock-background')).toBeInTheDocument();
-    expect(screen.getByText('Settings')).toBeInTheDocument();
-    expect(screen.getByText('Manage the panel settings.')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-heading')).toHaveTextContent('Settings');
+    expect(screen.getByTestId('mock-subtitle')).toHaveTextContent('Manage the panel settings.');
 
-    const link = screen.getByTestId('mock-link');
+    const link = screen.getByTestId('mock-back-button');
     expect(link).toHaveAttribute('href', '/panel');
     expect(link).toHaveTextContent('Back to panel');
 

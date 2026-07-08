@@ -11,10 +11,6 @@ vi.mock('react-i18next', () => ({
   }),
 }));
 
-vi.mock('react-router-dom', () => ({
-  Link: ({ children, to }: any) => <a href={to} data-testid="mock-link">{children}</a>,
-}));
-
 vi.mock('@/hooks/useEducations', () => ({
   useEducations: vi.fn(),
 }));
@@ -23,8 +19,20 @@ vi.mock('@/components/Background', () => ({
   default: () => <div data-testid="mock-background" />
 }));
 
+vi.mock('@/components/Heading', () => ({
+  default: ({ title }: any) => <h1 data-testid="mock-heading">{title}</h1>
+}));
+
+vi.mock('@/components/SubTitle', () => ({
+  default: ({ content }: any) => <p data-testid="mock-subtitle">{content}</p>
+}));
+
+vi.mock('@/components/Buttons/BackButton', () => ({
+  default: ({ to, label }: any) => <a href={to.pathname} data-testid="mock-back-button">{label}</a>
+}));
+
 vi.mock('@/components/EducationForm', () => ({
-  default: ({ submitButtonText, onSubmitAction, globalError, isSubmitting }: any) => (
+  default: ({ onSubmitAction, globalError, isSubmitting }: any) => (
     <form
       data-testid="mock-education-form"
       onSubmit={(e) => {
@@ -34,7 +42,7 @@ vi.mock('@/components/EducationForm', () => ({
     >
       <span data-testid="form-global-error">{globalError}</span>
       <span data-testid="form-is-submitting">{isSubmitting ? 'submitting' : 'idle'}</span>
-      <button type="submit" data-testid="form-submit-btn">{submitButtonText}</button>
+      <button type="submit" data-testid="form-submit-btn">Submit</button>
     </form>
   )
 }));
@@ -63,13 +71,12 @@ describe('CreateEducation Page Component', () => {
     render(<CreateEducation />);
 
     expect(screen.getByTestId('mock-background')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-heading')).toHaveTextContent('New Education');
+    expect(screen.getByTestId('mock-subtitle')).toHaveTextContent('Add a new course or degree to your resume');
 
-    expect(screen.getByText('New Education')).toBeInTheDocument();
-    expect(screen.getByText('Add a new course or degree to your resume')).toBeInTheDocument();
-
-    const link = screen.getByTestId('mock-link');
+    const link = screen.getByTestId('mock-back-button');
     expect(link).toHaveAttribute('href', '/educations');
-    expect(link).toHaveTextContent('Back to educations');
+    expect(link).toHaveTextContent('Back to Educations');
   });
 
   it('should pass the correct props to the EducationForm', () => {
@@ -81,10 +88,7 @@ describe('CreateEducation Page Component', () => {
 
     render(<CreateEducation />);
 
-    expect(screen.getByTestId('form-submit-btn')).toHaveTextContent('Save Education');
-
     expect(screen.getByTestId('form-is-submitting')).toHaveTextContent('submitting');
-
     expect(screen.getByTestId('form-global-error')).toHaveTextContent('Some validation error');
   });
 

@@ -14,7 +14,7 @@ vi.mock('@/components/Input', () => ({
   default: React.forwardRef(({ label, children, ...props }: any, ref: any) => (
     <div>
       <label>{label}</label>
-      <input {...props} ref={ref} />
+      <input {...props} ref={ref} data-testid={`mock-input-${props.id}`} />
       {children}
     </div>
   ))
@@ -24,17 +24,36 @@ vi.mock('@/components/Select', () => ({
   default: React.forwardRef(({ label, translationGroup, ...props }: any, ref: any) => (
     <div>
       <label>{label}</label>
-      <select {...props} ref={ref} />
+      <select {...props} ref={ref} data-testid={`mock-select-${props.id}`} />
     </div>
   ))
 }));
 
+vi.mock('@/components/Textarea', () => ({
+  default: React.forwardRef(({ label, ...props }: any, ref: any) => (
+    <div>
+      <label>{label}</label>
+      <textarea {...props} ref={ref} data-testid={`mock-textarea-${props.id}`} />
+    </div>
+  ))
+}));
+
+vi.mock('@/components/FormError', () => ({
+  default: ({ error, message }: any) => error ? <span data-testid="mock-form-error">{message}</span> : null
+}));
+
 vi.mock('@/components/ImageSelector', () => ({
-  default: () => <div data-testid="image-selector" />
+  default: () => <div data-testid="mock-image-selector" />
 }));
 
 vi.mock('@/components/IconWrapper', () => ({
-  default: ({ children }: any) => <span>{children}</span>
+  default: ({ children }: any) => <span data-testid="mock-icon-wrapper">{children}</span>
+}));
+
+vi.mock('@/components/Buttons/SaveButton', () => ({
+  default: ({ isSubmitting, customLabel }: any) => (
+    <button type="submit" disabled={isSubmitting}>{customLabel}</button>
+  )
 }));
 
 const mockFields = [
@@ -59,10 +78,9 @@ const defaultProps = {
   globalError: null,
   handleFileChange: vi.fn(),
   onSubmitAction: vi.fn((e) => e.preventDefault()),
-  submitButtonText: 'Save Service'
 };
 
-describe('ServiceForm', () => {
+describe('ServiceForm Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -73,7 +91,8 @@ describe('ServiceForm', () => {
     expect(screen.getByText('Translations & Content')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Save Service' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '+ Add Language' })).toBeInTheDocument();
-    expect(screen.getByTestId('image-selector')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-image-selector')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-input-link')).toBeInTheDocument();
   });
 
   it('should display an error message if globalError prop is provided', () => {
@@ -82,10 +101,10 @@ describe('ServiceForm', () => {
     expect(screen.getByText('An unexpected error occurred')).toBeInTheDocument();
   });
 
-  it('should disable the submit button and change text when isSubmitting is true', () => {
-    render(<ServiceForm {...defaultProps} isSubmitting={true} submitButtonText="Saving..." />);
+  it('should disable the submit button when isSubmitting is true', () => {
+    render(<ServiceForm {...defaultProps} isSubmitting={true} />);
 
-    const submitButton = screen.getByRole('button', { name: 'Saving...' });
+    const submitButton = screen.getByRole('button', { name: 'Save Service' });
     expect(submitButton).toBeDisabled();
   });
 
@@ -112,7 +131,7 @@ describe('ServiceForm', () => {
   it('should call removeTranslation when the delete button is clicked on secondary translation', async () => {
     const fieldsWithMultiple = [
       ...mockFields,
-      { id: 'uuid-2', language: 'pt', title: 'Serviço PT', description: 'Descrição PT' }
+      { id: 'uuid-2', language: 'es', title: 'Diseño Web', description: 'Servicios de diseño' }
     ];
 
     const user = userEvent.setup();
@@ -125,7 +144,7 @@ describe('ServiceForm', () => {
     expect(defaultProps.removeTranslation).toHaveBeenCalledWith(1);
   });
 
-  it('should render link error and apply error class to textarea when errors exist', () => {
+  it('should render form errors when validation errors exist', () => {
     const mockErrors = {
       link: { message: 'invalid_url', type: 'pattern' },
       translations: [{ description: { message: 'desc_required', type: 'required' } }]
@@ -134,24 +153,12 @@ describe('ServiceForm', () => {
     render(<ServiceForm {...defaultProps} errors={mockErrors as any} />);
 
     expect(screen.getByText('invalid_url')).toBeInTheDocument();
-
     expect(screen.getByText('desc_required')).toBeInTheDocument();
-    const textarea = screen.getByPlaceholderText(/Describe the service/i);
-    expect(textarea.className).toContain('border-red-500');
   });
 
-  it('should apply default border class when no error exists', () => {
+  it('should NOT render form errors when fields are valid', () => {
     render(<ServiceForm {...defaultProps} errors={{}} />);
 
-    const textarea = screen.getByPlaceholderText(/Describe the service/i);
-    expect(textarea.className).not.toContain('border-red-500');
-    expect(textarea.className).toContain('border-zinc-200');
-  });
-
-  it('should NOT render error messages when fields are valid', () => {
-    render(<ServiceForm {...defaultProps} errors={{}} />);
-
-    expect(screen.queryByText('errors.invalid_url')).not.toBeInTheDocument();
-    expect(screen.queryByText('errors.required')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('mock-form-error')).not.toBeInTheDocument();
   });
 });
