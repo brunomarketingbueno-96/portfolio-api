@@ -1,17 +1,8 @@
 {
-  "cleanUrls": true,
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
-    },
-    {
-      "source": "/auth/(.*)",
-      "destination": "/auth/$1"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "/(?!api|auth).*",
+      "dest": "/index.html"
     }
   ]
 }
