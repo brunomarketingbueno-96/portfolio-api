@@ -1,19 +1,16 @@
 import { useTranslation } from 'react-i18next';
+
 import type { UseFormRegister, UseFormHandleSubmit, SubmitHandler, FieldErrors } from 'react-hook-form';
+import type { LoginForm } from '@/typings/Profile';
 
-import Input from '../Input';
-import ErrorAlert from '../ErrorAlert';
-
-export interface LoginFormInputs {
-  email: string;
-  password: string;
-}
+import Input from '@/components/Input';
+import ErrorAlert from '@/components/ErrorAlert';
 
 interface LoginFormProps {
-  register: UseFormRegister<LoginFormInputs>;
-  handleSubmit: UseFormHandleSubmit<LoginFormInputs>;
-  errors: FieldErrors<LoginFormInputs>;
-  onSubmit: SubmitHandler<LoginFormInputs>;
+  register: UseFormRegister<LoginForm>;
+  handleSubmit: UseFormHandleSubmit<LoginForm>;
+  errors: FieldErrors<LoginForm>;
+  onSubmit: SubmitHandler<LoginForm>;
   globalError: string | null;
   isSubmitting: boolean;
 }

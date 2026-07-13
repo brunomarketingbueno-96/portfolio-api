@@ -27,7 +27,8 @@ export default function EditBlogPost() {
     appendTranslation,
     removeTranslation,
     imagePreview,
-    handleFileChange
+    handleFileChange,
+    generateAIContent, isGenerating,
   } = useBlogPosts({ editId: id });
 
   const render = () => {
@@ -46,6 +47,8 @@ export default function EditBlogPost() {
         globalError={globalError}
         handleFileChange={handleFileChange}
         onSubmitAction={updateBlogPost(id as string)}
+        generateAIContent={generateAIContent}
+        isGenerating={isGenerating}
       />
     )
   }

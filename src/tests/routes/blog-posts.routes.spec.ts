@@ -10,7 +10,8 @@ import {
   getAdminBlogPosts,
   createBlogPost,
   updateBlogPost,
-  deleteBlogPost
+  deleteBlogPost,
+  generateBlogPost
 } from '../../controllers/blog-posts.controller.js';
 
 vi.mock('../../controllers/blog-posts.controller.js', () => ({
@@ -24,6 +25,7 @@ vi.mock('../../controllers/blog-posts.controller.js', () => ({
   createBlogPost: vi.fn((c) => c.json({ id: '2', title: 'Created Post' }, 201)),
   updateBlogPost: vi.fn((c) => c.json({ id: c.req.param('id'), title: 'Updated Post' })),
   deleteBlogPost: vi.fn((c) => c.json({ success: true })),
+  generateBlogPost: vi.fn((c) => c.json({ success: true }))
 }));
 
 vi.mock('../../middlewares/auth.js', () => ({

@@ -1,32 +1,28 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import type { UseFormRegister, FieldErrors } from 'react-hook-form';
+import type { SettingsFormData } from '@/typings/Settings';
 
 import Input from '@/components/Input';
 import Select from '@/components/Select';
 import IconWrapper from '@/components/IconWrapper';
 import ImageSelector from '@/components/ImageSelector';
-
-import { z } from 'zod';
-import { settingsSchema } from '../../../../src/schemas/settings.schema';
-import FormError from '../FormError';
-
-type SettingsFormData = z.infer<typeof settingsSchema>;
+import FormError from '@/components/FormError';
+import SaveButton from '@/components/Buttons/SaveButton';
 
 interface SettingsFormProps {
   register: UseFormRegister<SettingsFormData>;
   errors: FieldErrors<SettingsFormData>;
   imagePreview: string | null;
   isSubmitting: boolean;
-  globalError: string | null;
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmitAction: (e: React.FormEvent<HTMLFormElement>) => void;
-  submitButtonText: string;
 }
 
 export default function SettingsForm({
-  register, errors, imagePreview, isSubmitting, globalError,
-  handleFileChange, onSubmitAction, submitButtonText
+  register, errors, imagePreview, isSubmitting,
+  handleFileChange, onSubmitAction
 }: SettingsFormProps) {
 
   const { t } = useTranslation();
@@ -87,18 +83,10 @@ export default function SettingsForm({
             {...register('panelLanguage')}
           />
         </div>
-
-        {globalError && <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 rounded text-red-700 dark:text-red-400 text-sm">{globalError}</div>}
       </div>
 
       <div className="bg-gray-50 dark:bg-zinc-900 px-6 py-4 flex items-center justify-end border-t border-gray-200 dark:border-zinc-700">
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="cursor-pointer inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 transition-all"
-        >
-          {isSubmitting ? t('buttons.saving', { defaultValue: 'Saving...' }) : submitButtonText}
-        </button>
+        <SaveButton isSubmitting={isSubmitting} customLabel={t('buttons.save_changes', { defaultValue: 'Save changes' })} />
       </div>
     </form>
   );

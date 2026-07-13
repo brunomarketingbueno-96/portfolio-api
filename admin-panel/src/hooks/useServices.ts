@@ -7,15 +7,14 @@ import { UploadService } from '@/services/uploadService';
 
 import { useImagePreview } from '@/hooks/useImagePreview';
 
-import { z } from 'zod';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { serviceSchema } from '../../../src/schemas/services.schema';
 
-type ServiceFormData = z.infer<typeof serviceSchema>;
+import type { NewService, Service } from '@/typings/Services';
 
-const initialForm: ServiceFormData = {
+const initialForm: NewService = {
   link: '',
   imageUrl: '',
   translations: [{ language: 'pt', title: '', description: '' }]
@@ -43,7 +42,7 @@ export function useServices(options?: { fetchList?: boolean; editId?: string }) 
     handleSubmit,
     reset,
     formState: { errors, isSubmitting }
-  } = useForm<ServiceFormData>({
+  } = useForm<NewService>({
     resolver: zodResolver(serviceSchema),
     defaultValues: initialForm
   });
@@ -112,7 +111,7 @@ export function useServices(options?: { fetchList?: boolean; editId?: string }) 
     }
   };
 
-  const processFormSubmit = async (data: ServiceFormData, id?: string) => {
+  const processFormSubmit = async (data: NewService, id?: string) => {
     setGlobalError(null);
     console.log(data);
     try {

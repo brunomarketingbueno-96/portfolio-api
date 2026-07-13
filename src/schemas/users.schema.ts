@@ -12,3 +12,12 @@ export const changePasswordSchema = z.object({
   oldPassword: z.string().min(6, { error: 'users.error.old_password' }),
   newPassword: z.string().min(6, { error: 'users.error.new_password' }),
 }).strict();
+
+export const passwordFormSchema = changePasswordSchema
+  .extend({
+    confirmPassword: z.string().min(6, { error: 'users.error.new_password' }),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: 'profile.error.password_mismatch',
+    path: ['confirmPassword'],
+  });

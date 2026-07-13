@@ -5,6 +5,8 @@ import { getProjectData } from '@/helpers/projectHelpers';
 import DeleteButton from '@/components/Buttons/DeleteButton';
 import EditButton from '@/components/Buttons/EditButton';
 
+import type { Project } from '@/typings/Projects';
+
 interface ProjectCardProps {
   project: Project;
   onDelete: (id: string) => void;

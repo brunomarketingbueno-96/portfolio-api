@@ -7,15 +7,13 @@ import { UploadService } from '@/services/uploadService';
 
 import { useImagePreview } from '@/hooks/useImagePreview';
 
-import { z } from 'zod';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-
 import { blogPostSchema } from '../../../src/schemas/blog-posts.schema';
 
-type BlogPostFormData = z.infer<typeof blogPostSchema>;
+import type { NewBlogPost, BlogPost } from '@/typings/BlogPosts';
 
-const initialForm: BlogPostFormData = {
+const initialForm: NewBlogPost = {
   coverImageUrl: '',
   isPublished: false,
   translations: [{ language: 'pt', slug: '', title: '', excerpt: '', content: '' }]
@@ -28,6 +26,8 @@ export function useBlogPosts(options?: { fetchList?: boolean; editId?: string })
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(!!options?.fetchList || !!options?.editId);
   const [globalError, setGlobalError] = useState<string | null>(null);
+
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const {
     imagePreview,
@@ -42,8 +42,10 @@ export function useBlogPosts(options?: { fetchList?: boolean; editId?: string })
     control,
     handleSubmit,
     reset,
+    getValues,
+    setValue,
     formState: { errors, isSubmitting }
-  } = useForm<BlogPostFormData>({
+  } = useForm<NewBlogPost>({
     resolver: zodResolver(blogPostSchema),
     defaultValues: initialForm
   });
@@ -114,7 +116,7 @@ export function useBlogPosts(options?: { fetchList?: boolean; editId?: string })
     }
   };
 
-  const processFormSubmit = async (data: BlogPostFormData, id?: string) => {
+  const processFormSubmit = async (data: NewBlogPost, id?: string) => {
     setGlobalError(null);
     try {
       let finalImageUrl = imagePreview || '';
@@ -146,6 +148,57 @@ export function useBlogPosts(options?: { fetchList?: boolean; editId?: string })
   const createBlogPost = handleSubmit((data) => processFormSubmit(data));
   const updateBlogPost = (id: string) => handleSubmit((data) => processFormSubmit(data, id));
 
+  const generateAIContent = async (prompt: string, index: number) => {
+    setIsGenerating(true);
+    setGlobalError(null);
+
+    try {
+      const currentTitle = getValues(`translations.${index}.title` as `translations.${number}.title`);
+      const currentExcerpt = getValues(`translations.${index}.excerpt` as `translations.${number}.excerpt`);
+      const currentSlug = getValues(`translations.${index}.slug` as `translations.${number}.slug`);
+      const currentLanguage = getValues(`translations.${index}.language` as `translations.${number}.language`) || 'en';
+
+      const response = await BlogPostService.generate({
+        prompt,
+        postPartialData: {
+          language: currentLanguage,
+          title: currentTitle,
+          excerpt: currentExcerpt,
+          slug: currentSlug,
+        }
+      });
+
+      if (!response.body) throw new Error('Stream não disponível');
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let html = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        html += chunk;
+
+        const cleanHtml = html.replace(/&nbsp;/g, ' ').replace(/\n+/g, '\n');
+
+        setValue(`translations.${index}.content` as `translations.${number}.content`, cleanHtml, {
+          shouldValidate: true,
+          shouldDirty: true
+        });
+      }
+
+    } catch (error) {
+      console.error("Erro na IA:", error);
+      const err = error as Error;
+      setGlobalError(err.message || 'Falha ao gerar conteúdo com IA');
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
   return {
     blogPosts,
     loading,
@@ -163,6 +216,10 @@ export function useBlogPosts(options?: { fetchList?: boolean; editId?: string })
     removeTranslation: remove,
 
     imagePreview,
-    handleFileChange
+    handleFileChange,
+
+    // AI
+    isGenerating,
+    generateAIContent
   };
 }

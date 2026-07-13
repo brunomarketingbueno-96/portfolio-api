@@ -6,7 +6,9 @@ type Settings = typeof settings.$inferSelect;
 type UpdateSettings = Partial<typeof settings.$inferInsert>;
 
 export const findGlobalSettings = async (): Promise<Settings | undefined> => {
-  return await db.query.settings.findFirst();
+  return await db.query.settings.findFirst({
+    with: { aiKeys: true }
+  });
 };
 
 export const updateGlobalSettingsRecord = async (

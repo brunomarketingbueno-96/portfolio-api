@@ -1,3 +1,5 @@
+import type { Project } from "@/typings/Projects";
+
 export const getProjectData = (project: Project, field: 'title' | 'description', currentLanguage: string) => {
   if (!project.translations || project.translations.length === 0) return null;
 

@@ -1,7 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '@/contexts/AuthContext';
@@ -9,20 +6,11 @@ import { UploadService } from '@/services/uploadService';
 import { UserService } from '@/services/userService';
 import { useImagePreview } from '@/hooks/useImagePreview';
 
-import { updateProfileSchema, changePasswordSchema } from '../../../src/schemas/users.schema';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { updateProfileSchema, passwordFormSchema } from '../../../src/schemas/users.schema';
 
-
-const passwordFormSchema = changePasswordSchema
-  .extend({
-    confirmPassword: z.string().min(6, { error: 'users.error.new_password' }),
-  })
-  .refine((data) => data.newPassword === data.confirmPassword, {
-    message: 'profile.error.password_mismatch',
-    path: ['confirmPassword'],
-  });
-
-type ProfileFormData = z.infer<typeof updateProfileSchema>;
-type PasswordFormData = z.infer<typeof passwordFormSchema>;
+import type { ChangePassword, Profile } from '@/typings/Profile';
 
 export function useProfile() {
   const { user, setUser } = useAuth();
@@ -41,12 +29,12 @@ export function useProfile() {
   const [successProfile, setSuccessProfile] = useState<boolean>(false);
   const [successPassword, setSuccessPassword] = useState<boolean>(false);
 
-  const profileForm = useForm<ProfileFormData>({
+  const profileForm = useForm<Profile>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: { name: '', email: '' }
   });
 
-  const passwordForm = useForm<PasswordFormData>({
+  const passwordForm = useForm<ChangePassword>({
     resolver: zodResolver(passwordFormSchema),
     defaultValues: { oldPassword: '', newPassword: '', confirmPassword: '' }
   });
@@ -64,7 +52,7 @@ export function useProfile() {
     }
   }, [user, profileForm, setImagePreview]);
 
-  const processProfileSubmit = async (data: ProfileFormData) => {
+  const processProfileSubmit = async (data: Profile) => {
     setGlobalErrorProfile(null);
     setSuccessProfile(false);
 
@@ -92,7 +80,7 @@ export function useProfile() {
     }
   };
 
-  const processPasswordSubmit = async (data: PasswordFormData) => {
+  const processPasswordSubmit = async (data: ChangePassword) => {
     setGlobalErrorPassword(null);
     setSuccessPassword(false);
 

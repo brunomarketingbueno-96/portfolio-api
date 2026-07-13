@@ -193,3 +193,30 @@ export const blogPostTranslationRelations = relations(blogPostTranslations, ({ o
     references: [blogPosts.id],
   }),
 }));
+
+export const aiProviders = pgTable('ai_api_keys', {
+  id: uuid('id').defaultRandom().primaryKey(),
+
+  settingsId: uuid('settings_id')
+    .notNull()
+    .references(() => settings.id, { onDelete: 'cascade' }),
+
+  name: text('name').notNull(),
+  provider: text('provider').$type<'openai' | 'groq' | 'gemini'>().notNull(),
+  key: text('key').notNull(),
+  isActive: boolean('is_active').default(false).notNull(),
+
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+export const settingsRelations = relations(settings, ({ many }) => ({
+  aiKeys: many(aiProviders),
+}));
+
+export const aiProvidersRelations = relations(aiProviders, ({ one }) => ({
+  setting: one(settings, {
+    fields: [aiProviders.settingsId],
+    references: [settings.id],
+  }),
+}));

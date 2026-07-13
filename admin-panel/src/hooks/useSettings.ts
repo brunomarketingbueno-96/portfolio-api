@@ -6,15 +6,13 @@ import { UploadService } from '@/services/uploadService';
 
 import { useImagePreview } from '@/hooks/useImagePreview';
 
-import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-
 import { settingsSchema } from '../../../src/schemas/settings.schema';
 
-type SettingsFormData = z.infer<typeof settingsSchema>;
+import type { GlobalSettings, NewSettings } from '@/typings/Settings';
 
-const initialForm: SettingsFormData = {
+const initialForm: NewSettings = {
   theme: 'system',
   panelLanguage: 'en',
   siteUrl: '',
@@ -23,10 +21,11 @@ const initialForm: SettingsFormData = {
   customConfig: {}
 };
 
+
 export function useSettings(options?: { fetchOnMount?: boolean }) {
   const { t } = useTranslation();
 
-  const [settings, setSettings] = useState<SettingsFormData | null>(null);
+  const [settings, setSettings] = useState<GlobalSettings>(null);
   const [loading, setLoading] = useState(!!options?.fetchOnMount);
   const [globalError, setGlobalError] = useState<string | null>(null);
 
@@ -43,7 +42,7 @@ export function useSettings(options?: { fetchOnMount?: boolean }) {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting }
-  } = useForm<SettingsFormData>({
+  } = useForm<NewSettings>({
     resolver: zodResolver(settingsSchema as never),
     defaultValues: initialForm
   });
@@ -54,6 +53,7 @@ export function useSettings(options?: { fetchOnMount?: boolean }) {
       const data = await SettingsService.get();
 
       const parsedData = {
+        ...data,
         theme: data.theme ?? 'system',
         panelLanguage: data.panelLanguage ?? 'en',
         customConfig: data.customConfig ?? {},
@@ -77,12 +77,13 @@ export function useSettings(options?: { fetchOnMount?: boolean }) {
   }, [reset, setImagePreview, t]);
 
   useEffect(() => {
+
     // eslint-disable-next-line react-hooks/set-state-in-effect
     if (options?.fetchOnMount) loadSettings();
 
   }, [options?.fetchOnMount, loadSettings]);
 
-  const processFormSubmit = async (data: SettingsFormData, onSuccess?: (updated: SettingsFormData) => void) => {
+  const processFormSubmit = async (data: NewSettings, onSuccess?: (updated: NewSettings) => void) => {
     setGlobalError(null);
     try {
       let finalLogoUrl = imagePreview || '';
@@ -101,7 +102,7 @@ export function useSettings(options?: { fetchOnMount?: boolean }) {
 
       const updated = await SettingsService.update(payload);
 
-      setSettings(prev => prev ? { ...prev, ...updated } : updated);
+      setSettings(updated);
       setSelectedFile(null);
 
       if (onSuccess) onSuccess(updated);
@@ -112,7 +113,7 @@ export function useSettings(options?: { fetchOnMount?: boolean }) {
     }
   };
 
-  const updateSettings = (onSuccess?: (updated: SettingsFormData) => void) =>
+  const updateSettings = (onSuccess?: (updated: NewSettings) => void) =>
     handleSubmit((data) => processFormSubmit(data, onSuccess));
 
   return {

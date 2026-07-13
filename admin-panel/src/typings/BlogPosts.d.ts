@@ -1,6 +1,8 @@
-interface BlogPost {
+import { z } from 'zod'
+import { blogPostSchema } from '../../../src/schemas/blog-posts.schema';
+
+export type NewBlogPost = z.infer<typeof blogPostSchema>;
+
+export type BlogPost = NewBlogPost & {
   id: string;
-  coverImageUrl: string;
-  isPublished: boolean;
-  translations: { language: string; slug: string; title: string; excerpt: string; content: string }[];
-}
+};

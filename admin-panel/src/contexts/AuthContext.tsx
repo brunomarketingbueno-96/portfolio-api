@@ -1,18 +1,12 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 import { AuthService } from '@/services/authService';
-
-interface User {
-  id: string;
-  email: string;
-  name: string | null;
-  avatarUrl: string | null;
-}
+import type { Profile } from '@/typings/Profile';
 
 interface AuthContextType {
   isAuthenticated: boolean;
   checkingAuth: boolean;
-  user: User | null;
-  setUser: (user: User | null) => void;
+  user: Profile | null;
+  setUser: (user: Profile | null) => void;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -22,7 +16,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<Profile | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {

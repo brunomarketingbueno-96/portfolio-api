@@ -1,6 +1,7 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import type { UseFormRegister, FieldErrors, FieldArrayWithId } from 'react-hook-form';
+import type { NewService } from '@/typings/Services';
 
 import Input from '@/components/Input';
 import Select from '@/components/Select';
@@ -11,15 +12,10 @@ import Textarea from '@/components/Textarea';
 
 import SaveButton from '@/components/Buttons/SaveButton';
 
-import { z } from 'zod';
-import { serviceSchema } from '../../../../src/schemas/services.schema';
-
-type ServiceFormData = z.infer<typeof serviceSchema>;
-
 interface ServiceFormProps {
-  register: UseFormRegister<ServiceFormData>;
-  errors: FieldErrors<ServiceFormData>;
-  fields: FieldArrayWithId<ServiceFormData, "translations", "id">[];
+  register: UseFormRegister<NewService>;
+  errors: FieldErrors<NewService>;
+  fields: FieldArrayWithId<NewService, "translations", "id">[];
   appendTranslation: () => void;
   removeTranslation: (index: number) => void;
 

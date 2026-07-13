@@ -1,16 +1,13 @@
 import { useTranslation } from 'react-i18next';
 
-import { z } from 'zod';
-import { blogPostSchema } from '../../../../src/schemas/blog-posts.schema';
-
 import DeleteButton from '@/components/Buttons/DeleteButton';
 import EditButton from '@/components/Buttons/EditButton';
 import ViewButton from '@/components/Buttons/ViewButton';
 
-type BlogPostFormData = z.infer<typeof blogPostSchema>;
+import type { BlogPost } from '@/typings/BlogPosts';
 
 interface BlogPostCardProps {
-  post: BlogPostFormData & { id: string };
+  post: BlogPost;
   onDelete: (id: string) => void;
 }
 

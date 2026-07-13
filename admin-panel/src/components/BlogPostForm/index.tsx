@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
+
 import { type UseFormRegister, type FieldErrors, type Control } from 'react-hook-form';
+import type { NewBlogPost } from '@/typings/BlogPosts';
 
 import ImageSelector from '@/components/ImageSelector';
 import BlogPostTranslationItem from '@/components/BlogPostTranslationItem';
@@ -7,14 +9,10 @@ import FormError from '@/components/FormError';
 
 import SaveButton from '@/components/Buttons/SaveButton';
 
-import { z } from 'zod';
-import { blogPostSchema } from '../../../../src/schemas/blog-posts.schema';
-export type BlogPostFormData = z.infer<typeof blogPostSchema>;
-
 interface BlogPostFormProps {
-  register: UseFormRegister<BlogPostFormData>;
-  control: Control<BlogPostFormData>;
-  errors: FieldErrors<BlogPostFormData>;
+  register: UseFormRegister<NewBlogPost>;
+  control: Control<NewBlogPost>;
+  errors: FieldErrors<NewBlogPost>;
   fields: Record<'id', string>[];
   appendTranslation: () => void;
   removeTranslation: (index: number) => void;
@@ -23,6 +21,8 @@ interface BlogPostFormProps {
   globalError: string | null;
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmitAction: (e?: React.BaseSyntheticEvent) => Promise<void>;
+  generateAIContent: (prompt: string, index: number) => Promise<void>;
+  isGenerating: boolean;
 }
 
 export default function BlogPostForm({
@@ -37,6 +37,8 @@ export default function BlogPostForm({
   globalError,
   handleFileChange,
   onSubmitAction,
+  generateAIContent,
+  isGenerating
 }: BlogPostFormProps) {
   const { t } = useTranslation();
 
@@ -96,6 +98,8 @@ export default function BlogPostForm({
             control={control}
             errors={errors}
             removeTranslation={removeTranslation}
+            onGenerateAI={generateAIContent}
+            isGenerating={isGenerating}
           />
         ))}
 

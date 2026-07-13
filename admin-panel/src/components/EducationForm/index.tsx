@@ -1,6 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import type { UseFormRegister, FieldErrors, FieldArrayWithId } from 'react-hook-form';
+import type { NewEducation } from '@/typings/Educations';
 
 import Input from '@/components/Input';
 import Select from '@/components/Select';
@@ -10,15 +12,10 @@ import Textarea from '@/components/Textarea';
 import FormError from '@/components/FormError';
 import SaveButton from '@/components/Buttons/SaveButton';
 
-import { z } from 'zod';
-import { educationSchema } from '../../../../src/schemas/educations.schema';
-
-type EducationFormData = z.infer<typeof educationSchema>;
-
 interface EducationFormProps {
-  register: UseFormRegister<EducationFormData>;
-  errors: FieldErrors<EducationFormData>;
-  fields: FieldArrayWithId<EducationFormData, "translations", "id">[];
+  register: UseFormRegister<NewEducation>;
+  errors: FieldErrors<NewEducation>;
+  fields: FieldArrayWithId<NewEducation, "translations", "id">[];
   appendTranslation: () => void;
   removeTranslation: (index: number) => void;
 

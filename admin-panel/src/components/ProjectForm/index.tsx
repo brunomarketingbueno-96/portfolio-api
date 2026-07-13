@@ -1,26 +1,22 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import type { UseFormRegister, FieldErrors, FieldArrayWithId } from 'react-hook-form';
+import type { NewProject } from '@/typings/Projects';
 
 import ImageSelector from '@/components/ImageSelector';
 import Input from '@/components/Input';
 import Select from '@/components/Select';
 import IconWrapper from '@/components/IconWrapper';
 import Textarea from '@/components/Textarea';
-
 import FormError from '@/components/FormError';
 
 import SaveButton from '@/components/Buttons/SaveButton';
 
-import { z } from 'zod';
-import { projectSchema } from '../../../../src/schemas/projects.schema';
-
-type ProjectFormData = z.infer<typeof projectSchema>;
-
 interface ProjectFormProps {
-  register: UseFormRegister<ProjectFormData>;
-  errors: FieldErrors<ProjectFormData>;
-  fields: FieldArrayWithId<ProjectFormData, "translations", "id">[];
+  register: UseFormRegister<NewProject>;
+  errors: FieldErrors<NewProject>;
+  fields: FieldArrayWithId<NewProject, "translations", "id">[];
   appendTranslation: () => void;
   removeTranslation: (index: number) => void;
 

@@ -1,13 +1,15 @@
 import { useTranslation } from 'react-i18next';
+
 import type { UseFormRegister, FieldErrors } from 'react-hook-form';
+import type { ChangePassword } from '@/typings/Profile';
 
 import Input from '@/components/Input';
 import IconWrapper from '@/components/IconWrapper';
-import FormError from '../FormError';
+import FormError from '@/components/FormError';
 
 interface PasswordFormProps {
-  passwordRegister: UseFormRegister<{ oldPassword: string; newPassword: string; confirmPassword: string }>;
-  passwordErrors: FieldErrors<{ oldPassword: string; newPassword: string; confirmPassword: string }>;
+  passwordRegister: UseFormRegister<ChangePassword>;
+  passwordErrors: FieldErrors<ChangePassword>;
   isSubmittingPassword: boolean;
   updatePasswordSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   globalErrorPassword?: string | null;

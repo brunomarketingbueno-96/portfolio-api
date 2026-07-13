@@ -1,8 +1,11 @@
 import { useTranslation } from 'react-i18next';
 
 import { getEducationData, getStatusColor, formatDate } from '@/helpers/educationHelpers';
-import EditButton from '../Buttons/EditButton';
-import DeleteButton from '../Buttons/DeleteButton';
+
+import EditButton from '@/components/Buttons/EditButton';
+import DeleteButton from '@/components/Buttons/DeleteButton';
+
+import type { Education } from '@/typings/Educations';
 
 interface EducationCardProps {
   education: Education;

@@ -4,15 +4,12 @@ import { useTranslation } from 'react-i18next';
 
 import { useSettings as useSettingsHook } from '@/hooks/useSettings';
 
-import { z } from 'zod';
-import { settingsSchema } from '../../../src/schemas/settings.schema';
-
-type Settings = z.infer<typeof settingsSchema>;
+import type { GlobalSettings, NewSettings } from '@/typings/Settings';
 
 interface SettingsContextType {
-  globalSettings: Settings | null;
+  globalSettings: GlobalSettings | null;
   isLoadingSettings: boolean;
-  applyNewSettings: (newSettings: Settings) => void;
+  applyNewSettings: (newSettings: NewSettings) => void;
 }
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
@@ -62,13 +59,13 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   }, [isAuthenticated, i18n, loadSettings]);
 
-  const applyNewSettings = (updated: Settings) => {
-    if (updated.panelLanguage) {
-      i18n.changeLanguage(mapLanguageToLocale(updated.panelLanguage));
+  const applyNewSettings = (newSettings: NewSettings) => {
+    if (newSettings.panelLanguage) {
+      i18n.changeLanguage(mapLanguageToLocale(newSettings.panelLanguage));
     }
 
-    if (updated.theme) {
-      applyThemeToDOM(updated.theme);
+    if (newSettings.theme) {
+      applyThemeToDOM(newSettings.theme);
     }
 
     loadSettings();

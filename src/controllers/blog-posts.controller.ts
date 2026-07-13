@@ -1,4 +1,10 @@
 import { Context } from 'hono';
+import { toTextStream } from 'ai';
+
+import { AiService } from '../services/ai.service.js'
+
+import { BlogPrompts, SupportedLanguage } from '../prompts/blog.prompts.js'
+import { generateBlogPostSchema } from '../schemas/blog-posts.schema.js';
 
 import {
   findAllBlogPosts,
@@ -132,5 +138,75 @@ export const deleteBlogPost = async (c: Context) => {
 
   } catch (error: any) {
     return c.json({ error: 'blog_posts.error.delete', message: error.message }, 500);
+  }
+};
+
+export const generateBlogPost = async (c: Context) => {
+  try {
+    const { prompt, postPartialData } = generateBlogPostSchema.parse(await c.req.json());
+
+    const groqApiKey = process.env.GROQ_API_KEY;
+    console.log(groqApiKey);
+
+    if (!groqApiKey) {
+      return c.json({
+        error: 'blog_posts.error.ai_key_missing',
+        message: 'API Key não configurada para este provedor.'
+      }, 400);
+    }
+
+    const aiService = new AiService('groq', 'llama-3.3-70b-versatile', groqApiKey);
+
+    const title = postPartialData?.title || 'Sem título';
+    const slug = postPartialData?.slug || 'sem-slug';
+    const excerpt = postPartialData?.excerpt || 'Desenvolva o conteúdo baseando-se no título e no prompt fornecido.';
+
+    const language = (postPartialData?.language as SupportedLanguage) || 'en';
+
+    const systemPrompt = BlogPrompts.buildHtmlSystemPrompt({
+      title,
+      slug,
+      excerpt,
+      language
+    });
+
+    const userPrompt = prompt || BlogPrompts.getUserPrompt(language);
+
+    const result = await aiService.streamHtmlContent(systemPrompt, userPrompt);
+
+    return new Response(toTextStream({ stream: result.stream }), {
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+      },
+    });
+
+  } catch (error: any) {
+    if (error.name === 'ZodError') {
+      return c.json({
+        error: 'blog_posts.error.validation',
+        message: error.errors
+      }, 400);
+    }
+
+    if (error instanceof Error) {
+      if (error.message.includes('429')) {
+        return c.json({
+          error: 'blog_posts.error.ai_rate_limit',
+          message: 'Limite de requisições da IA atingido. Tente novamente em instantes.'
+        }, 429);
+      }
+
+      return c.json({
+        error: 'blog_posts.error.ai_generation',
+        message: error.message
+      }, 500);
+    }
+
+    return c.json({
+      error: 'blog_posts.error.unknown',
+      message: 'Ocorreu um erro desconhecido.'
+    }, 500);
   }
 };

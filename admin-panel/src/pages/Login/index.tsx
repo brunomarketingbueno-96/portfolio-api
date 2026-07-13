@@ -5,7 +5,6 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 
 import { useAuth } from '@/contexts/AuthContext';
 
-import { z } from 'zod';
 import { loginSchema } from '../../../../src/schemas/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -13,7 +12,7 @@ import FullScreenLoader from '@/components/FullScreenLoader';
 import WelcomePanel from '@/components/WelcomePanel';
 import LoginForm from '@/components/LoginForm';
 
-type LoginFormData = z.infer<typeof loginSchema>;
+import type { LoginForm as LoginFormData } from '@/typings/Profile';
 
 export default function Login() {
   const { checkingAuth, isAuthenticated, login } = useAuth();

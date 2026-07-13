@@ -7,15 +7,13 @@ import { UploadService } from '@/services/uploadService';
 
 import { useImagePreview } from '@/hooks/useImagePreview';
 
-import { z } from 'zod';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { projectSchema } from '../../../src/schemas/projects.schema';
+import type { NewProject, Project } from '@/typings/Projects';
 
-type ProjectFormData = z.infer<typeof projectSchema>;
-
-const initialForm: ProjectFormData = {
+const initialForm: NewProject = {
   liveUrl: '',
   repoUrl: '',
   imageUrl: '',
@@ -44,7 +42,7 @@ export function useProjects(options?: { fetchList?: boolean; editId?: string }) 
     handleSubmit,
     reset,
     formState: { errors, isSubmitting }
-  } = useForm<ProjectFormData>({
+  } = useForm<NewProject>({
     resolver: zodResolver(projectSchema),
     defaultValues: initialForm
   });
@@ -118,7 +116,7 @@ export function useProjects(options?: { fetchList?: boolean; editId?: string }) 
     }
   };
 
-  const processFormSubmit = async (data: ProjectFormData, id?: string) => {
+  const processFormSubmit = async (data: NewProject, id?: string) => {
     setGlobalError(null);
     try {
       let finalImageUrl = imagePreview || '';

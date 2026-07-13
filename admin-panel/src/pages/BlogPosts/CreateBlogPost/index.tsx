@@ -15,7 +15,7 @@ export default function CreateBlogPost() {
   const {
     imagePreview, handleFileChange,
     isSubmitting, globalError,
-    createBlogPost,
+    createBlogPost, generateAIContent, isGenerating,
     register, control, errors, fields, appendTranslation, removeTranslation
   } = useBlogPosts();
 
@@ -45,6 +45,8 @@ export default function CreateBlogPost() {
           globalError={globalError}
           handleFileChange={handleFileChange}
           onSubmitAction={createBlogPost}
+          generateAIContent={generateAIContent}
+          isGenerating={isGenerating}
         />
       </main>
     </div>

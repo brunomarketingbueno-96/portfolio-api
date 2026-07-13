@@ -1,9 +1,5 @@
 import { handleResponse } from '@/helpers/fetchHelpers';
-
-import { z } from 'zod';
-import { blogPostSchema } from '../../../src/schemas/blog-posts.schema.js';
-
-type BlogPost = z.infer<typeof blogPostSchema>;
+import type { BlogPost, NewBlogPost } from '@/typings/BlogPosts';
 
 export const BlogPostService = {
   async getAll(): Promise<BlogPost[]> {
@@ -16,7 +12,7 @@ export const BlogPostService = {
     return handleResponse(res);
   },
 
-  async create(payload: Partial<BlogPost>): Promise<BlogPost> {
+  async create(payload: NewBlogPost): Promise<BlogPost> {
     const res = await fetch('/api/blog-posts', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -42,5 +38,29 @@ export const BlogPostService = {
       credentials: 'include'
     });
     return handleResponse(res);
+  },
+
+  async generate(payload: {
+    prompt: string;
+    postPartialData: {
+      language: string;
+      title?: string;
+      excerpt?: string;
+      slug?: string;
+    }
+  }): Promise<Response> {
+    const res = await fetch('/api/blog-posts/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      throw new Error(errorData.message || 'Erro ao gerar conteúdo com IA');
+    }
+
+    return res;
   }
 };

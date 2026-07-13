@@ -8,10 +8,7 @@ import FormError from '@/components/FormError';
 
 import SaveButton from '@/components/Buttons/SaveButton';
 
-import { z } from 'zod';
-import { updateProfileSchema } from '../../../../src/schemas/users.schema';
-
-type Profile = z.infer<typeof updateProfileSchema>;
+import type { Profile } from '@/typings/Profile';
 
 interface ProfileFormProps {
   profileRegister: UseFormRegister<Profile>;

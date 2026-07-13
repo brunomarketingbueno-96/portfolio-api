@@ -1,4 +1,5 @@
 import { handleResponse } from '@/helpers/fetchHelpers';
+import type { LoginForm } from '@/typings/Profile';
 
 export const AuthService = {
   async me() {
@@ -6,7 +7,7 @@ export const AuthService = {
     return handleResponse(res);
   },
 
-  async login(payload: { email: string; password: string }) {
+  async login(payload: LoginForm) {
     const res = await fetch('/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

@@ -5,6 +5,8 @@ import { getServiceData } from '@/helpers/serviceHelpers';
 import DeleteButton from '@/components/Buttons/DeleteButton';
 import EditButton from '@/components/Buttons/EditButton';
 
+import type { Service } from '@/typings/Services';
+
 interface ServiceCardProps {
   service: Service;
   onDelete: (id: string) => void;

@@ -16,6 +16,7 @@ export default function Educations() {
 
   const { educations, loading, globalError, deleteEducation } = useEducations({ fetchList: true });
 
+
   const render = () => {
     if (loading) {
       return (

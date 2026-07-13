@@ -4,6 +4,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import Settings from '@/pages/Settings';
 import { useSettingsContext } from '@/contexts/SettingsContext';
 import { useSettings } from '@/hooks/useSettings';
+import { useAiProviders } from '@/hooks/useAiProviders';
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -17,6 +18,10 @@ vi.mock('@/contexts/SettingsContext', () => ({
 
 vi.mock('@/hooks/useSettings', () => ({
   useSettings: vi.fn(),
+}));
+
+vi.mock('@/hooks/useAiProviders', () => ({
+  useAiProviders: vi.fn(),
 }));
 
 vi.mock('@/components/Background', () => ({
@@ -72,6 +77,7 @@ describe('Settings Page Component', () => {
     publicEmail: 'admin@example.com',
     logoUrl: 'https://example.com/logo.png',
     customConfig: {},
+    aiKeys: []
   };
 
   beforeEach(() => {
@@ -94,6 +100,17 @@ describe('Settings Page Component', () => {
       reset: mockReset,
       setImagePreview: mockSetImagePreview,
     } as any);
+
+    vi.mocked(useAiProviders).mockReturnValue({
+      register: vi.fn() as any,
+      errors: {},
+      isSubmitting: false,
+      globalError: null,
+      createAiProvider: vi.fn(),
+      updateAiProvider: vi.fn(),
+      deleteAiProvider: vi.fn(),
+      reset: vi.fn(),
+    } as any);
   });
 
   it('should render loading spinner when isLoadingSettings is true', () => {
@@ -113,8 +130,9 @@ describe('Settings Page Component', () => {
     render(<Settings />);
 
     expect(screen.getByTestId('mock-background')).toBeInTheDocument();
-    expect(screen.getByTestId('mock-heading')).toHaveTextContent('Settings');
-    expect(screen.getByTestId('mock-subtitle')).toHaveTextContent('Manage the panel settings.');
+
+    expect(screen.getAllByTestId('mock-heading')[0]).toHaveTextContent('Settings');
+    expect(screen.getAllByTestId('mock-subtitle')[0]).toHaveTextContent('Manage the panel settings.');
 
     const link = screen.getByTestId('mock-back-button');
     expect(link).toHaveAttribute('href', '/panel');
