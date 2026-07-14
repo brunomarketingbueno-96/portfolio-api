@@ -11,3 +11,5 @@ export const contactSchema = z.object({
   error: 'contact.error.email_or_whatsapp',
   path: ['email'],
 });
+
+export type Contact = z.infer<typeof contactSchema>;

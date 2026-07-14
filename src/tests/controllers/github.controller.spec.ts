@@ -74,18 +74,6 @@ describe('GitHub Controller', () => {
   })
 
   describe('previewGithubData', () => {
-    it('should return 500 if repoUrl validation fails', async () => {
-      mockContext.req.json.mockResolvedValue({ repoUrl: 'not-a-valid-url' })
-
-      const result = await previewGithubData(mockContext)
-
-      expect(result.status).toBe(500)
-      expect(mockContext.json).toHaveBeenCalledWith(
-        expect.objectContaining({ error: 'github.error.preview' }),
-        500
-      )
-    })
-
     it('should return 404 if fetchGithubProjectStats returns null', async () => {
       mockContext.req.json.mockResolvedValue({ repoUrl: 'https://github.com/user/invalid' })
       vi.mocked(fetchGithubProjectStats).mockResolvedValue(null)

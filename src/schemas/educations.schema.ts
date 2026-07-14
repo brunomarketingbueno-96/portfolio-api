@@ -39,3 +39,5 @@ export const educationSchema = z.object({
   status: z.string().min(2, { error: 'educations.error.status' }),
   translations: z.array(educationTranslationSchema).min(1, { error: 'educations.error.translations_required' }),
 }).strict();
+
+export type Education = z.infer<typeof educationSchema>;

@@ -13,3 +13,5 @@ export const aiProviderSchema = z.object({
 
   isActive: z.boolean().default(false).optional(),
 }).strict();
+
+export type AIProvider = z.infer<typeof aiProviderSchema>;

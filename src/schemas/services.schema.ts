@@ -17,3 +17,5 @@ export const serviceSchema = z.object({
     description: z.string().min(10, { error: 'services.error.description' }),
   }).strict()).min(1, { error: 'services.error.translations_required' }),
 }).strict()
+
+export type Service = z.infer<typeof serviceSchema>

@@ -21,3 +21,6 @@ export const passwordFormSchema = changePasswordSchema
     message: 'profile.error.password_mismatch',
     path: ['confirmPassword'],
   });
+
+export type UpdateProfile = z.infer<typeof updateProfileSchema>;
+export type ChangePassword = z.infer<typeof changePasswordSchema>;

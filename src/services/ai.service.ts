@@ -1,7 +1,7 @@
 import { streamText, LanguageModel } from 'ai';
-import { createOpenAI } from '@ai-sdk/openai';
 
-// import { createGoogleGenerativeAI } from '@ai-sdk/google';
+import { createOpenAI } from '@ai-sdk/openai';
+import { createGoogle } from '@ai-sdk/google';
 
 export type ProviderType = 'groq' | 'openai' | 'gemini';
 
@@ -9,7 +9,6 @@ export class AiService {
   private model: LanguageModel;
 
   constructor(provider: ProviderType, modelName: string, apiKey: string) {
-
     if (provider === 'groq') {
       const groq = createOpenAI({
         baseURL: 'https://api.groq.com/openai/v1',
@@ -26,11 +25,10 @@ export class AiService {
     }
 
     else if (provider === 'gemini') {
-      // Placeholder
-      // const google = createGoogleGenerativeAI({ apiKey: apiKey });
-      // this.model = google(modelName);
-
-      throw new Error('Provedor Gemini ainda não foi ativado no sistema.');
+      const google = createGoogle({
+        apiKey: apiKey
+      });
+      this.model = google(modelName);
     }
 
     else {

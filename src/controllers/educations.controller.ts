@@ -1,5 +1,7 @@
 import { Context } from 'hono';
 
+import type { Education } from '../schemas/educations.schema.js';
+
 import {
   findAllEducations,
   findEducationById,
@@ -7,8 +9,6 @@ import {
   updateEducationRecord,
   deleteEducationRecord
 } from '../repositories/educations.repository.js';
-
-import { educationSchema } from '../schemas/educations.schema.js';
 
 export const getEducations = async (c: Context) => {
   try {
@@ -39,10 +39,9 @@ export const getEducationById = async (c: Context) => {
 
 export const createEducation = async (c: Context) => {
   try {
-    const { translations, ...educationData } = educationSchema.parse(await c.req.json());
+    const { translations, ...educationData } = await c.req.json<Education>();
 
     const eduRecord = await createEducationRecord(educationData, translations);
-
     if (!eduRecord) return c.json({
       error: 'educations.error.create', message: 'Education not created'
     }, 422);
@@ -58,7 +57,7 @@ export const updateEducation = async (c: Context) => {
   const id = c.req.param('id');
 
   try {
-    const { translations, ...educationData } = educationSchema.parse(await c.req.json());
+    const { translations, ...educationData } = await c.req.json<Education>();
 
     const updatedEducation = await updateEducationRecord(id, educationData, translations);
 

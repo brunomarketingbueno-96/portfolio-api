@@ -2,9 +2,10 @@ import { Context } from 'hono';
 import { toTextStream } from 'ai';
 
 import { AiService } from '../services/ai.service.js'
+import { BlogPrompts } from '../prompts/blog.prompts.js'
+import type { BlogPost, GenerateBlogPost } from '../schemas/blog-posts.schema.js';
 
-import { BlogPrompts, SupportedLanguage } from '../prompts/blog.prompts.js'
-import { generateBlogPostSchema } from '../schemas/blog-posts.schema.js';
+import { DEFAULT_MODELS } from '../constants/index.js';
 
 import {
   findAllBlogPosts,
@@ -15,7 +16,9 @@ import {
   deleteBlogPostRecord,
 } from '../repositories/blog-posts.repository.js';
 
-import { blogPostSchema } from '../schemas/blog-posts.schema.js';
+import {
+  findAiProviderById
+} from '../repositories/ai-providers.repository.js';
 
 export const getBlogPosts = async (c: Context) => {
   try {
@@ -73,7 +76,7 @@ export const getBlogPostById = async (c: Context) => {
 
 export const createBlogPost = async (c: Context) => {
   try {
-    const { translations, ...postData } = blogPostSchema.parse(await c.req.json());
+    const { translations, ...postData } = await c.req.json<BlogPost>();
 
     const newPostData = {
       ...postData,
@@ -97,7 +100,7 @@ export const updateBlogPost = async (c: Context) => {
   const id = c.req.param('id');
 
   try {
-    const { translations, ...postData } = blogPostSchema.parse(await c.req.json());
+    const { translations, ...postData } = await c.req.json<BlogPost>();
 
     const existingPost = await findBlogPostById(id);
 
@@ -143,35 +146,35 @@ export const deleteBlogPost = async (c: Context) => {
 
 export const generateBlogPost = async (c: Context) => {
   try {
-    const { prompt, postPartialData } = generateBlogPostSchema.parse(await c.req.json());
+    const { prompt, postPartialData, providerId } = await c.req.json<GenerateBlogPost>();
 
-    const groqApiKey = process.env.GROQ_API_KEY;
-    console.log(groqApiKey);
-
-    if (!groqApiKey) {
+    const aiProviderRecord = await findAiProviderById(providerId);
+    if (!aiProviderRecord) {
       return c.json({
-        error: 'blog_posts.error.ai_key_missing',
-        message: 'API Key não configurada para este provedor.'
+        error: 'blog_posts.error.provider_not_found',
+        message: 'Provedor de IA não encontrado.'
+      }, 404);
+    }
+
+    if (!aiProviderRecord.isActive) {
+      return c.json({
+        error: 'blog_posts.error.provider_inactive',
+        message: 'O provedor de IA selecionado está desativado no painel.'
       }, 400);
     }
 
-    const aiService = new AiService('groq', 'llama-3.3-70b-versatile', groqApiKey);
+    const model = DEFAULT_MODELS[aiProviderRecord.provider];
+    if (!model) {
+      return c.json({
+        error: 'blog_posts.error.invalid_model',
+        message: 'Modelo padrão não definido para este provedor.'
+      }, 400);
+    }
 
-    const title = postPartialData?.title || 'Sem título';
-    const slug = postPartialData?.slug || 'sem-slug';
-    const excerpt = postPartialData?.excerpt || 'Desenvolva o conteúdo baseando-se no título e no prompt fornecido.';
+    const systemPrompt = BlogPrompts.buildHtmlSystemPrompt(postPartialData);
+    const userPrompt = prompt || BlogPrompts.getUserPrompt(postPartialData.language);
 
-    const language = (postPartialData?.language as SupportedLanguage) || 'en';
-
-    const systemPrompt = BlogPrompts.buildHtmlSystemPrompt({
-      title,
-      slug,
-      excerpt,
-      language
-    });
-
-    const userPrompt = prompt || BlogPrompts.getUserPrompt(language);
-
+    const aiService = new AiService(aiProviderRecord.provider, model, aiProviderRecord.key);
     const result = await aiService.streamHtmlContent(systemPrompt, userPrompt);
 
     return new Response(toTextStream({ stream: result.stream }), {
@@ -183,30 +186,6 @@ export const generateBlogPost = async (c: Context) => {
     });
 
   } catch (error: any) {
-    if (error.name === 'ZodError') {
-      return c.json({
-        error: 'blog_posts.error.validation',
-        message: error.errors
-      }, 400);
-    }
-
-    if (error instanceof Error) {
-      if (error.message.includes('429')) {
-        return c.json({
-          error: 'blog_posts.error.ai_rate_limit',
-          message: 'Limite de requisições da IA atingido. Tente novamente em instantes.'
-        }, 429);
-      }
-
-      return c.json({
-        error: 'blog_posts.error.ai_generation',
-        message: error.message
-      }, 500);
-    }
-
-    return c.json({
-      error: 'blog_posts.error.unknown',
-      message: 'Ocorreu um erro desconhecido.'
-    }, 500);
+    return c.json({ error: 'blog_posts.error.generate', message: error.message }, 500);
   }
 };

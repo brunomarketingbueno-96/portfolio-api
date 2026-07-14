@@ -24,7 +24,7 @@ export const findEducationById = async (id: string): Promise<(Education & { tran
 export const createEducationRecord = async (
   educationData: NewEducation,
   translationsData: Omit<NewEducationTranslation, 'educationId'>[]
-) => {
+): Promise<Education & { translations: EducationTranslation[] } | null> => {
   return await db.transaction(async (tx) => {
     const [eduRecord] = await tx.insert(education).values(educationData).returning();
 
@@ -52,7 +52,7 @@ export const updateEducationRecord = async (
   id: string,
   educationData: NewEducation,
   translationsData: Omit<NewEducationTranslation, 'educationId'>[]
-) => {
+): Promise<Education & { translations: EducationTranslation[] } | null> => {
   return await db.transaction(async (tx) => {
     const [updatedEducation] = await tx.update(education)
       .set({

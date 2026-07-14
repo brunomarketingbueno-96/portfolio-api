@@ -1,5 +1,7 @@
 import { Context } from 'hono';
 
+import type { Project } from '../schemas/projects.schema.js';
+
 import {
   findAllProjects,
   findProjectById,
@@ -7,8 +9,6 @@ import {
   updateProjectRecord,
   deleteProjectRecord
 } from '../repositories/projects.repository.js';
-
-import { projectSchema } from '../schemas/projects.schema.js';
 
 export const getProjects = async (c: Context) => {
   try {
@@ -39,7 +39,7 @@ export const getProjectById = async (c: Context) => {
 
 export const createProject = async (c: Context) => {
   try {
-    const { translations, ...projectData } = projectSchema.parse(await c.req.json());
+    const { translations, ...projectData } = await c.req.json<Project>();
 
     const newProject = await createProjectRecord(projectData, translations);
 
@@ -58,7 +58,7 @@ export const updateProject = async (c: Context) => {
   const id = c.req.param('id');
 
   try {
-    const { translations, ...projectData } = projectSchema.parse(await c.req.json());
+    const { translations, ...projectData } = await c.req.json<Project>();
 
     const updatedProject = await updateProjectRecord(id, projectData, translations);
 

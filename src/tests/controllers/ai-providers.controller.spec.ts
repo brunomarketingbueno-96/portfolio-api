@@ -65,26 +65,6 @@ describe('AI Providers Controller', () => {
       expect(result.status).toBe(201);
     });
 
-    it('should return 500 when JSON body is invalid (Zod parsing error)', async () => {
-      const invalidPayload = {
-        name: 'Op', // min is 3
-        provider: 'invalid-provider',
-        key: '', // min is 1
-      };
-
-      mockContext.req.json.mockResolvedValue(invalidPayload);
-
-      const result = await createAiProvider(mockContext);
-
-      expect(mockContext.json).toHaveBeenCalledWith(
-        expect.objectContaining({
-          error: 'ai_providers.error.create',
-        }),
-        500
-      );
-      expect(result.status).toBe(500);
-    });
-
     it('should return 404 if global settings do not exist', async () => {
       mockContext.req.json.mockResolvedValue(validPayload);
       vi.mocked(findGlobalSettings).mockResolvedValue(null as any);
@@ -145,24 +125,6 @@ describe('AI Providers Controller', () => {
       expect(updateAiProviderRecord).toHaveBeenCalledWith('provider-123', validPayload);
       expect(mockContext.json).toHaveBeenCalledWith(mockUpdatedProvider, 200);
       expect(result.status).toBe(200);
-    });
-
-    it('should return 500 when request body fails validation', async () => {
-      const invalidPayload = {
-        name: 'ab',
-      };
-
-      mockContext.req.json.mockResolvedValue(invalidPayload);
-
-      const result = await updateAiProvider(mockContext);
-
-      expect(mockContext.json).toHaveBeenCalledWith(
-        expect.objectContaining({
-          error: 'ai_providers.error.update',
-        }),
-        500
-      );
-      expect(result.status).toBe(500);
     });
 
     it('should return 422 if repository fails to update the record', async () => {

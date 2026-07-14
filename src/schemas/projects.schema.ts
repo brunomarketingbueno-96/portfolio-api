@@ -32,3 +32,5 @@ export const projectSchema = z.object({
 
   githubStats: githubStatsSchema.optional().nullable(),
 }).strict();
+
+export type Project = z.infer<typeof projectSchema>;

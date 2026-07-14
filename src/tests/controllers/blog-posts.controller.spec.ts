@@ -245,22 +245,6 @@ describe('Blog Posts Controller', () => {
       expect(response.status).toBe(422);
     });
 
-    it('should return 500 when input schema parsing fails', async () => {
-      const invalidPayload = { isPublished: 'not-a-boolean' };
-      mockContext.req.json.mockResolvedValue(invalidPayload);
-
-      const response = await createBlogPost(mockContext);
-
-      expect(mockContext.json).toHaveBeenCalledWith(
-        expect.objectContaining({
-          error: 'blog_posts.error.create',
-          message: expect.any(String),
-        }),
-        500
-      );
-      expect(response.status).toBe(500);
-    });
-
     it('should return 500 when repository throws error', async () => {
       mockContext.req.json.mockResolvedValue(validPayload);
       const errorMsg = 'Create Failed';
@@ -361,22 +345,6 @@ describe('Blog Posts Controller', () => {
         422
       );
       expect(response.status).toBe(422);
-    });
-
-    it('should return 500 when input validation fails', async () => {
-      mockParams = { id: 'post-123' };
-      mockContext.req.json.mockResolvedValue({ isPublished: 'invalid' });
-
-      const response = await updateBlogPost(mockContext);
-
-      expect(mockContext.json).toHaveBeenCalledWith(
-        expect.objectContaining({
-          error: 'blog_posts.error.update',
-          message: expect.any(String),
-        }),
-        500
-      );
-      expect(response.status).toBe(500);
     });
   });
 

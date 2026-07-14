@@ -42,12 +42,6 @@ describe('AiService', () => {
       expect(service['model']).toBe(mockModel);
     });
 
-    it('should throw error when initializing with gemini provider', () => {
-      expect(() => {
-        new AiService('gemini', 'gemini-1.5-pro', 'gemini-key');
-      }).toThrow('Provedor Gemini ainda não foi ativado no sistema.');
-    });
-
     it('should throw error when provider is unsupported', () => {
       expect(() => {
         new AiService('unsupported' as any, 'some-model', 'some-key');

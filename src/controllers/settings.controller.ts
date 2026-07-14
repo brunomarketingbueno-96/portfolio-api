@@ -1,11 +1,11 @@
 import { Context } from 'hono';
 
+import type { Settings } from '../schemas/settings.schema.js';
+
 import {
   findGlobalSettings,
   updateGlobalSettingsRecord
 } from '../repositories/settings.repository.js';
-
-import { settingsSchema } from '../schemas/settings.schema.js';
 
 export const getSettings = async (c: Context) => {
   try {
@@ -24,7 +24,7 @@ export const getSettings = async (c: Context) => {
 
 export const updateSettings = async (c: Context) => {
   try {
-    const settingsData = settingsSchema.parse(await c.req.json());
+    const settingsData = await c.req.json<Settings>();
 
     const existingSettings = await findGlobalSettings();
 

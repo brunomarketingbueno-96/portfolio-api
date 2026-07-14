@@ -1,9 +1,11 @@
+import { handleResponse } from "../../admin-panel/src/helpers/fetchHelpers.js";
+
 export type SupportedLanguage = 'pt' | 'en' | 'es';
 
 export interface BlogPostPromptContext {
   title: string;
-  slug: string;
-  excerpt: string;
+  slug?: string;
+  excerpt?: string;
   language: SupportedLanguage;
 }
 
@@ -17,8 +19,8 @@ export const BlogPrompts = {
         
         Contexto do Post:
         - Título: ${context.title}
-        - Resumo/Direção (Excerpt): ${context.excerpt}
-        - Slug (URL - Use para entender as palavras-chave principais): ${context.slug}
+        - Resumo/Direção (Excerpt): ${BlogPrompts.handleContent(context.excerpt, 'pt')}
+        - Slug (URL - Use para entender as palavras-chave principais): ${BlogPrompts.handleContent(context.slug, 'pt')}
         
         Diretrizes de Conteúdo:
         - Desenvolva o texto de forma extensa e detalhada.
@@ -40,8 +42,8 @@ export const BlogPrompts = {
         
         Contexto del Post:
         - Título: ${context.title}
-        - Resumen/Dirección (Excerpt): ${context.excerpt}
-        - Slug (URL - Úsalo para entender las palabras clave principales): ${context.slug}
+        - Resumen/Dirección (Excerpt): ${BlogPrompts.handleContent(context.excerpt, 'es')}
+        - Slug (URL - Úsalo para entender las palabras clave principales): ${BlogPrompts.handleContent(context.slug, 'es')}
         
         Pautas de Contenido:
         - Desarrolla el texto de forma extensa y detallada.
@@ -64,8 +66,8 @@ export const BlogPrompts = {
         
         Post Context:
         - Title: ${context.title}
-        - Summary/Direction (Excerpt): ${context.excerpt}
-        - Slug (URL - Use to understand main keywords): ${context.slug}
+        - Summary/Direction (Excerpt): ${BlogPrompts.handleContent(context.excerpt, 'en')}
+        - Slug (URL - Use to understand main keywords): ${BlogPrompts.handleContent(context.slug, 'en')}
         
         Content Guidelines:
         - Develop the text extensively and with great detail.
@@ -88,5 +90,12 @@ export const BlogPrompts = {
     if (language === 'pt') return 'Desenvolva o texto principal com alta qualidade e profundidade.';
 
     return 'Write the main text with high quality and depth.';
+  },
+
+  handleContent(content: string | undefined | null, language: string) {
+    if (!content && language !== 'en') return 'Not Informed';
+    if (!content && language === 'pt') return 'Não informado';
+    if (!content && language === 'es') return 'No informado';
+    return content;
   }
 };

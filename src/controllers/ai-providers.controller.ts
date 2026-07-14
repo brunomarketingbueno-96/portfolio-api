@@ -1,6 +1,6 @@
 import { Context } from 'hono';
 
-import { aiProviderSchema } from '../schemas/ai-providers.schema.js';
+import type { AIProvider } from '../schemas/ai-providers.schema.js';
 import { findGlobalSettings } from '../repositories/settings.repository.js';
 
 import {
@@ -11,10 +11,9 @@ import {
 
 export const createAiProvider = async (c: Context) => {
   try {
-    const data = aiProviderSchema.parse(await c.req.json());
+    const data = await c.req.json<AIProvider>();
 
     const settings = await findGlobalSettings();
-
     if (!settings) return c.json({
       error: 'settings.error.not_found', message: 'Settings not found'
     }, 404);
@@ -39,10 +38,9 @@ export const updateAiProvider = async (c: Context) => {
   const id = c.req.param('id');
 
   try {
-    const data = aiProviderSchema.parse(await c.req.json());
+    const data = await c.req.json<AIProvider>();
 
     const updatedProvider = await updateAiProviderRecord(id, data);
-
     if (!updatedProvider) return c.json({
       error: 'ai_providers.error.update', message: 'AI Provider not updated'
     }, 422);
@@ -59,7 +57,6 @@ export const deleteAiProvider = async (c: Context) => {
 
   try {
     const deletedProvider = await deleteAiProviderRecord(id);
-
     if (!deletedProvider) return c.json({
       error: 'ai_providers.error.delete', message: 'AI Provider not deleted'
     }, 422);

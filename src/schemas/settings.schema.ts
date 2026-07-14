@@ -28,3 +28,5 @@ export const settingsSchema = z.object({
     .optional()
     .nullable(),
 }).strict();
+
+export type Settings = z.infer<typeof settingsSchema>;
