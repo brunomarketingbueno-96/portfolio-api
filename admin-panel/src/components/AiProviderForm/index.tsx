@@ -1,15 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { type UseFormRegister, type FieldErrors } from 'react-hook-form';
 
-import { z } from 'zod'
-
-import { aiProviderSchema } from '../../../../src/schemas/ai-providers.schema';
-
-type AiProviderFormData = z.infer<typeof aiProviderSchema>;
+import type { AIProvider } from '@/typings/AiProvider';
 
 interface AiProviderFormProps {
-  register: UseFormRegister<AiProviderFormData>;
-  errors: FieldErrors<AiProviderFormData>;
+  register: UseFormRegister<AIProvider>;
+  errors: FieldErrors<AIProvider>;
   isSubmitting: boolean;
   onSubmitAction: (e?: React.BaseSyntheticEvent) => Promise<void>;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { UseFormRegister, FieldErrors } from 'react-hook-form';
-import type { SettingsFormData } from '@/typings/Settings';
+import type { Settings } from '@/typings/Settings';
 
 import Input from '@/components/Input';
 import Select from '@/components/Select';
@@ -12,8 +12,8 @@ import FormError from '@/components/FormError';
 import SaveButton from '@/components/Buttons/SaveButton';
 
 interface SettingsFormProps {
-  register: UseFormRegister<SettingsFormData>;
-  errors: FieldErrors<SettingsFormData>;
+  register: UseFormRegister<Settings>;
+  errors: FieldErrors<Settings>;
   imagePreview: string | null;
   isSubmitting: boolean;
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

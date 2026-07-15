@@ -1,8 +1,11 @@
-import { useRef, useMemo, useCallback, useState } from 'react';
+import { useRef, useMemo, useCallback, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
+
+import CodeEditor from '@uiw/react-textarea-code-editor';
+import { html_beautify } from 'js-beautify';
 
 import { UploadService } from '@/services/uploadService';
 
@@ -21,6 +24,42 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
   const { t } = useTranslation();
   const quillRef = useRef<ReactQuill>(null);
   const [showSource, setShowSource] = useState(false);
+  const [editorTheme, setEditorTheme] = useState<'light' | 'dark'>('light');
+
+  // Observa o tema do Tailwind para sincronizar o syntax highlighting do editor de código
+  useEffect(() => {
+    const checkTheme = () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setEditorTheme(isDark ? 'dark' : 'light');
+    };
+
+    checkTheme();
+
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Usa a biblioteca oficial para decodificar e indentar o código
+  const getDecodedAndFormattedSourceCode = (html: string) => {
+    if (!html) return '';
+
+    // Decodifica as entidades
+    const txt = document.createElement('textarea');
+    txt.innerHTML = html;
+    const decoded = txt.value.replace(/\u00a0/g, ' ');
+
+    // Formata o HTML com js-beautify
+    return html_beautify(decoded, {
+      indent_size: 2,
+      wrap_line_length: 120,
+      preserve_newlines: false,
+    });
+  };
 
   const imageHandler = useCallback(() => {
     const input = document.createElement('input');
@@ -85,12 +124,21 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
 
       <div className="rich-text-container bg-white dark:bg-zinc-900 rounded-lg overflow-hidden border border-gray-300 dark:border-zinc-600">
         {showSource ? (
-          <textarea
-            value={value || ''}
-            onChange={(e) => onChange(e.target.value)}
-            className="w-full min-h-75 p-4 font-mono text-sm bg-gray-50 dark:bg-zinc-950 text-gray-800 dark:text-gray-300 resize-y outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder={t('blog_posts.editor.placeholders.html')}
-          />
+          <div className="w-full min-h-75 resize-y overflow-auto bg-gray-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
+            <CodeEditor
+              value={getDecodedAndFormattedSourceCode(value)}
+              language="html"
+              placeholder={t('blog_posts.editor.placeholders.html')}
+              onChange={(e) => onChange(e.target.value)}
+              padding={16}
+              data-color-mode={editorTheme} // Injeta o tema dinâmico (resolve o contraste)
+              className="w-full h-full min-h-75 outline-none font-mono text-sm bg-transparent"
+              style={{
+                fontFamily: 'ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace',
+                backgroundColor: 'transparent',
+              }}
+            />
+          </div>
         ) : (
           <ReactQuill
             ref={quillRef}

@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { type UseFormRegister, type FieldErrors } from 'react-hook-form';
-import type { NewAiProvider } from '@/typings/AiProvider';
+
+import type { AIProvider } from '@/typings/AiProvider';
 
 import Heading from '@/components/Heading';
 import SubTitle from '@/components/SubTitle';
@@ -8,8 +9,8 @@ import AiProviderForm from '@/components/AiProviderForm';
 import GlobalError from '@/components/GlobalError';
 
 interface AiProviderSectionProps {
-  register: UseFormRegister<NewAiProvider>;
-  errors: FieldErrors<NewAiProvider>;
+  register: UseFormRegister<AIProvider>;
+  errors: FieldErrors<AIProvider>;
   isSubmitting: boolean;
   globalError: string | null;
   onSubmitAction: (e?: React.BaseSyntheticEvent) => Promise<void>;

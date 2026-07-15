@@ -21,7 +21,7 @@ interface BlogPostFormProps {
   globalError: string | null;
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmitAction: (e?: React.BaseSyntheticEvent) => Promise<void>;
-  generateAIContent: (prompt: string, index: number) => Promise<void>;
+  generateAIContent: (prompt: string, index: number, providerId: string) => Promise<void>;
   isGenerating: boolean;
 }
 

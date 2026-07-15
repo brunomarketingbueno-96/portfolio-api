@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next';
-import type { AiProvider } from '@/typings/AiProvider';
+import type { AIProvider } from '@/typings/AiProvider';
 
 import Heading from '@/components/Heading';
 import AiProviderCard from '@/components/AiProviderCard';
 
 interface AiProvidersListProps {
-  providers: AiProvider[];
-  onEdit: (provider: AiProvider) => void;
-  onDelete: (id: string) => void;
+  providers: AIProvider[];
+  onEdit: (provider: AIProvider) => void;
+  onDelete: (id?: string) => void;
 }
 
 export default function AiProvidersList({ providers, onEdit, onDelete }: AiProvidersListProps) {

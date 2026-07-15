@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -8,9 +7,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { aiProviderSchema } from '../../../src/schemas/ai-providers.schema';
 
-import type { NewAiProvider } from '@/typings/AiProvider';
+import type { AIProvider } from '@/typings/AiProvider';
 
-const initialForm: NewAiProvider = {
+const initialForm: AIProvider = {
   name: '',
   provider: 'openai',
   key: '',
@@ -28,12 +27,13 @@ export function useAiProviders() {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting }
-  } = useForm<NewAiProvider>({
+  } = useForm<AIProvider>({
     resolver: zodResolver(aiProviderSchema),
     defaultValues: initialForm
   });
 
-  const deleteAiProvider = async (id: string, onSuccess?: () => void) => {
+  const deleteAiProvider = async (id?: string, onSuccess?: () => void) => {
+    if (!id) return;
     if (!window.confirm(t('ai_providers.action.confirm_delete', { defaultValue: 'Tem certeza que deseja excluir?' }))) return;
 
     setLoading(true);
@@ -48,13 +48,15 @@ export function useAiProviders() {
     }
   };
 
-  const processFormSubmit = async (data: NewAiProvider, id?: string, onSuccess?: () => void) => {
+  const processFormSubmit = async (data: AIProvider, id?: string, onSuccess?: () => void) => {
     setGlobalError(null);
     try {
+      const { ...payload } = data;
+
       if (id) {
-        await AiProviderService.update(id, data);
+        await AiProviderService.update(id, payload);
       } else {
-        await AiProviderService.create(data);
+        await AiProviderService.create(payload);
       }
 
       reset(initialForm);
@@ -66,8 +68,14 @@ export function useAiProviders() {
     }
   };
 
-  const createAiProvider = (onSuccess?: () => void) => handleSubmit((data) => processFormSubmit(data, undefined, onSuccess));
-  const updateAiProvider = (id: string, onSuccess?: () => void) => handleSubmit((data) => processFormSubmit(data, id, onSuccess));
+  const createAiProvider = (onSuccess?: () => void) =>
+    handleSubmit((data) => processFormSubmit(data, undefined, onSuccess));
+
+  const updateAiProvider = (id: string, onSuccess?: () => void) =>
+    handleSubmit(
+      (data) => processFormSubmit(data, id, onSuccess),
+      (validationErrors) => console.error('❌ Zod barrou o formulário de IAs:', validationErrors)
+    );
 
   return {
     loading,

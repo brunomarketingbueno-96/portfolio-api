@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next';
 
-import type { AiProvider } from '@/typings/AiProvider';
+import type { AIProvider } from '@/typings/AiProvider';
 
 import { getProviderLogo } from '@/helpers/aiProviderHelpers';
 
 interface AiProviderCardProps {
-  aiProvider: AiProvider;
-  onEdit: (provider: AiProvider) => void;
-  onDelete: (id: string) => void;
+  aiProvider: AIProvider;
+  onEdit: (provider: AIProvider) => void;
+  onDelete: (id?: string) => void;
 }
 
 export default function AiProviderCard({ aiProvider, onEdit, onDelete }: AiProviderCardProps) {
@@ -16,7 +16,7 @@ export default function AiProviderCard({ aiProvider, onEdit, onDelete }: AiProvi
   return (
     <div
       className={`flex flex-col h-full p-4 rounded-xl border transition-all hover:shadow-md ${aiProvider.isActive
-        ? 'bg-indigo-50/30 dark:bg-indigo-900/10 border-indigo-200 dark:border-indigo-800'
+        ? 'bg-indigo-50/30 dark:bg-indigo-900/10 border-indigo-200 dark:border-indigo-800 shadow-sm'
         : 'bg-white dark:bg-zinc-800 border-gray-100 dark:border-zinc-700'
         }`}
     >
@@ -25,14 +25,14 @@ export default function AiProviderCard({ aiProvider, onEdit, onDelete }: AiProvi
         <img
           src={getProviderLogo(aiProvider.provider)}
           alt={`Logo ${aiProvider.provider}`}
-          className="w-8 h-8 object-contain rounded-md bg-white dark:bg-zinc-900 p-1 border border-gray-100 dark:border-zinc-700"
+          className="w-8 h-8 object-contain rounded-md bg-white dark:bg-zinc-900 p-1 border border-gray-100 dark:border-zinc-700 shadow-sm"
         />
         <div className="flex flex-col overflow-hidden">
-          <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate" title={aiProvider.name}>
-            {aiProvider.name}
+          <span className="capitalize text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate" title={aiProvider.name}>
+            {aiProvider.provider}
           </span>
           <span className="text-[10px] font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mt-0.5">
-            {aiProvider.provider}
+            {aiProvider.name}
           </span>
         </div>
       </div>
@@ -72,6 +72,6 @@ export default function AiProviderCard({ aiProvider, onEdit, onDelete }: AiProvi
           </button>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

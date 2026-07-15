@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
-import type { NewSettings } from '@/typings/Settings';
+import type { Settings } from '@/typings/Settings';
 
 import Heading from '@/components/Heading';
 import SubTitle from '@/components/SubTitle';
@@ -9,8 +9,8 @@ import SettingsForm from '@/components/SettingsForm';
 import GlobalError from '@/components/GlobalError';
 
 interface SettingsSectionProps {
-  register: UseFormRegister<NewSettings>;
-  errors: FieldErrors<NewSettings>;
+  register: UseFormRegister<Settings>;
+  errors: FieldErrors<Settings>;
   imagePreview: string | null;
   isSubmitting: boolean;
   globalError: string | null;

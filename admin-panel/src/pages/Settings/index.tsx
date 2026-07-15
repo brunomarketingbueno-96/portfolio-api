@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSettingsContext } from '@/contexts/SettingsContext';
@@ -20,13 +20,13 @@ import SettingsSection from '@/components/SettingsSection';
 import AiProviderSection from '@/components/AiProviderSection';
 import AiProvidersList from '@/components/AiProviderList';
 
-import type { AiProvider } from '@/typings/AiProvider';
+import type { AIProvider } from '@/typings/AiProvider';
 
 export default function Settings() {
   const { t } = useTranslation();
   const { globalSettings, isLoadingSettings, applyNewSettings } = useSettingsContext();
 
-  const [editingProviderId, setEditingProviderId] = useState<string | null>(null);
+  const [editingProviderId, setEditingProviderId] = useState<string | null | undefined>(null);
 
   const {
     register,
@@ -36,8 +36,6 @@ export default function Settings() {
     updateSettings,
     imagePreview,
     handleFileChange,
-    reset,
-    setImagePreview
   } = useSettings();
 
   const {
@@ -50,20 +48,6 @@ export default function Settings() {
     deleteAiProvider,
     reset: resetAi
   } = useAiProviders();
-
-  useEffect(() => {
-    if (globalSettings) {
-      reset({
-        ...globalSettings,
-        customConfig: globalSettings.customConfig ?? {},
-        siteUrl: globalSettings.siteUrl ?? '',
-        publicEmail: globalSettings.publicEmail ?? '',
-        logoUrl: globalSettings.logoUrl ?? '',
-      });
-
-      setImagePreview(globalSettings.logoUrl ?? null);
-    }
-  }, [globalSettings, reset, setImagePreview]);
 
   const onSubmitAction = updateSettings((updatedSettings) => {
     applyNewSettings(updatedSettings);
@@ -78,7 +62,7 @@ export default function Settings() {
       resetAi();
     });
 
-  const handleEditAiProvider = (provider: AiProvider) => {
+  const handleEditAiProvider = (provider: AIProvider) => {
     setEditingProviderId(provider.id);
     resetAi(provider);
   };

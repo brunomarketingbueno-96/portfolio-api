@@ -10,9 +10,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { settingsSchema } from '../../../src/schemas/settings.schema';
 
-import type { GlobalSettings, NewSettings } from '@/typings/Settings';
+import type { GlobalSettings, Settings } from '@/typings/Settings';
 
-const initialForm: NewSettings = {
+const initialForm: Settings = {
   theme: 'system',
   panelLanguage: 'en',
   siteUrl: '',
@@ -21,11 +21,10 @@ const initialForm: NewSettings = {
   customConfig: {}
 };
 
-
 export function useSettings(options?: { fetchOnMount?: boolean }) {
   const { t } = useTranslation();
 
-  const [settings, setSettings] = useState<GlobalSettings>(null);
+  const [settings, setSettings] = useState<GlobalSettings | null>(null);
   const [loading, setLoading] = useState(!!options?.fetchOnMount);
   const [globalError, setGlobalError] = useState<string | null>(null);
 
@@ -42,8 +41,8 @@ export function useSettings(options?: { fetchOnMount?: boolean }) {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting }
-  } = useForm<NewSettings>({
-    resolver: zodResolver(settingsSchema as never),
+  } = useForm<Settings>({
+    resolver: zodResolver(settingsSchema),
     defaultValues: initialForm
   });
 
@@ -52,8 +51,7 @@ export function useSettings(options?: { fetchOnMount?: boolean }) {
     try {
       const data = await SettingsService.get();
 
-      const parsedData = {
-        ...data,
+      const parsedData: Settings = {
         theme: data.theme ?? 'system',
         panelLanguage: data.panelLanguage ?? 'en',
         customConfig: data.customConfig ?? {},
@@ -62,7 +60,7 @@ export function useSettings(options?: { fetchOnMount?: boolean }) {
         logoUrl: data.logoUrl ?? '',
       };
 
-      setSettings(parsedData);
+      setSettings(data);
       reset(parsedData);
       setImagePreview(parsedData.logoUrl ?? null);
 
@@ -83,7 +81,7 @@ export function useSettings(options?: { fetchOnMount?: boolean }) {
 
   }, [options?.fetchOnMount, loadSettings]);
 
-  const processFormSubmit = async (data: NewSettings, onSuccess?: (updated: NewSettings) => void) => {
+  const processFormSubmit = async (data: Settings, onSuccess?: (updated: Settings) => void) => {
     setGlobalError(null);
     try {
       let finalLogoUrl = imagePreview || '';
@@ -113,7 +111,7 @@ export function useSettings(options?: { fetchOnMount?: boolean }) {
     }
   };
 
-  const updateSettings = (onSuccess?: (updated: NewSettings) => void) =>
+  const updateSettings = (onSuccess?: (updated: Settings) => void) =>
     handleSubmit((data) => processFormSubmit(data, onSuccess));
 
   return {

@@ -76,23 +76,50 @@ export const getBlogPostById = async (c: Context) => {
 
 export const createBlogPost = async (c: Context) => {
   try {
-    const { translations, ...postData } = await c.req.json<BlogPost>();
+    console.log('\n[createBlogPost] 🔵 Iniciando requisição de criação...');
+
+    // 1. Loga o payload recebido antes de desestruturar
+    const rawBody = await c.req.json<BlogPost>();
+    console.log('[createBlogPost] Payload recebido:', JSON.stringify(rawBody, null, 2));
+
+    const { translations, ...postData } = rawBody;
 
     const newPostData = {
       ...postData,
       publishedAt: postData.isPublished ? new Date() : null,
     };
 
+    // 2. Loga como os dados ficaram montados para o banco
+    console.log('[createBlogPost] Dados do Post formatados:', newPostData);
+    console.log('[createBlogPost] Traduções extraídas:', translations);
+
+    // 3. Marca o início da inserção no banco
+    console.log('[createBlogPost] Chamando createBlogPostRecord...');
     const newPost = await createBlogPostRecord(newPostData, translations);
 
-    if (!newPost) return c.json({
-      error: 'blog_posts.error.create', message: 'Blog post not created'
-    }, 422);
+    if (!newPost) {
+      console.warn('[createBlogPost] ⚠️ Falha na criação: createBlogPostRecord não retornou o post (422).');
+      return c.json({
+        error: 'blog_posts.error.create',
+        message: 'Blog post not created'
+      }, 422);
+    }
 
+    console.log('[createBlogPost] ✅ Post criado com sucesso!');
     return c.json(newPost, 201);
 
   } catch (error: any) {
-    return c.json({ error: 'blog_posts.error.create', message: error.message }, 500);
+    // 4. Loga o erro COMPLETO no terminal, incluindo onde ele aconteceu
+    console.error('\n[createBlogPost] ❌ ERRO 500 CAPTURADO:');
+    console.error(error); // Mostra o objeto do erro inteiro
+    if (error.stack) {
+      console.error('[createBlogPost] Stack Trace:', error.stack);
+    }
+
+    return c.json({
+      error: 'blog_posts.error.create',
+      message: error.message || 'Erro interno no servidor'
+    }, 500);
   }
 };
 

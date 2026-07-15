@@ -1,11 +1,11 @@
 export const getProviderLogo = (providerType: string) => {
   switch (providerType) {
     case 'openai':
-      return 'openai.png';
+      return '/public/openai.png';
     case 'gemini':
-      return 'gemini.png';
+      return '/public/gemini.png';
     case 'groq':
-      return 'groq-ai.png';
+      return '/public/groq-ai.png';
     default:
       return 'default.svg';
   }

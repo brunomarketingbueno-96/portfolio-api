@@ -1,6 +1,6 @@
 import { Context } from 'hono';
 
-import type { AIProvider } from '../schemas/ai-providers.schema.js';
+import { AIProvider } from '../schemas/ai-providers.schema.js';
 import { findGlobalSettings } from '../repositories/settings.repository.js';
 
 import {
@@ -9,9 +9,18 @@ import {
   deleteAiProviderRecord
 } from '../repositories/ai-providers.repository.js';
 
+import { z } from 'zod'; // Lembre de importar o Zod no controller
+
 export const createAiProvider = async (c: Context) => {
   try {
     const data = await c.req.json<AIProvider>();
+
+    if (!data.key || data.key.trim() === '') {
+      return c.json({
+        error: 'settings.error.ai_provider_key_required',
+        message: 'Key is required for new providers'
+      }, 400);
+    }
 
     const settings = await findGlobalSettings();
     if (!settings) return c.json({
@@ -20,6 +29,7 @@ export const createAiProvider = async (c: Context) => {
 
     const newProvider = await createAiProviderRecord({
       ...data,
+      key: data.key,
       settingsId: settings.id
     });
 
@@ -38,9 +48,15 @@ export const updateAiProvider = async (c: Context) => {
   const id = c.req.param('id');
 
   try {
-    const data = await c.req.json<AIProvider>();
+    const { key, ...restData } = await c.req.json<AIProvider>();
 
-    const updatedProvider = await updateAiProviderRecord(id, data);
+    const updatePayload = {
+      ...restData,
+      ...(key && key.trim() !== '' ? { key } : {}),
+    };
+
+    const updatedProvider = await updateAiProviderRecord(id, updatePayload);
+
     if (!updatedProvider) return c.json({
       error: 'ai_providers.error.update', message: 'AI Provider not updated'
     }, 422);

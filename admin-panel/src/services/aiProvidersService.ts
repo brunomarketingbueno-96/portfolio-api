@@ -1,8 +1,8 @@
 import { handleResponse } from '@/helpers/fetchHelpers';
-import type { NewAiProvider, AiProvider } from '@/typings/AiProvider';
+import type { AIProvider } from '@/typings/AiProvider';
 
 export const AiProviderService = {
-  async create(payload: NewAiProvider): Promise<AiProvider> {
+  async create(payload: AIProvider): Promise<AIProvider> {
     const res = await fetch('/api/ai-providers', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -12,7 +12,7 @@ export const AiProviderService = {
     return handleResponse(res);
   },
 
-  async update(id: string, payload: Partial<AiProvider>): Promise<AiProvider> {
+  async update(id: string, payload: Partial<AIProvider>): Promise<AIProvider> {
     const res = await fetch(`/api/ai-providers/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },

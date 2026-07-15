@@ -3,9 +3,9 @@ import { z } from 'zod';
 export const settingsSchema = z.object({
   theme: z.enum(['light', 'dark', 'system'] as const, {
     error: 'settings.error.theme'
-  }).default('system'),
+  }),
 
-  panelLanguage: z.string().min(2, { error: 'settings.error.panel_language' }).default('pt'),
+  panelLanguage: z.string().min(2, { error: 'settings.error.panel_language' }),
 
   siteUrl: z.url({ error: 'settings.error.site_url' })
     .startsWith('http', { error: 'settings.error.site_url' })

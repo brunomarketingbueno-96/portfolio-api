@@ -148,7 +148,7 @@ export function useBlogPosts(options?: { fetchList?: boolean; editId?: string })
   const createBlogPost = handleSubmit((data) => processFormSubmit(data));
   const updateBlogPost = (id: string) => handleSubmit((data) => processFormSubmit(data, id));
 
-  const generateAIContent = async (prompt: string, index: number) => {
+  const generateAIContent = async (prompt: string, index: number, providerId: string) => {
     setIsGenerating(true);
     setGlobalError(null);
 
@@ -159,6 +159,7 @@ export function useBlogPosts(options?: { fetchList?: boolean; editId?: string })
       const currentLanguage = getValues(`translations.${index}.language` as `translations.${number}.language`) || 'en';
 
       const response = await BlogPostService.generate({
+        providerId,
         prompt,
         postPartialData: {
           language: currentLanguage,

@@ -41,6 +41,7 @@ export const BlogPostService = {
   },
 
   async generate(payload: {
+    providerId: string;
     prompt: string;
     postPartialData: {
       language: string;
