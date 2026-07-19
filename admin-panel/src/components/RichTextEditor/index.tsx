@@ -44,7 +44,6 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
     return () => observer.disconnect();
   }, []);
 
-  // Usa a biblioteca oficial para decodificar e indentar o código
   const getDecodedAndFormattedSourceCode = (html: string) => {
     if (!html) return '';
 
@@ -104,7 +103,11 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
 
   return (
     <div className="rich-text-wrapper relative flex flex-col gap-2">
-      <div className="flex justify-end">
+      <div className="flex justify-between">
+        <label className="block text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-2 ml-1 transition-colors duration-300">
+          {t('blog_posts.form.content', { defaultValue: 'Content' })}
+        </label>
+
         <button
           type="button"
           onClick={() => setShowSource(!showSource)}

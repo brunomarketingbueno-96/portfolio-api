@@ -33,8 +33,8 @@ export default function SettingsSection({
   return (
     <div className="bg-white dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl p-8 shadow-sm">
       <div className="mb-6 border-b border-gray-100 dark:border-zinc-700 pb-4">
-        <Heading level={2} title={t('settings.ai_providers.title', { defaultValue: 'Inteligência Artificial' })} />
-        <SubTitle content={t('settings.ai_providers.description', { defaultValue: 'Cadastre e gerencie suas chaves de API para geração de conteúdo.' })} />
+        <Heading level={2} title={t('settings.title', { defaultValue: 'General Settings' })} />
+        <SubTitle content={t('settings.description', { defaultValue: 'Configure general settings for your panel.' })} />
       </div>
 
       <GlobalError error={globalError} message={globalError as string} />

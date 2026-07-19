@@ -14,6 +14,7 @@ import {
   createBlogPostRecord,
   updateBlogPostRecord,
   deleteBlogPostRecord,
+  checkSlugExists
 } from '../repositories/blog-posts.repository.js';
 
 import {
@@ -214,5 +215,19 @@ export const generateBlogPost = async (c: Context) => {
 
   } catch (error: any) {
     return c.json({ error: 'blog_posts.error.generate', message: error.message }, 500);
+  }
+};
+
+export const checkSlug = async (c: Context) => {
+  const { lang, slug } = c.req.param();
+  const excludeId = c.req.query('excludeId');
+
+  try {
+    const exists = await checkSlugExists(lang, slug, excludeId);
+
+    return c.json({ exists }, 200);
+
+  } catch (error: any) {
+    return c.json({ error: 'blog_posts.error.check_slug', message: error.message }, 500);
   }
 };

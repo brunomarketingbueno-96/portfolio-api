@@ -13,6 +13,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { projectSchema } from '../../../src/schemas/projects.schema';
 import type { NewProject, Project } from '@/typings/Projects';
 
+import toast from 'react-hot-toast';
+
 const initialForm: NewProject = {
   liveUrl: '',
   repoUrl: '',
@@ -109,10 +111,12 @@ export function useProjects(options?: { fetchList?: boolean; editId?: string }) 
     try {
       await ProjectService.delete(id);
       setProjects(prev => prev.filter(p => p.id !== id));
+
+      toast.success('Projeto excluido com sucesso');
     } catch (error) {
       const err = error as ApiError;
-      const errorKey = err.error || err.message;
-      alert(errorKey ? t(errorKey) : t('api.error.unknown'));
+      console.log(err);
+      toast.error('Ocorreu um erro ao excluir o projeto');
     }
   };
 
@@ -131,8 +135,10 @@ export function useProjects(options?: { fetchList?: boolean; editId?: string }) 
 
       if (id) {
         await ProjectService.update(id, payload);
+        toast.success('Projeto atualizado com sucesso');
       } else {
         await ProjectService.create(payload);
+        toast.success('Projeto criado com sucesso');
       }
 
       setSelectedFile(null);
@@ -142,6 +148,8 @@ export function useProjects(options?: { fetchList?: boolean; editId?: string }) 
 
       const errorKey = err.error || err.message;
       setGlobalError(errorKey ? t(errorKey) : t('api.error.unknown'));
+
+      toast.error('Ocorreu um erro ao criar o projeto');
     }
   };
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -13,6 +13,8 @@ import { blogPostSchema } from '../../../src/schemas/blog-posts.schema';
 
 import type { NewBlogPost, BlogPost } from '@/typings/BlogPosts';
 
+import toast from 'react-hot-toast';
+
 const initialForm: NewBlogPost = {
   coverImageUrl: '',
   isPublished: false,
@@ -26,6 +28,9 @@ export function useBlogPosts(options?: { fetchList?: boolean; editId?: string })
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(!!options?.fetchList || !!options?.editId);
   const [globalError, setGlobalError] = useState<string | null>(null);
+
+  const [slugConflicts, setSlugConflicts] = useState<Record<number, boolean>>({});
+  const hasConflict = Object.values(slugConflicts).some(Boolean);
 
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -44,6 +49,9 @@ export function useBlogPosts(options?: { fetchList?: boolean; editId?: string })
     reset,
     getValues,
     setValue,
+    setError,
+    clearErrors,
+
     formState: { errors, isSubmitting }
   } = useForm<NewBlogPost>({
     resolver: zodResolver(blogPostSchema),
@@ -110,13 +118,27 @@ export function useBlogPosts(options?: { fetchList?: boolean; editId?: string })
     try {
       await BlogPostService.delete(id);
       setBlogPosts(prev => prev.filter(post => post.id !== id));
+      toast.success('Post excluido com sucesso');
     } catch (error) {
       const err = error as ApiError;
-      alert(err.error ? t(err.error) : t('api.error.unknown'));
+      console.error(err);
+      toast.error('Ocorreu um erro ao excluir o post');
     }
   };
 
   const processFormSubmit = async (data: NewBlogPost, id?: string) => {
+    if (hasConflict) {
+      Object.entries(slugConflicts).forEach(([index, isConflict]) => {
+        if (isConflict) {
+          setError(`translations.${index}.slug` as `translations.${number}.slug`, {
+            type: 'manual',
+            message: 'Este slug já está em uso'
+          });
+        }
+      });
+      return;
+    }
+
     setGlobalError(null);
     try {
       let finalImageUrl = imagePreview || '';
@@ -132,8 +154,10 @@ export function useBlogPosts(options?: { fetchList?: boolean; editId?: string })
 
       if (id) {
         await BlogPostService.update(id, payload);
+        toast.success('Post atualizado com sucesso');
       } else {
         await BlogPostService.create(payload);
+        toast.success('Post criado com sucesso');
       }
 
       setSelectedFile(null);
@@ -142,6 +166,7 @@ export function useBlogPosts(options?: { fetchList?: boolean; editId?: string })
       const err = error as ApiError;
       const errorKey = err.error;
       setGlobalError(errorKey ? t(errorKey) : t('api.error.unknown'));
+      toast.error('Ocorreu um erro ao criar o post');
     }
   };
 
@@ -191,13 +216,56 @@ export function useBlogPosts(options?: { fetchList?: boolean; editId?: string })
         });
       }
 
+      toast.success('Conteúdo gerado com sucesso');
+
     } catch (error) {
       console.error("Erro na IA:", error);
       const err = error as Error;
       setGlobalError(err.message || 'Falha ao gerar conteúdo com IA');
+      toast.error('Ocorreu um erro ao gerar o conteúdo');
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  const checkSlugAvailability = async (language: string, slug: string) => {
+    if (!slug) return false;
+
+    try {
+      const response = await BlogPostService.checkSlug(language, slug, options?.editId);
+      return response.exists;
+    } catch (error) {
+      console.error("Erro ao checar slug:", error);
+      return false;
+    }
+  };
+
+  const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleSlugDebounce = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => {
+    const currentSlug = e.target.value;
+    const currentLang = getValues(`translations.${index}.language`);
+
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
+
+    debounceTimer.current = setTimeout(async () => {
+      if (currentSlug) {
+        const exists = await checkSlugAvailability(currentLang, currentSlug);
+
+        if (exists) {
+          setSlugConflicts(prev => ({ ...prev, [index]: true }));
+          setError(`translations.${index}.slug`, {
+            type: 'manual',
+            message: 'Este slug já está em uso'
+          });
+        } else {
+          setSlugConflicts(prev => ({ ...prev, [index]: false }));
+          clearErrors(`translations.${index}.slug`);
+        }
+      }
+    }, 500);
   };
 
   return {
@@ -221,6 +289,10 @@ export function useBlogPosts(options?: { fetchList?: boolean; editId?: string })
 
     // AI
     isGenerating,
-    generateAIContent
+    generateAIContent,
+
+    // Utils
+    checkSlugAvailability,
+    handleSlugDebounce
   };
 }

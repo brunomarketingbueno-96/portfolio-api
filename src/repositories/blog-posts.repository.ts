@@ -1,6 +1,6 @@
 import { db } from '../db/index.js';
 import { blogPosts, blogPostTranslations } from '../db/schema.js';
-import { eq, and } from 'drizzle-orm';
+import { eq, and, ne } from 'drizzle-orm';
 
 type BlogPost = typeof blogPosts.$inferSelect;
 type BlogPostTranslation = typeof blogPostTranslations.$inferSelect;
@@ -119,4 +119,26 @@ export const deleteBlogPostRecord = async (id: string) => {
   if (!deletedPost) return null;
 
   return deletedPost;
+};
+
+export const checkSlugExists = async (
+  language: string,
+  slug: string,
+  excludePostId?: string
+): Promise<boolean> => {
+  const filters = [
+    eq(blogPostTranslations.language, language),
+    eq(blogPostTranslations.slug, slug)
+  ];
+
+  if (excludePostId) {
+    filters.push(ne(blogPostTranslations.postId, excludePostId));
+  }
+
+  const existing = await db.query.blogPostTranslations.findFirst({
+    where: and(...filters),
+    columns: { id: true }
+  });
+
+  return !!existing;
 };

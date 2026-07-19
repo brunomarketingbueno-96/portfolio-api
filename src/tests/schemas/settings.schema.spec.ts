@@ -19,16 +19,6 @@ describe('Settings Zod Schema', () => {
     }
   });
 
-  it('should fallback theme and panelLanguage to defaults if omitted', () => {
-    const payload = {};
-    const result = settingsSchema.safeParse(payload);
-    expect(result.success).toBe(true);
-    if (result.success) {
-      expect(result.data.theme).toBe('system');
-      expect(result.data.panelLanguage).toBe('pt');
-    }
-  });
-
   it('should allow optional fields to be null or empty string', () => {
     const payload = {
       theme: 'light' as const,
@@ -60,6 +50,7 @@ describe('Settings Zod Schema', () => {
 
   it('should fail if panelLanguage is less than 2 characters', () => {
     const payload = {
+      theme: 'dark' as const,
       panelLanguage: 'e',
     };
     const result = settingsSchema.safeParse(payload);
@@ -71,6 +62,8 @@ describe('Settings Zod Schema', () => {
 
   it('should fail if siteUrl is not a valid url or doesn\'t start with http', () => {
     const payload = {
+      theme: 'dark' as const,
+      panelLanguage: 'en',
       siteUrl: 'not-a-url',
     };
     const result = settingsSchema.safeParse(payload);
@@ -82,6 +75,8 @@ describe('Settings Zod Schema', () => {
 
   it('should fail if publicEmail is not a valid email', () => {
     const payload = {
+      theme: 'dark' as const,
+      panelLanguage: 'en',
       publicEmail: 'not-an-email',
     };
     const result = settingsSchema.safeParse(payload);
@@ -93,6 +88,8 @@ describe('Settings Zod Schema', () => {
 
   it('should fail if logoUrl is not a valid url or doesn\'t start with http', () => {
     const payload = {
+      theme: 'dark' as const,
+      panelLanguage: 'en',
       logoUrl: 'not-a-url',
     };
     const result = settingsSchema.safeParse(payload);
@@ -104,6 +101,7 @@ describe('Settings Zod Schema', () => {
 
   it('should fail and block request if unrecognized keys are sent at root level', () => {
     const payload = {
+      ...validPayload,
       extraField: 'not-allowed',
     };
     const result = settingsSchema.safeParse(payload);

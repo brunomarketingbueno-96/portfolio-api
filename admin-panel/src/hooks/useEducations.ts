@@ -12,6 +12,8 @@ import { useImagePreview } from '@/hooks/useImagePreview';
 
 import type { NewEducation, Education } from '@/typings/Educations';
 
+import toast from 'react-hot-toast';
+
 const initialForm: NewEducation = {
   type: 'college',
   status: 'completed',
@@ -119,10 +121,11 @@ export function useEducations(options?: { fetchList?: boolean; editId?: string }
     try {
       await EducationService.delete(id);
       setEducations(prev => prev.filter(e => e.id !== id));
+      toast.success('Formação excluida com sucesso');
     } catch (error) {
       const err = error as ApiError;
-      const errorKey = err.error || err.message;
-      alert(errorKey ? t(errorKey) : t('api.error.unknown'));
+      console.error(err);
+      toast.error('Ocorreu um erro ao excluir a formação');
     }
   };
 
@@ -151,8 +154,10 @@ export function useEducations(options?: { fetchList?: boolean; editId?: string }
 
       if (id) {
         await EducationService.update(id, payload);
+        toast.success('Formação atualizada com sucesso');
       } else {
         await EducationService.create(payload);
+        toast.success('Formação criada com sucesso');
       }
 
       setSelectedFile(null);
@@ -161,6 +166,7 @@ export function useEducations(options?: { fetchList?: boolean; editId?: string }
       const err = error as ApiError;
       const errorKey = err.error || err.message;
       setGlobalError(errorKey ? t(errorKey) : t('api.error.unknown'));
+      toast.error('Ocorreu um erro ao salvar a formação');
     }
   };
 

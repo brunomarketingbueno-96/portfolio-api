@@ -20,6 +20,7 @@ interface BlogPostTranslationItemProps {
 
   onGenerateAI: (prompt: string, index: number, providerId: string) => Promise<void>;
   isGenerating: boolean;
+  handleSlugDebounce: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => void;
 }
 
 export default function BlogPostTranslationItem({
@@ -29,7 +30,8 @@ export default function BlogPostTranslationItem({
   errors,
   removeTranslation,
   onGenerateAI,
-  isGenerating
+  isGenerating,
+  handleSlugDebounce
 }: BlogPostTranslationItemProps) {
   const { t } = useTranslation();
 
@@ -87,6 +89,11 @@ export default function BlogPostTranslationItem({
             label={t('blog_posts.form.slug', { defaultValue: 'URL Slug' })}
             placeholder="my-awesome-post"
             {...register(`translations.${index}.slug` as const)}
+            onChange={(e) => {
+              register(`translations.${index}.slug`).onChange(e);
+
+              handleSlugDebounce(e, index);
+            }}
           >
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-zinc-400 dark:text-zinc-500">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -117,10 +124,6 @@ export default function BlogPostTranslationItem({
         />
 
         <div className="md:col-span-12">
-          <label className="block text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-2 ml-1 transition-colors duration-300">
-            {t('blog_posts.form.content', { defaultValue: 'Content' })}
-          </label>
-
           <Controller
             name={`translations.${index}.content`}
             control={control}

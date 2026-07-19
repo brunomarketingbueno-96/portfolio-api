@@ -23,6 +23,7 @@ interface BlogPostFormProps {
   onSubmitAction: (e?: React.BaseSyntheticEvent) => Promise<void>;
   generateAIContent: (prompt: string, index: number, providerId: string) => Promise<void>;
   isGenerating: boolean;
+  handleSlugDebounce: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => void;
 }
 
 export default function BlogPostForm({
@@ -38,7 +39,8 @@ export default function BlogPostForm({
   handleFileChange,
   onSubmitAction,
   generateAIContent,
-  isGenerating
+  isGenerating,
+  handleSlugDebounce
 }: BlogPostFormProps) {
   const { t } = useTranslation();
 
@@ -100,6 +102,7 @@ export default function BlogPostForm({
             removeTranslation={removeTranslation}
             onGenerateAI={generateAIContent}
             isGenerating={isGenerating}
+            handleSlugDebounce={handleSlugDebounce}
           />
         ))}
 

@@ -28,7 +28,10 @@ export default function EditBlogPost() {
     removeTranslation,
     imagePreview,
     handleFileChange,
-    generateAIContent, isGenerating,
+    generateAIContent,
+    isGenerating,
+
+    handleSlugDebounce
   } = useBlogPosts({ editId: id });
 
   const render = () => {
@@ -49,6 +52,7 @@ export default function EditBlogPost() {
         onSubmitAction={updateBlogPost(id as string)}
         generateAIContent={generateAIContent}
         isGenerating={isGenerating}
+        handleSlugDebounce={handleSlugDebounce}
       />
     )
   }

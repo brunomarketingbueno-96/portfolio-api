@@ -14,6 +14,8 @@ import { serviceSchema } from '../../../src/schemas/services.schema';
 
 import type { NewService, Service } from '@/typings/Services';
 
+import toast from 'react-hot-toast';
+
 const initialForm: NewService = {
   link: '',
   imageUrl: '',
@@ -105,9 +107,13 @@ export function useServices(options?: { fetchList?: boolean; editId?: string }) 
     try {
       await ServiceService.delete(id);
       setServices(prev => prev.filter(s => s.id !== id));
+
+      toast.success('Serviço excluido com sucesso');
     } catch (error) {
       const err = error as ApiError;
-      alert(err.error ? t(err.error) : t('api.error.unknown'));
+      console.error(err);
+
+      toast.error('Ocorreu um erro ao excluir o serviço');
     }
   };
 
@@ -128,8 +134,10 @@ export function useServices(options?: { fetchList?: boolean; editId?: string }) 
 
       if (id) {
         await ServiceService.update(id, payload);
+        toast.success('Serviço atualizado com sucesso');
       } else {
         await ServiceService.create(payload);
+        toast.success('Serviço criado com sucesso');
       }
 
       setSelectedFile(null);
@@ -138,6 +146,8 @@ export function useServices(options?: { fetchList?: boolean; editId?: string }) 
       const err = error as ApiError;
       const errorKey = err.error;
       setGlobalError(errorKey ? t(errorKey) : t('api.error.unknown'));
+
+      toast.error('Ocorreu um erro ao criar o serviço');
     }
   };
 

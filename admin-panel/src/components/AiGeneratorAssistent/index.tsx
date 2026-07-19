@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { useSettingsContext } from '@/contexts/SettingsContext'
 
 import AiSelector from '@/components/AiSelector'
@@ -9,7 +9,7 @@ interface AiGeneratorAssistentProps {
   aiPrompt: string
   setAiPrompt: (aiPrompt: string) => void
   isGenerating: boolean
-  onGenerateAI?: (aiPrompt: string, index: number, providerId?: string) => void
+  onGenerateAI?: (aiPrompt: string, index: number, providerId: string) => void
   index: number
 }
 
@@ -30,6 +30,14 @@ export default function AiGeneratorAssistent({
 
   const [selectedProvider, setSelectedProvider] = useState<AIProvider | null>(null)
 
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setAiPrompt(e.target.value);
+    e.target.style.height = 'auto';
+    e.target.style.height = `${e.target.scrollHeight}px`;
+  };
+
   useEffect(() => {
     if (providers.length > 0 && !selectedProvider) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -42,7 +50,7 @@ export default function AiGeneratorAssistent({
   }
 
   return (
-    <div className="md:col-span-12 bg-indigo-50/50 dark:bg-indigo-900/10 border border-indigo-100 dark:border-indigo-800 rounded-lg p-4 -mb-2">
+    <div className="md:col-span-12 bg-indigo-50/50 dark:bg-indigo-900/10 border border-indigo-100 dark:border-indigo-800 rounded-lg p-4">
       <div className="flex items-center gap-2 mb-3">
         <label className="text-sm font-semibold text-indigo-900 dark:text-indigo-200 flex items-center gap-1.5">
           ✨ Assistente de IA
@@ -57,21 +65,29 @@ export default function AiGeneratorAssistent({
       </div>
 
       <div className="relative">
-        <input
-          type="text"
+        <textarea
+          ref={textareaRef}
+          rows={2}
           value={aiPrompt}
-          onChange={(e) => setAiPrompt(e.target.value)}
+          onChange={handleTextareaChange}
           placeholder="Ex: Crie um artigo longo e persuasivo focado em dicas de vendas..."
-          className="w-full pl-4 pr-12 py-2.5 text-sm bg-white dark:bg-zinc-900 border border-gray-300 dark:border-zinc-700 rounded-full focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-zinc-900 dark:text-zinc-100 transition-shadow"
+          className="
+            w-full pl-4 pr-12 py-2.5 text-sm bg-white dark:bg-zinc-900 
+            border border-gray-300 dark:border-zinc-700 rounded-xl resize-none 
+            outline-none text-zinc-900 dark:text-zinc-100 transition-shadow
+            min-h-16 max-h-32 overflow-y-auto
+            [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent
+            [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-thumb]:bg-zinc-600
+          "
           disabled={isGenerating}
         />
         <button
           type="button"
-          onClick={() => onGenerateAI && onGenerateAI(aiPrompt, index, selectedProvider.id)}
+          onClick={() => onGenerateAI && selectedProvider.id && onGenerateAI(aiPrompt, index, selectedProvider.id)}
           disabled={isGenerating || !aiPrompt.trim()}
           aria-label="Gerar conteúdo"
           className="
-            absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center
+            absolute right-4 bottom-4 w-8 h-8 flex items-center justify-center
             rounded-full bg-indigo-600 hover:bg-indigo-700 text-white transition-colors
             disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-indigo-600
           "

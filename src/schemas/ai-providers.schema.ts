@@ -23,6 +23,6 @@ export const aiProviderSchema = z.object({
 }, {
   message: 'settings.error.ai_provider_key_required',
   path: ['key']
-});
+}).strict();
 
 export type AIProvider = z.infer<typeof aiProviderSchema>;

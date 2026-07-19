@@ -1,3 +1,5 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { settingsSchema } from '../../../src/schemas/settings.schema';
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -7,10 +9,10 @@ import { UploadService } from '@/services/uploadService';
 import { useImagePreview } from '@/hooks/useImagePreview';
 
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { settingsSchema } from '../../../src/schemas/settings.schema';
 
 import type { GlobalSettings, Settings } from '@/typings/Settings';
+
+import toast from 'react-hot-toast';
 
 const initialForm: Settings = {
   theme: 'system',
@@ -51,7 +53,7 @@ export function useSettings(options?: { fetchOnMount?: boolean }) {
     try {
       const data = await SettingsService.get();
 
-      const parsedData: Settings = {
+      const parsedData = {
         theme: data.theme ?? 'system',
         panelLanguage: data.panelLanguage ?? 'en',
         customConfig: data.customConfig ?? {},
@@ -75,7 +77,6 @@ export function useSettings(options?: { fetchOnMount?: boolean }) {
   }, [reset, setImagePreview, t]);
 
   useEffect(() => {
-
     // eslint-disable-next-line react-hooks/set-state-in-effect
     if (options?.fetchOnMount) loadSettings();
 
@@ -98,36 +99,63 @@ export function useSettings(options?: { fetchOnMount?: boolean }) {
           : data.customConfig,
       };
 
-      const updated = await SettingsService.update(payload);
+      const updatedSettings = await SettingsService.update(payload);
 
-      setSettings(updated);
+      const settedSettings = {
+        theme: updatedSettings.theme ?? 'system',
+        panelLanguage: updatedSettings.panelLanguage ?? 'en',
+        customConfig: updatedSettings.customConfig ?? {},
+        siteUrl: updatedSettings.siteUrl ?? '',
+        publicEmail: updatedSettings.publicEmail ?? '',
+        logoUrl: updatedSettings.logoUrl ?? '',
+      };
+
+      setSettings((prev) => {
+        if (!prev) return null;
+
+        return {
+          ...prev,
+          ...updatedSettings,
+          id: prev.id,
+          aiKeys: prev.aiKeys
+        };
+      });
+
+      reset(settedSettings);
       setSelectedFile(null);
+      setImagePreview(settedSettings.logoUrl ?? null);
 
-      if (onSuccess) onSuccess(updated);
+      if (onSuccess) onSuccess(updatedSettings);
+      toast.success('Configurações atualizadas com sucesso');
 
     } catch (error) {
       const err = error as ApiError;
       setGlobalError(err.message || t('settings.error.update'));
+
+      toast.error('Ocorreu um erro ao atualizar as configurações');
     }
   };
 
   const updateSettings = (onSuccess?: (updated: Settings) => void) =>
-    handleSubmit((data) => processFormSubmit(data, onSuccess));
+    handleSubmit(
+      (data) => processFormSubmit(data, onSuccess),
+      (validationErrors) => console.error('❌ Zod barrou o formulário de configurações:', validationErrors)
+    );
 
   return {
     settings,
     loading,
-    globalError,
-    loadSettings,
-
-    register,
-    errors,
     isSubmitting,
-    reset,
+    loadSettings,
     updateSettings,
+    setImagePreview,
 
-    imagePreview,
     handleFileChange,
-    setImagePreview
+    register,
+    reset,
+    globalError,
+    errors,
+
+    imagePreview
   };
 }

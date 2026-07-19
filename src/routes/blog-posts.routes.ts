@@ -10,7 +10,8 @@ import {
   updateBlogPost,
   deleteBlogPost,
 
-  generateBlogPost
+  generateBlogPost,
+  checkSlug
 } from '../controllers/blog-posts.controller.js';
 
 import { authMiddleware } from '../middlewares/auth.js';
@@ -24,6 +25,7 @@ blogPost.get('/public', getBlogPosts);
 blogPost.get('/:id', getBlogPostById);
 
 blogPost.get('/slug/:lang/:slug', getBlogPostBySlug);
+blogPost.get('/check-slug/:lang/:slug', authMiddleware, checkSlug);
 
 blogPost.get('/', authMiddleware, getAdminBlogPosts);
 

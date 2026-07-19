@@ -63,5 +63,13 @@ export const BlogPostService = {
     }
 
     return res;
+  },
+
+  async checkSlug(language: string, slug: string, excludeId?: string): Promise<{ exists: boolean }> {
+    const query = excludeId ? `?excludeId=${excludeId}` : '';
+    const res = await fetch(`/api/blog-posts/check-slug/${language}/${slug}${query}`, {
+      credentials: 'include'
+    });
+    return handleResponse(res);
   }
 };

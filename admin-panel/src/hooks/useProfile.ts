@@ -12,6 +12,8 @@ import { updateProfileSchema, passwordFormSchema } from '../../../src/schemas/us
 
 import type { ChangePassword, Profile } from '@/typings/Profile';
 
+import toast from 'react-hot-toast';
+
 export function useProfile() {
   const { user, setUser } = useAuth();
   const { t } = useTranslation();
@@ -60,7 +62,7 @@ export function useProfile() {
       let finalAvatarUrl = user?.avatarUrl;
 
       if (selectedFile) {
-        finalAvatarUrl = await UploadService.uploadImage(selectedFile, 'users', `avatar-${user?.id}`);
+        finalAvatarUrl = await UploadService.uploadImage(selectedFile, 'users', `avatar-${user?.name}`);
       }
 
       const payload = {
@@ -73,10 +75,14 @@ export function useProfile() {
       setUser(updatedUser);
       setSuccessProfile(true);
       setSelectedFile(null);
+
+      toast.success('Perfil atualizado com sucesso');
     } catch (error) {
       const err = error as ApiError;
       const errorKey = err.error || err.message;
       setGlobalErrorProfile(errorKey ? t(errorKey) : t('api.error.unknown'));
+
+      toast.error('Ocorreu um erro ao atualizar o perfil');
     }
   };
 
@@ -92,10 +98,14 @@ export function useProfile() {
 
       setSuccessPassword(true);
       passwordForm.reset();
+
+      toast.success('Senha atualizada com sucesso');
     } catch (error) {
       const err = error as ApiError;
       const errorKey = err.error || err.message;
       setGlobalErrorPassword(errorKey ? t(errorKey) : t('api.error.unknown'));
+
+      toast.error('Ocorreu um erro ao atualizar a senha');
     }
   };
 

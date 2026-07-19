@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSettingsContext } from '@/contexts/SettingsContext';
@@ -24,7 +24,7 @@ import type { AIProvider } from '@/typings/AiProvider';
 
 export default function Settings() {
   const { t } = useTranslation();
-  const { globalSettings, isLoadingSettings, applyNewSettings } = useSettingsContext();
+  const { globalSettings, isLoadingSettings, applyNewSettings, refreshSettings } = useSettingsContext();
 
   const [editingProviderId, setEditingProviderId] = useState<string | null | undefined>(null);
 
@@ -36,6 +36,8 @@ export default function Settings() {
     updateSettings,
     imagePreview,
     handleFileChange,
+    setImagePreview,
+    reset
   } = useSettings();
 
   const {
@@ -56,9 +58,11 @@ export default function Settings() {
   const onAiSubmitAction = editingProviderId
     ? updateAiProvider(editingProviderId, () => {
       setEditingProviderId(null);
+      refreshSettings();
       resetAi();
     })
     : createAiProvider(() => {
+      refreshSettings();
       resetAi();
     });
 
@@ -71,6 +75,21 @@ export default function Settings() {
     setEditingProviderId(null);
     resetAi();
   };
+
+  useEffect(() => {
+    if (globalSettings) {
+      reset({
+        theme: globalSettings.theme ?? 'system',
+        panelLanguage: globalSettings.panelLanguage ?? 'en',
+        customConfig: globalSettings.customConfig ?? {},
+        siteUrl: globalSettings.siteUrl ?? '',
+        publicEmail: globalSettings.publicEmail ?? '',
+        logoUrl: globalSettings.logoUrl ?? '',
+      });
+
+      setImagePreview(globalSettings.logoUrl ?? null);
+    }
+  }, [globalSettings, reset, setImagePreview]);
 
   const render = () => {
     if (isLoadingSettings) return <PageLoader />;

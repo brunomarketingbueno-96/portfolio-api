@@ -9,6 +9,8 @@ import { aiProviderSchema } from '../../../src/schemas/ai-providers.schema';
 
 import type { AIProvider } from '@/typings/AiProvider';
 
+import toast from 'react-hot-toast';
+
 const initialForm: AIProvider = {
   name: '',
   provider: 'openai',
@@ -40,9 +42,11 @@ export function useAiProviders() {
     try {
       await AiProviderService.delete(id);
       if (onSuccess) onSuccess();
+      toast.success('Provedor de IA excluido com sucesso');
     } catch (error) {
       const err = error as ApiError;
-      alert(err.error ? t(err.error) : t('api.error.unknown', { defaultValue: 'Erro desconhecido' }));
+      console.error(err);
+      toast.error('Ocorreu um erro ao excluir o provedor de IA');
     } finally {
       setLoading(false);
     }
@@ -55,8 +59,10 @@ export function useAiProviders() {
 
       if (id) {
         await AiProviderService.update(id, payload);
+        toast.success('Provedor de IA atualizado com sucesso');
       } else {
         await AiProviderService.create(payload);
+        toast.success('Provedor de IA criado com sucesso');
       }
 
       reset(initialForm);
@@ -65,6 +71,7 @@ export function useAiProviders() {
       const err = error as ApiError;
       const errorKey = err.error;
       setGlobalError(errorKey ? t(errorKey) : t('api.error.unknown', { defaultValue: 'Erro desconhecido' }));
+      toast.error('Ocorreu um erro ao salvar o provedor de IA');
     }
   };
 
@@ -73,8 +80,7 @@ export function useAiProviders() {
 
   const updateAiProvider = (id: string, onSuccess?: () => void) =>
     handleSubmit(
-      (data) => processFormSubmit(data, id, onSuccess),
-      (validationErrors) => console.error('❌ Zod barrou o formulário de IAs:', validationErrors)
+      (data) => processFormSubmit(data, id, onSuccess)
     );
 
   return {
