@@ -26,7 +26,6 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
   const [showSource, setShowSource] = useState(false);
   const [editorTheme, setEditorTheme] = useState<'light' | 'dark'>('light');
 
-  // Observa o tema do Tailwind para sincronizar o syntax highlighting do editor de código
   useEffect(() => {
     const checkTheme = () => {
       const isDark = document.documentElement.classList.contains('dark');
@@ -47,12 +46,10 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
   const getDecodedAndFormattedSourceCode = (html: string) => {
     if (!html) return '';
 
-    // Decodifica as entidades
     const txt = document.createElement('textarea');
     txt.innerHTML = html;
     const decoded = txt.value.replace(/\u00a0/g, ' ');
 
-    // Formata o HTML com js-beautify
     return html_beautify(decoded, {
       indent_size: 2,
       wrap_line_length: 120,
@@ -105,7 +102,7 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
     <div className="rich-text-wrapper relative flex flex-col gap-2">
       <div className="flex justify-between">
         <label className="block text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-2 ml-1 transition-colors duration-300">
-          {t('blog_posts.form.content', { defaultValue: 'Content' })}
+          {t('pages.blog_posts.create.sections.post_content', { defaultValue: 'Content' })}
         </label>
 
         <button
@@ -115,11 +112,11 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
         >
           {showSource ? (
             <>
-              <span className="text-sm">👁️</span> {t('blog_posts.editor.buttons.preview')}
+              <span className="text-sm">👁️</span> {t('forms.blog_posts.buttons.preview')}
             </>
           ) : (
             <>
-              <span className="text-sm">🧑‍💻</span> {t('blog_posts.editor.buttons.html_code')}
+              <span className="text-sm">🧑‍💻</span> {t('forms.blog_posts.buttons.source_code')}
             </>
           )}
         </button>

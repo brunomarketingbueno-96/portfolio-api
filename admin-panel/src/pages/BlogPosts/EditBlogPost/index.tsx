@@ -64,10 +64,10 @@ export default function EditBlogPost() {
       <main className="flex-1 px-8 py-8 w-full relative z-10">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <Heading level={1} title={t('blog_posts.page.edit.description', { defaultValue: 'Update your blog post content and settings.' })} />
-            <SubTitle content={t('blog_posts.page.edit.description', { defaultValue: 'Update your blog post content and settings.' })} />
+            <Heading level={1} title={t('pages.blog_posts.edit.title', { defaultValue: 'Update your blog post content and settings.' })} />
+            <SubTitle content={t('pages.blog_posts.edit.description', { defaultValue: 'Update your blog post content and settings.' })} />
           </div>
-          <BackButton to={{ pathname: '/blog-posts' }} label={t('blog_posts.buttons.back_to_posts', { defaultValue: 'Back to Posts' })} />
+          <BackButton to={{ pathname: '/blog-posts' }} label={t('pages.blog_posts.buttons.back_to_posts', { defaultValue: 'Back to Posts' })} />
         </div>
 
         {render()}

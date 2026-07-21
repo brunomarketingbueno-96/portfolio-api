@@ -14,7 +14,7 @@ export default function ImageSelector({ imagePreview, onFileChange, label }: Ima
   return (
     <div className="space-y-2">
       <label className="block text-sm font-semibold text-zinc-900 dark:text-zinc-100 ml-1">
-        {label || t('image_selector.label', { defaultValue: 'Image' })}
+        {label || t('global.components.image_selector.label', { defaultValue: 'Image' })}
       </label>
       <div
         onClick={() => fileInputRef.current?.click()}
@@ -36,18 +36,18 @@ export default function ImageSelector({ imagePreview, onFileChange, label }: Ima
           <div className="w-full h-full flex flex-col items-center">
             <img
               src={imagePreview}
-              alt={t('image_selector.preview_alt')}
+              alt={t('global.components.image_selector.preview_alt')}
               className="max-h-40 rounded shadow-sm object-contain"
             />
             <p className="text-xs text-blue-600 dark:text-blue-400 mt-3 font-medium">
-              {t('image_selector.click_to_change')}
+              {t('global.components.image_selector.change_image', { defaultValue: 'Change image' })}
             </p>
           </div>
         ) : (
           <div className="text-gray-500 dark:text-zinc-400">
             <span className="text-4xl block mb-2">🖼️</span>
-            <p className="mt-1 text-sm">{t('image_selector.click_to_upload')}</p>
-            <p className="text-xs text-gray-400 dark:text-zinc-500">{t('image_selector.file_limits')}</p>
+            <p className="mt-1 text-sm">{t('global.components.image_selector.upload_image', { defaultValue: 'Upload image' })}</p>
+            <p className="text-xs text-gray-400 dark:text-zinc-500">{t('global.components.image_selector.file_limit', { defaultValue: 'PNG, JPEG, WEBP (max. 5MB)' })}</p>
           </div>
         )}
       </div>

@@ -28,10 +28,10 @@ export default function CreateBlogPost() {
       <main className="flex-1 px-8 py-8 w-full relative z-10">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <Heading level={1} title={t('blog_posts.page.create.title', { defaultValue: 'Create new post' })} />
-            <SubTitle content={t('blog_posts.page.create.description', { defaultValue: 'Create a new blog post to be published on the website.' })} />
+            <Heading level={1} title={t('pages.blog_posts.create.title', { defaultValue: 'Create new post' })} />
+            <SubTitle content={t('pages.blog_posts.create.description', { defaultValue: 'Create a new blog post to be published on the website.' })} />
           </div>
-          <BackButton to={{ pathname: '/blog-posts' }} label={t('blog_posts.buttons.back_to_posts', { defaultValue: 'Back to Posts' })} />
+          <BackButton to={{ pathname: '/blog-posts' }} label={t('pages.blog_posts.buttons.back_to_posts', { defaultValue: 'Back to Posts' })} />
         </div>
 
         <BlogPostForm

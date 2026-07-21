@@ -32,9 +32,9 @@ export default function LoginForm({
       <div>
         <Input
           id="email"
-          label={t('login.labels.email', { defaultValue: 'Email' })}
+          label={t('forms.login.labels.email', { defaultValue: 'Email' })}
           type="email"
-          placeholder={t('login.placeholders.email', { defaultValue: 'admin@example.com' })}
+          placeholder={t('forms.login.placeholders.email', { defaultValue: 'admin@example.com' })}
           {...register('email')}
         >
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-zinc-400 dark:text-zinc-500">
@@ -51,9 +51,9 @@ export default function LoginForm({
       <div>
         <Input
           id="password"
-          label={t('login.labels.password', { defaultValue: 'Password' })}
+          label={t('forms.login.labels.password', { defaultValue: 'Password' })}
           type="password"
-          placeholder={t('login.placeholders.password', { defaultValue: '••••••••' })}
+          placeholder={t('forms.login.placeholders.password', { defaultValue: '••••••••' })}
           {...register('password')}
         >
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-zinc-400 dark:text-zinc-500">
@@ -80,9 +80,9 @@ export default function LoginForm({
         )}
         {isSubmitting
           ?
-          `${t('login.buttons.signign_in', { defaultValue: 'Signing in' })}`
+          `${t('forms.login.buttons.signing_in', { defaultValue: 'Signing in' })}`
           :
-          `${t('login.buttons.access_panel', { defaultValue: 'Access Panel' })}`}
+          `${t('forms.login.buttons.access_panel', { defaultValue: 'Access Panel' })}`}
       </button>
     </form>
   );

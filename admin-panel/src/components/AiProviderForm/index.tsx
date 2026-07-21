@@ -34,10 +34,10 @@ export default function AiProviderForm({
         <div>
           <Input
             id="providerApiKeyName"
-            label={t('settings.ai_providers.form.labels.name', { defaultValue: 'Key Name' })}
+            label={t('forms.ai_providers.labels.name', { defaultValue: 'Key Name' })}
             type="text"
             autoComplete='off'
-            placeholder={t('settings.ai_providers.form.placeholders.name', { defaultValue: 'Production Key' })}
+            placeholder={t('forms.ai_providers.placeholders.name', { defaultValue: 'Production Key' })}
             {...register('name')}
           >
             <IconWrapper>🔑</IconWrapper>
@@ -47,9 +47,9 @@ export default function AiProviderForm({
 
         <div>
           <Select
-            translationGroup={'settings.ai_providers.providers'}
+            translationGroup={'forms.ai_providers.providers'}
             id="provider"
-            label={t('settings.ai_providers.form.labels.provider', { defaultValue: 'Provider' })}
+            label={t('forms.ai_providers.labels.provider', { defaultValue: 'Provider' })}
             options={['groq', 'openai', 'gemini']}
             {...register('provider')}
           />
@@ -59,7 +59,7 @@ export default function AiProviderForm({
         <div className="md:col-span-2">
           <Input
             id="providerApiKey"
-            label={t('settings.ai_providers.form.labels.key', { defaultValue: 'API Key' })}
+            label={t('forms.ai_providers.labels.api_key', { defaultValue: 'API Key' })}
             type="password"
             placeholder='••••••••••••••••••••••••••••••••'
             autoComplete='new-password'
@@ -78,7 +78,7 @@ export default function AiProviderForm({
             className="w-5 h-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 dark:bg-zinc-900 dark:border-zinc-700"
           />
           <label htmlFor="isActiveAi" className="text-sm font-medium text-zinc-900 dark:text-zinc-100 cursor-pointer">
-            {t('settings.ai_providers.form.labels.is_active', { defaultValue: 'Active' })}
+            {t('forms.ai_providers.labels.active', { defaultValue: 'Active' })}
           </label>
         </div>
       </div>
@@ -94,14 +94,14 @@ export default function AiProviderForm({
               text-zinc-800 dark:text-zinc-100 text-sm font-medium rounded-lg transition-colors disabled:opacity-50
             "
           >
-            {t('buttons.cancel', { defaultValue: 'Cancel' })}
+            {t('forms.ai_providers.buttons.cancel', { defaultValue: 'Cancel' })}
           </button>
         )}
 
         <SaveButton isSubmitting={isSubmitting} customLabel={
           isEditing ?
-            t('buttons.save_changes', { defaultValue: 'Save changes' }) :
-            t('buttons.save', { defaultValue: 'Save' })
+            t('forms.ai_providers.buttons.update_provider', { defaultValue: 'Update Provider' }) :
+            t('forms.ai_providers.buttons.save_provider', { defaultValue: 'Save Provider' })
         } />
       </div>
     </form>

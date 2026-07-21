@@ -24,8 +24,8 @@ export default function Services() {
       return (
         <EmptyList
           icon="📁"
-          title={t('services.page.list.empty_list_title', { defaultValue: 'No services found.' })}
-          description={t('services.page.list.empty_list_description', { defaultValue: 'Register your first service to see it here.' })}
+          title={t('pages.services.list.empty_list_title', { defaultValue: 'No services found.' })}
+          description={t('pages.services.list.empty_list_description', { defaultValue: 'Register your first service to see it here.' })}
         />
       );
     }
@@ -50,10 +50,10 @@ export default function Services() {
       <main className="flex-1 px-8 py-8 w-full relative z-10">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
           <div>
-            <BackButton to={{ pathname: '/panel' }} label={t('buttons.back_to_panel', { defaultValue: 'Back to panel' })} />
-            <Heading level={1} icon="🛠️" title={t('services.page.list.title', { defaultValue: 'Services' })} />
+            <BackButton to={{ pathname: '/panel' }} label={t('global.buttons.back_to_panel', { defaultValue: 'Back to panel' })} />
+            <Heading level={1} icon="🛠️" title={t('pages.services.list.title', { defaultValue: 'Services' })} />
           </div>
-          <AddButton to={{ pathname: '/services/create' }} label={t('services.buttons.new_service', { defaultValue: 'New Service' })} />
+          <AddButton to={{ pathname: '/services/create' }} label={t('pages.services.buttons.new_service', { defaultValue: 'New Service' })} />
         </div>
 
         <GlobalError error={globalError} message={t('services.list.error_title', { defaultValue: 'Error' })} />

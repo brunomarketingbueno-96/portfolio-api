@@ -4,6 +4,7 @@ import { useSettingsContext } from '@/contexts/SettingsContext'
 import AiSelector from '@/components/AiSelector'
 
 import type { AIProvider } from '@/typings/AiProvider';
+import { useTranslation } from 'react-i18next';
 
 interface AiGeneratorAssistentProps {
   aiPrompt: string
@@ -20,6 +21,8 @@ export default function AiGeneratorAssistent({
   onGenerateAI,
   index,
 }: AiGeneratorAssistentProps) {
+
+  const { t } = useTranslation();
 
   const { globalSettings } = useSettingsContext()
 
@@ -53,7 +56,7 @@ export default function AiGeneratorAssistent({
     <div className="md:col-span-12 bg-indigo-50/50 dark:bg-indigo-900/10 border border-indigo-100 dark:border-indigo-800 rounded-lg p-4">
       <div className="flex items-center gap-2 mb-3">
         <label className="text-sm font-semibold text-indigo-900 dark:text-indigo-200 flex items-center gap-1.5">
-          ✨ Assistente de IA
+          {t('global.components.ai_generator.label', { defaultValue: '✨ AI Assistent' })}
         </label>
 
         <AiSelector
@@ -70,7 +73,7 @@ export default function AiGeneratorAssistent({
           rows={2}
           value={aiPrompt}
           onChange={handleTextareaChange}
-          placeholder="Ex: Crie um artigo longo e persuasivo focado em dicas de vendas..."
+          placeholder={t('global.components.ai_generator.placeholder', { defaultValue: 'Insert your prompt' })}
           className="
             w-full pl-4 pr-12 py-2.5 text-sm bg-white dark:bg-zinc-900 
             border border-gray-300 dark:border-zinc-700 rounded-xl resize-none 
@@ -85,9 +88,10 @@ export default function AiGeneratorAssistent({
           type="button"
           onClick={() => onGenerateAI && selectedProvider.id && onGenerateAI(aiPrompt, index, selectedProvider.id)}
           disabled={isGenerating || !aiPrompt.trim()}
-          aria-label="Gerar conteúdo"
+          aria-label={t('global.components.ai_generator.button', { defaultValue: 'Generate' })}
+          title={t('global.components.ai_generator.button', { defaultValue: 'Generate' })}
           className="
-            absolute right-4 bottom-4 w-8 h-8 flex items-center justify-center
+            absolute right-4 bottom-4 w-8 h-8 flex items-center justify-center cursor-pointer
             rounded-full bg-indigo-600 hover:bg-indigo-700 text-white transition-colors
             disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-indigo-600
           "

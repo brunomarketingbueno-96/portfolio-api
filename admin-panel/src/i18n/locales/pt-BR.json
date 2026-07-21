@@ -1,137 +1,305 @@
 {
-  "menu": {},
-  "header": {
-    "title": "Painel Admin",
-    "logout": "Sair",
-    "confirm_logout": "Tem certeza que deseja sair?",
-    "error_logout": "Erro ao sair. Tente novamente.",
-    "edit_profile": "Meu Perfil"
-  },
-  "buttons": {
-    "back_to_panel": "Voltar ao Painel",
-    "add_language": "+ Adicionar Idioma",
-    "saving": "Salvando...",
-    "save_changes": "Salvar Alterações",
-    "cancel": "Cancelar",
-    "back": "Voltar",
-    "save": "Salvar",
-    "edit": "Editar",
-    "delete": "Excluir",
-    "add": "Adicionar"
-  },
-  "login": {
-    "titles": {
-      "admin_access": "Acesso Admin",
-      "panel_subtitle": "Painel do Portfólio",
-      "sign_in": "Entrar",
-      "credentials_subtitle": "Insira suas credenciais"
-    },
-    "labels": {
-      "email": "E-mail",
-      "password": "Senha"
-    },
-    "placeholders": {
-      "email": "admin@example.com",
-      "password": "••••••••"
+  "global": {
+    "components": {
+      "header": {
+        "title": "Painel Admin"
+      },
+      "user_menu": {
+        "profile": "Meu Perfil",
+        "logout": "Sair"
+      },
+      "full_screen_loader": {
+        "verifying_session": "Verificando sessão..."
+      },
+      "ai_generator": {
+        "label": "✨ Assistente de IA",
+        "placeholder": "Insira o prompt para a IA...",
+        "button": "Gerar",
+        "save": "Salvar",
+        "saving": "Salvando..."
+      },
+      "loader": {
+        "verifying_session": "Verificando sessão..."
+      },
+      "image_selector": {
+        "change_image": "Alterar imagem",
+        "remove_image": "Remover imagem",
+        "upload_image": "Clique para carregar uma imagem",
+        "file_limit": "PNG, JPG ou WEBP até 5mb",
+        "label": "Imagem",
+        "preview_alt": "Previsualização"
+      }
     },
     "buttons": {
-      "signing_in": "Entrando...",
-      "access_panel": "Acessar Painel"
+      "back_to_panel": "Voltar ao Painel"
     },
-    "error": {
-      "email": "E-mail inválido",
-      "password": "A senha deve ter pelo menos 6 caracteres"
-    }
+    "languages": {
+      "en": "Inglês",
+      "pt": "Português",
+      "es": "Espanhol"
+    },
+    "errors": {}
   },
-  "projects": {
-    "page": {
-      "list": {
-        "title": "Projetos",
-        "error_title": "Erro",
-        "empty_list_title": "Nenhum projeto encontrado.",
-        "empty_list_description": "Cadastre seu primeiro projeto para vê-lo aqui."
+  "pages": {
+    "login": {
+      "title": "Painel Admin",
+      "description": "Gerencie seu Portfólio",
+      "sign_in": "Entrar",
+      "credentials_subtitle": "Insira suas credenciais para entrar no painel."
+    },
+    "panel": {
+      "title": "Bem-vindo de volta!",
+      "description": "O que você gostaria de gerenciar hoje?",
+      "components": {
+        "panel_cards": {
+          "projects": {
+            "title": "Meus Projetos",
+            "description": "Gerenciar, editar e adicionar novos projetos ao portfólio."
+          },
+          "educations": {
+            "title": "Minhas Formações",
+            "description": "Gerenciar, editar e adicionar novas formações ao portfólio."
+          },
+          "services": {
+            "title": "Meus Serviços",
+            "description": "Gerenciar, editar e adicionar novos serviços ao portfólio."
+          },
+          "settings": {
+            "title": "Configurações",
+            "description": "Alterar as configurações do painel."
+          },
+          "public_website": {
+            "title": "Visitar Site",
+            "description": "Acessar o site público do portfólio."
+          },
+          "blog_posts": {
+            "title": "Blog",
+            "description": "Gerencie seus artigos, rascunhos e publicações."
+          }
+        }
       },
+      "buttons": {
+        "access": "Acessar"
+      }
+    },
+    "settings": {
+      "title": "Configurações Gerais",
+      "description": "Gerencie as configurações gerais do painel.",
+      "themes": {
+        "dark": "Escuro",
+        "light": "Claro",
+        "system": "Sistema"
+      },
+      "buttons": {
+        "new_provider": "+ Adicionar Provedor",
+        "edit_provider": "Editar Provedor",
+        "delete_provider": "Excluir Provedor"
+      },
+      "components": {},
+      "sections": {
+        "system": {
+          "title": "Configurações de Sistema",
+          "description": "Configurações do sistema do painel."
+        },
+        "ai_provider": {
+          "title": "Configurar Provedores de IA",
+          "description": "Cadastre e gerencie suas chaves de API para geração de conteúdo.",
+          "registered_providers": "Chaves Cadastadas"
+        }
+      }
+    },
+    "profile": {
+      "title": "Meu Perfil",
+      "description": "Gerencie suas informações pessoais.",
+      "sections": {
+        "personal_info": "Informações Pessoais",
+        "security": "Segurança e Senha"
+      }
+    },
+    "projects": {
       "create": {
         "title": "Criar Novo Projeto",
-        "description": "Preencha os detalhes abaixo para adicionar um novo projeto ao seu catálogo."
+        "description": "Preencha os detalhes abaixo para adicionar um novo projeto.",
+        "content_and_translations": "Conteúdo & Traduções"
       },
       "edit": {
         "title": "Editar Projeto",
         "description": "Atualize as informações do seu projeto."
+      },
+      "list": {
+        "title": "Meus Projetos",
+        "empty_list_title": "Nenhum projeto encontrado.",
+        "empty_list_description": "Cadastre seu primeiro projeto para vê-lo aqui."
+      },
+      "components": {
+        "project_cards": {
+          "live_url": "Ver Online",
+          "repo_url": "Repositório",
+          "no_image": "Nenhuma imagem"
+        }
+      },
+      "buttons": {
+        "new_project": "Novo Projeto",
+        "back_to_projects": "Voltar para projetos",
+        "delete_project": "Excluir Projeto",
+        "edit_project": "Editar Projeto"
       }
     },
-    "cards": {
-      "no_image": "Nenhuma imagem",
-      "image_alt": "Imagem do projeto",
-      "live_url": "Ver Online",
-      "repo_url": "Repositório"
-    },
-    "buttons": {
-      "new_project": "Novo Projeto",
-      "back_to_projects": "Voltar para projetos",
-      "save_project": "Salvar Projeto"
-    },
-    "form": {
-      "titles": {
-        "translations": "Traduções & Conteúdo"
+    "services": {
+      "create": {
+        "title": "Criar Novo Serviço",
+        "description": "Preencha os detalhes abaixo para adicionar um novo serviço.",
+        "content_and_translations": "Conteúdo & Traduções"
       },
+      "edit": {
+        "title": "Editar Serviço",
+        "description": "Atualize as informações do seu serviço."
+      },
+      "list": {
+        "title": "Meus Serviços",
+        "empty_list_title": "Nenhum serviço encontrado.",
+        "empty_list_description": "Cadastre seu primeiro serviço para vê-lo aqui."
+      },
+      "buttons": {
+        "new_service": "Novo Serviço",
+        "back_to_services": "Voltar para serviços",
+        "edit_service": "Editar Serviço",
+        "delete_service": "Excluir Serviço"
+      },
+      "components": {
+        "service_cards": {
+          "no_image": "Nenhuma imagem",
+          "image_alt": "Imagem do serviço",
+          "link": "Link do Serviço",
+          "no_link": "Nenhum link"
+        }
+      }
+    },
+    "educations": {
+      "create": {
+        "title": "Criar Nova Formação",
+        "description": "Preencha os detalhes abaixo para adicionar uma nova formação.",
+        "content_and_translations": "Conteúdo & Traduções"
+      },
+      "edit": {
+        "title": "Editar Formação",
+        "description": "Atualize as informações da sua formação."
+      },
+      "list": {
+        "title": "Minhas Formações",
+        "empty_list_title": "Nenhuma formação encontrada.",
+        "empty_list_description": "Cadastre sua primeira formação para vê-la aqui."
+      },
+      "buttons": {
+        "new_education": "Nova Formação",
+        "back_to_educations": "Voltar para formações",
+        "delete_education": "Excluir Formação",
+        "edit_education": "Editar Formação"
+      },
+      "components": {
+        "education_cards": {
+          "no_image": "Nenhuma imagem",
+          "image_alt": "Imagem da formação",
+          "certificate_url": "Certificado"
+        }
+      }
+    },
+    "blog_posts": {
+      "create": {
+        "title": "Criar Novo Post",
+        "description": "Preencha os detalhes abaixo para adicionar um novo post.",
+        "sections": {
+          "general_settings": "Configurações Gerais",
+          "post_content": "Conteúdo do Post"
+        }
+      },
+      "edit": {
+        "title": "Editar Post",
+        "description": "Atualize as informações do seu post."
+      },
+      "list": {
+        "title": "Meus Posts",
+        "empty_list_title": "Nenhum post encontrado.",
+        "empty_list_description": "Cadastre seu primeiro post para vê-lo aqui."
+      },
+      "view": {
+        "translation_unavailable": "A tradução deste post ainda não está disponível no idioma selecionado.",
+        "available_in": "Leia este post em:",
+        "alt_image": "Imagem de Capa do Post"
+      },
+      "buttons": {
+        "new_post": "Novo Post",
+        "back_to_posts": "Voltar para posts",
+        "view_post": "Ver Post",
+        "delete_post": "Excluir Post",
+        "edit_post": "Editar Post"
+      }
+    }
+  },
+  "hooks": {
+    "useSettings": {},
+    "useProfile": {},
+    "useImagePreview": {},
+    "useProjects": {},
+    "useServices": {},
+    "useEducations": {},
+    "useBlogPosts": {}
+  },
+  "forms": {
+    "projects": {
       "labels": {
-        "liveUrl": "URL do Projeto",
-        "repoUrl": "URL do Repositório",
+        "live_url": "URL do Projeto",
+        "repo_url": "URL do Repositório",
         "language": "Idioma",
         "title": "Título do Projeto",
         "description": "Descrição do Projeto"
       },
       "placeholders": {
-        "live_url": "https://myproject.com/",
+        "live_url": "https://myproject.com",
         "repo_url": "https://github.com/...",
         "title": "Ex: Desenvolvimento de Site",
         "description": "Descreva detalhadamente o que este projeto oferece..."
+      },
+      "errors": {
+        "live_url": "URL inválida",
+        "repo_url": "URL inválida",
+        "title": "Título inválido - Obrigatório",
+        "description": "Descrição inválida - Obrigatório"
+      },
+      "buttons": {
+        "save_project": "Salvar Projeto",
+        "update_project": "Atualizar Projeto",
+        "add_translation": "+ Adicionar Idioma",
+        "delete_translation": "Excluir Tradução"
       }
     },
-    "error": {
-      "live_url": "URL inválida",
-      "repo_url": "URL inválida",
-      "title": "Título inválido - Obrigatório",
-      "description": "Descrição inválida - Obrigatório"
-    }
-  },
-  "educations": {
-    "page": {
-      "list": {
-        "title": "Formações",
-        "error_title": "Erro",
-        "empty_list_title": "Nenhuma formação encontrada.",
-        "empty_list_description": "Cadastre sua primeira formação para vê-la aqui."
+    "services": {
+      "labels": {
+        "link": "Link do Serviço",
+        "info_link": "* Opcional: Insira um link externo para mais detalhes ou contratação.",
+        "language": "Idioma",
+        "title": "Título do Serviço",
+        "description": "Descrição do Serviço"
       },
-      "create": {
-        "title": "Criar Nova Formação",
-        "description": "Preencha os detalhes abaixo para adicionar uma nova formação."
+      "placeholders": {
+        "link": "https://",
+        "title": "Ex: Desenvolvimento de Site",
+        "description": "Descreva detalhadamente o que este serviço oferece..."
       },
-      "edit": {
-        "title": "Editar Formação",
-        "description": "Atualize as informações da sua formação."
-      }
-    },
-    "cards": {
-      "no_image": "Nenhuma imagem",
-      "image_alt": "Imagem da formação",
-      "certificate_url": "Certificado"
-    },
-    "buttons": {
-      "new_education": "Nova Formação",
-      "back_to_educations": "Voltar para formações",
-      "save_education": "Salvar Formação"
-    },
-    "form": {
-      "titles": {
-        "translations": "Traduções & Conteúdo"
+      "buttons": {
+        "save_service": "Salvar Serviço",
+        "update_service": "Atualizar Serviço",
+        "add_translation": "+ Adicionar Idioma",
+        "delete_translation": "Excluir Tradução"
       },
+      "errors": {}
+    },
+    "educations": {
       "labels": {
         "type": "Tipo de Formação",
         "status": "Status",
-        "startDate": "Data de Início",
-        "endDate": "Data de Fim",
+        "start_date": "Data de Início",
+        "end_date": "Data de Fim",
         "duration": "Duração (em horas)",
         "institution": "Instituição",
         "course_name": "Nome da Formação",
@@ -145,219 +313,59 @@
         "institution": "Ex: Harvard University",
         "course_name": "Ex: Ciência de Dados",
         "description": "Descreva detalhadamente a formação..."
-      }
-    },
-    "error": {
-      "start_date": "Data inválida - Obrigatório",
-      "end_date": "Data inválida",
-      "duration_hours": "Duração inválida - Obrigatório",
-      "institution": "Instituição inválida - Obrigatório",
-      "name": "Nome da formação inválida - Obrigatório",
-      "description": "Descrição inválida - Obrigatório",
-      "certificate_url": "URL inválida"
-    },
-    "type": {
-      "college": "Faculdade",
-      "course": "Curso",
-      "certification": "Certificação",
-      "bootcamp": "Bootcamp"
-    },
-    "status": {
-      "completed": "Concluído",
-      "in_progress": "Em andamento",
-      "paused": "Pausado"
-    }
-  },
-  "services": {
-    "page": {
-      "list": {
-        "title": "Serviços",
-        "error_title": "Erro",
-        "empty_list_title": "Nenhum serviço encontrado.",
-        "empty_list_description": "Cadastre seu primeiro serviço para vê-lo aqui."
       },
-      "create": {
-        "title": "Criar Novo Serviço",
-        "description": "Preencha os detalhes abaixo para adicionar um novo serviço ao seu catálogo."
-      },
-      "edit": {
-        "title": "Editar Serviço",
-        "description": "Atualize as informações do seu serviço."
-      }
-    },
-    "buttons": {
-      "new_service": "Novo Serviço",
-      "back_to_services": "Voltar para serviços",
-      "save_service": "Salvar Serviço"
-    },
-    "form": {
-      "titles": {
-        "translations": "Traduções & Conteúdo"
-      },
-      "labels": {
-        "link": "Link do Serviço",
-        "info_link": "* Opcional: Insira um link externo para mais detalhes ou contratação.",
-        "language": "Idioma",
-        "title": "Título do Serviço",
-        "description": "Descrição do Serviço"
-      },
-      "placeholders": {
-        "link": "https://",
-        "title": "Ex: Desenvolvimento de Site",
-        "description": "Descreva detalhadamente o que este serviço oferece..."
-      }
-    },
-    "error": {
-      "link": "URL inválida",
-      "title": "Título inválido - Obrigatório",
-      "description": "Descrição inválida - Obrigatório"
-    }
-  },
-  "blog_posts": {
-    "page": {
-      "list": {
-        "title": "Artigos do Blog",
-        "error_title": "Erro",
-        "empty_list_title": "Nenhum artigo encontrado.",
-        "empty_list_description": "Escreva seu primeiro artigo para vê-lo aqui."
-      },
-      "create": {
-        "title": "Criar Novo Artigo",
-        "description": "Crie um novo artigo para ser publicado no site."
-      },
-      "edit": {
-        "title": "Editar Artigo",
-        "description": "Atualize o conteúdo e as configurações do seu artigo."
-      },
-      "view": {
-        "translation_unavailable": "A tradução deste artigo ainda não está disponível no idioma selecionado.",
-        "available_in": "Leia este artigo em:",
-        "back_home": "Voltar para o início"
-      }
-    },
-    "buttons": {
-      "new_post": "Novo Artigo",
-      "back_to_posts": "Voltar para artigos",
-      "save_post": "Salvar Artigo",
-      "add_translation": "Adicionar Tradução"
-    },
-    "card": {
-      "no_title": "Sem título",
-      "no_excerpt": "Sem resumo disponível."
-    },
-    "status": {
-      "published": "Publicado",
-      "draft": "Rascunho"
-    },
-    "action": {
-      "confirm_delete": "Tem certeza que deseja excluir este artigo permanentemente?"
-    },
-    "form": {
-      "general_settings": "Configurações Gerais",
-      "cover_image": "Imagem de Capa",
-      "image_help": "PNG, JPG, WEBP até 2MB.",
-      "publish_now": "Publicar imediatamente",
-      "publish_help": "Se desmarcado, será salvo como rascunho e oculto do público.",
-      "translation_content": "Conteúdo",
-      "language": "Idioma",
-      "title": "Título",
-      "title_placeholder": "Ex: Como criar uma API com Hono",
-      "slug": "Slug da URL",
-      "excerpt": "Resumo Curto (SEO)",
-      "excerpt_placeholder": "Uma breve descrição deste artigo para listas e SEO...",
-      "content": "Conteúdo do Artigo"
-    },
-    "error": {
-      "image_url": "URL da imagem inválida",
-      "language": "Idioma é obrigatório",
-      "slug": "O slug deve ter pelo menos 3 caracteres",
-      "title": "O título deve ter pelo menos 3 caracteres",
-      "excerpt": "O resumo deve ter pelo menos 10 caracteres",
-      "content": "O conteúdo deve ter pelo menos 10 caracteres",
-      "translations_required": "Pelo menos um idioma é obrigatório",
-      "not_found": "Artigo não encontrado",
-      "list": "Erro ao listar os artigos",
-      "get_by_slug": "Erro ao buscar artigo pela URL",
-      "get_by_id": "Erro ao buscar artigo",
-      "create": "Erro ao criar o artigo",
-      "update": "Erro ao atualizar o artigo",
-      "delete": "Erro ao excluir o artigo"
-    },
-    "editor": {
       "buttons": {
-        "preview": "Visualização",
-        "html_code": "Código Fonte"
+        "save_education": "Salvar Formação",
+        "update_education": "Atualizar Formação",
+        "add_translation": "+ Adicionar Idioma",
+        "delete_translation": "Excluir Tradução"
+      },
+      "types": {
+        "course": "Curso",
+        "college": "Faculdade",
+        "certification": "Certificação",
+        "bootcamp": "Bootcamp"
+      },
+      "statuses": {
+        "in_progress": "Em andamento",
+        "completed": "Concluído",
+        "paused": "Pausado"
+      },
+      "errors": {}
+    },
+    "blog_posts": {
+      "labels": {
+        "title": "Título do Post",
+        "status": "Status",
+        "content": "Conteúdo",
+        "language": "Idioma",
+        "excerpt": "Descrição Curta",
+        "slug": "Slug da URL",
+        "publish_now": "Publicar Imediatamente",
+        "publish_help": "Se desmarcado, será salvo como rascunho e oculto do público.",
+        "cover_image": "Imagem de Capa"
       },
       "placeholders": {
-        "html": "<p>Escreva seu HTML aqui...</p>"
+        "title": "Ex: Como criar uma API com Hono",
+        "excerpt": "Uma breve descrição deste artigo para listas e SEO...",
+        "content": "Descreva detalhadamente o que este artigo oferece...",
+        "slug": "Ex: como-criar-uma-api-com-hono"
       },
-      "prompts": {
-        "video_url": "Insira o link do vídeo (YouTube):"
+      "buttons": {
+        "save_post": "Salvar Post",
+        "update_post": "Atualizar Post",
+        "add_translation": "Adicionar Idioma",
+        "delete_translation": "Excluir Tradução",
+        "source_code": "Código Fonte",
+        "preview": "Visualizar"
       },
-      "errors": {
-        "upload_log": "Erro ao fazer upload da imagem interna",
-        "upload_alert": "Falha ao subir a imagem."
-      }
-    }
-  },
-  "loader": {
-    "verifying_session": "Verificando sessão..."
-  },
-  "image_selector": {
-    "label": "Imagem (Logo ou Capa)",
-    "preview_alt": "Pré-visualização",
-    "click_to_change": "Clique para trocar",
-    "click_to_upload": "Clique para fazer upload",
-    "file_limits": "PNG, JPG até 5MB"
-  },
-  "panel_card": {
-    "soon": "Em breve",
-    "access": "Acessar"
-  },
-  "panel": {
-    "title": "Bem-vindo de volta!",
-    "description": "O que você gostaria de gerenciar hoje?",
-    "cards": {
-      "projects": {
-        "title": "Meus Projetos",
-        "description": "Gerenciar, editar e adicionar novos projetos ao portfólio."
+      "statuses": {
+        "draft": "Rascunho",
+        "published": "Publicado"
       },
-      "educations": {
-        "title": "Minhas Formações",
-        "description": "Gerenciar, editar e adicionar novas formações ao portfólio."
-      },
-      "services": {
-        "title": "Meus Serviços",
-        "description": "Gerenciar, editar e adicionar novos serviços ao portfólio."
-      },
-      "config": {
-        "title": "Configurações",
-        "description": "Alterar as configurações do painel."
-      },
-      "public_website": {
-        "title": "Visitar Site",
-        "description": "Acessar o site público do portfólio."
-      },
-      "blog_posts": {
-        "title": "Blog",
-        "description": "Gerencie seus artigos, rascunhos e publicações."
-      }
-    }
-  },
-  "languages": {
-    "pt": "🇧🇷 Português",
-    "en": "🇺🇸 English",
-    "es": "🇪🇸 Español"
-  },
-  "settings": {
-    "title": "Configurações Gerais",
-    "description": "Gerencie as configurações gerais do painel.",
-    "themes": {
-      "light": "Claro",
-      "dark": "Escuro",
-      "system": "Sistema"
+      "errors": {}
     },
-    "form": {
+    "settings": {
       "labels": {
         "theme": "Tema do Painel",
         "panel_language": "Idioma do Painel",
@@ -365,27 +373,31 @@
         "public_email": "E-mail Público",
         "logo_url": "URL da Logo",
         "custom_config": "Configurações personalizadas",
-        "logo": "Logo do Site (Favicon)"
+        "logo": "Logo do Painel (Favicon)"
       },
       "placeholders": {
         "site_url": "https://",
         "public_email": "meu-email@meu-domínio.com"
-      }
-    },
-    "error": {
-      "site_url": "URL inválida"
+      },
+      "buttons": {
+        "update_settings": "Atualizar Configurações"
+      },
+      "themes": {
+        "light": "Claro",
+        "dark": "Escuro",
+        "system": "Sistema"
+      },
+      "errors": {}
     },
     "ai_providers": {
-      "form": {
-        "labels": {
-          "name": "Nome da Chave",
-          "provider": "Provedor",
-          "key": "Chave de API",
-          "is_active": "Definir como Ativo"
-        },
-        "placeholders": {
-          "name": "Chave de Produção"
-        }
+      "labels": {
+        "name": "Nome da Chave",
+        "api_key": "Chave de API",
+        "provider": "Provedor de AI",
+        "active": "Ativo"
+      },
+      "placeholders": {
+        "name": "Ex: OpenAI Premium"
       },
       "providers": {
         "openai": "OpenAI",
@@ -393,44 +405,52 @@
         "groq": "Groq"
       },
       "buttons": {
-        "add_provider": "Adicionar Provedor"
+        "cancel": "Cancelar",
+        "save_provider": "Salvar Provedor",
+        "update_provider": "Atualizar Provedor"
       }
-    }
-  },
-  "users": {
-    "error": {
-      "invalid_password": "Credenciais Inválidas",
-      "new_password": "Nova Senha Inválida"
-    }
-  },
-  "profile": {
-    "title": "Meu Perfil",
-    "description": "Gerencie as informações e a segurança da sua conta.",
-    "back": "Voltar ao Dashboard",
-    "sections": {
-      "personal_info": "Informações Pessoais",
-      "security": "Segurança e Senha"
     },
-    "labels": {
-      "name": "Nome Completo",
-      "email": "E-mail",
-      "old_password": "Senha Atual",
-      "new_password": "Nova Senha",
-      "confirm_password": "Confirmar Nova Senha"
+    "login": {
+      "labels": {
+        "email": "E-mail",
+        "password": "Senha"
+      },
+      "placeholders": {
+        "email": "meu-email@meu-domínio.com"
+      },
+      "buttons": {
+        "access_panel": "Entrar"
+      }
     },
-    "placeholders": {
-      "name": "Seu Nome Completo",
-      "email": "seu.email@exemplo.com"
+    "profile": {
+      "labels": {
+        "name": "Nome Completo",
+        "email": "E-mail"
+      },
+      "placeholders": {
+        "name": "Ex: João da Silva",
+        "email": "meu-email@meu-domínio.com"
+      },
+      "buttons": {
+        "update_profile": "Atualizar Perfil",
+        "updating": "Atualizando..."
+      },
+      "messages": {
+        "profile_success": "Perfil atualizado com sucesso!"
+      },
+      "errors": {}
     },
-    "messages": {
-      "profile_success": "Perfil atualizado com sucesso",
-      "password_success": "Senha atualizada com sucesso"
-    },
-    "buttons": {
-      "saving": "Salvando...",
-      "save_profile": "Salvar Perfil",
-      "updating": "Atualizando...",
-      "update_password": "Atualizar Senha"
+    "password": {
+      "labels": {
+        "old_password": "Senha Atual",
+        "new_password": "Nova Senha",
+        "confirm_password": "Confirmar Nova Senha"
+      },
+      "buttons": {
+        "updating": "Atualizando...",
+        "update_password": "Atualizar Senha"
+      },
+      "errors": {}
     }
   }
 }

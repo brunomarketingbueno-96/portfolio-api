@@ -46,8 +46,8 @@ export default function AiProviderSection({
 
       <div className="mb-6 border-b border-gray-100 dark:border-zinc-700 pb-4 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
         <div>
-          <Heading level={2} title={t('settings.ai_providers.title', { defaultValue: 'Inteligência Artificial' })} />
-          <SubTitle content={t('settings.ai_providers.description', { defaultValue: 'Cadastre e gerencie suas chaves de API para geração de conteúdo.' })} />
+          <Heading level={2} title={t('pages.settings.sections.ai_provider.title', { defaultValue: 'Inteligência Artificial' })} />
+          <SubTitle content={t('pages.settings.sections.ai_provider.description', { defaultValue: 'Cadastre e gerencie suas chaves de API para geração de conteúdo.' })} />
         </div>
 
         {!showForm && (
@@ -59,7 +59,7 @@ export default function AiProviderSection({
               text-sm font-medium transition-colors flex items-center gap-2 shadow-sm
             '
           >
-            {t('settings.ai_providers.buttons.add_provider', { defaultValue: '+ Add Provider' })}
+            {t('pages.settings.buttons.new_provider', { defaultValue: '+ Add Provider' })}
           </button>
         )}
       </div>

@@ -30,19 +30,19 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
         ) : (
           <div className="flex flex-col items-center justify-center w-full h-full text-gray-400 dark:text-zinc-600">
             <span className="text-3xl mb-2">🖼️</span>
-            <span className="text-sm">{t('projects.cards.no_image')}</span>
+            <span className="text-sm">{t('pages.projects.components.project_cards.no_image')}</span>
           </div>
         )}
 
         <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
           <EditButton
             to={{ pathname: `/projects/edit/${project.id}` }}
-            title={t('buttons.edit', { defaultValue: 'Edit' })}
+            title={t('pages.projects.buttons.edit_project', { defaultValue: 'Edit project' })}
           />
 
           <DeleteButton
             onDelete={() => onDelete(project.id!)}
-            title={t('buttons.delete', { defaultValue: 'Delete' })}
+            title={t('pages.projects.buttons.delete_project', { defaultValue: 'Delete project' })}
           />
         </div>
       </div>
@@ -55,14 +55,14 @@ export default function ProjectCard({ project, onDelete }: ProjectCardProps) {
         {project.liveUrl && (
           <a href={project.liveUrl} target="_blank" rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors rounded-lg">
-            🌐 {t('projects.cards.live_url')}
+            🌐 {t('pages.projects.components.project_cards.live_url')}
           </a>
         )}
 
         {project.repoUrl && (
           <a href={project.repoUrl} target="_blank" rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-gray-700 dark:text-zinc-300 bg-gray-100 dark:bg-zinc-700 hover:bg-gray-200 dark:hover:bg-zinc-600 transition-colors rounded-lg">
-            📦 {t('projects.cards.repo_url')}
+            📦 {t('pages.projects.components.project_cards.repo_url')}
           </a>
         )}
       </div>

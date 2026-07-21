@@ -28,8 +28,8 @@ export default function Educations() {
       return (
         <EmptyList
           icon="📚"
-          title={t('educations.page.list.empty_list_title', { defaultValue: 'No educations found.' })}
-          description={t('educations.page.list.empty_list_description', { defaultValue: 'Start by adding your courses and degrees.' })}
+          title={t('pages.educations.list.empty_list_title', { defaultValue: 'No educations found.' })}
+          description={t('pages.educations.list.empty_list_description', { defaultValue: 'Start by adding your courses and degrees.' })}
         />
       );
     }
@@ -54,10 +54,10 @@ export default function Educations() {
       <main className="flex-1 px-8 py-8 w-full relative z-10">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
           <div>
-            <BackButton to={{ pathname: '/panel' }} label={t('buttons.back_to_panel', { defaultValue: 'Back to panel' })} />
-            <Heading level={1} icon="🎓" title={t('educations.page.list.title', { defaultValue: 'Educations' })} />
+            <BackButton to={{ pathname: '/panel' }} label={t('global.buttons.back_to_panel', { defaultValue: 'Back to panel' })} />
+            <Heading level={1} icon="🎓" title={t('pages.educations.list.title', { defaultValue: 'Educations' })} />
           </div>
-          <AddButton to={{ pathname: '/educations/create' }} label={t('educations.buttons.new_education', { defaultValue: 'New Education' })} />
+          <AddButton to={{ pathname: '/educations/create' }} label={t('pages.educations.buttons.new_education', { defaultValue: 'New Education' })} />
         </div>
 
         {globalError && (

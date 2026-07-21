@@ -55,10 +55,10 @@ export default function EditProject() {
       <div className="flex-1 px-8 py-8 w-full relative z-10">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <Heading level={1} title={t('projects.page.edit.title', { defaultValue: 'Edit Project' })} />
-            <SubTitle content={t('projects.page.edit.description', { defaultValue: 'Update your project information.' })} />
+            <Heading level={1} title={t('pages.projects.edit.title', { defaultValue: 'Edit Project' })} />
+            <SubTitle content={t('pages.projects.edit.description', { defaultValue: 'Update your project information.' })} />
           </div>
-          <BackButton to={{ pathname: '/projects' }} label={t('projects.buttons.back_to_projects', { defaultValue: 'Back to list' })} />
+          <BackButton to={{ pathname: '/projects' }} label={t('pages.projects.buttons.back_to_projects', { defaultValue: 'Back to list' })} />
         </div>
 
         {render()}

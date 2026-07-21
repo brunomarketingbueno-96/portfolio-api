@@ -33,8 +33,8 @@ export default function SettingsSection({
   return (
     <div className="bg-white dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl p-8 shadow-sm">
       <div className="mb-6 border-b border-gray-100 dark:border-zinc-700 pb-4">
-        <Heading level={2} title={t('settings.title', { defaultValue: 'General Settings' })} />
-        <SubTitle content={t('settings.description', { defaultValue: 'Configure general settings for your panel.' })} />
+        <Heading level={2} title={t('pages.settings.sections.system.title', { defaultValue: 'System Settings' })} />
+        <SubTitle content={t('pages.settings.sections.system.description', { defaultValue: 'Configure general settings for your panel.' })} />
       </div>
 
       <GlobalError error={globalError} message={globalError as string} />

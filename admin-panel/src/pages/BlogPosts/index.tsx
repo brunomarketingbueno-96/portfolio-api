@@ -32,8 +32,8 @@ export default function BlogPosts() {
       return (
         <EmptyList
           icon="📰"
-          title={t('blog_posts.page.list.empty_list_title', { defaultValue: 'No blog posts found.' })}
-          description={t('blog_posts.page.list.empty_list_description', { defaultValue: 'Write your first post to see it here.' })}
+          title={t('pages.blog_posts.list.empty_list_title', { defaultValue: 'No blog posts found.' })}
+          description={t('pages.blog_posts.list.empty_list_description', { defaultValue: 'Write your first post to see it here.' })}
         />
       );
     }
@@ -58,10 +58,10 @@ export default function BlogPosts() {
       <main className="flex-1 px-8 py-8 w-full relative z-10">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
           <div>
-            <BackButton to={{ pathname: '/panel' }} label={t('buttons.back_to_panel', { defaultValue: 'Back to panel' })} />
-            <Heading level={1} icon="📝" title={t('blog_posts.page.list.title', { defaultValue: 'Blog Posts' })} />
+            <BackButton to={{ pathname: '/panel' }} label={t('global.buttons.back_to_panel', { defaultValue: 'Back to panel' })} />
+            <Heading level={1} icon="📝" title={t('pages.blog_posts.list.title', { defaultValue: 'My Posts' })} />
           </div>
-          <AddButton to={{ pathname: '/blog-posts/create' }} label={t('blog_posts.buttons.new_post', { defaultValue: 'New Post' })} />
+          <AddButton to={{ pathname: '/blog-posts/create' }} label={t('pages.blog_posts.buttons.new_post', { defaultValue: 'New Post' })} />
         </div>
 
         {globalError && (

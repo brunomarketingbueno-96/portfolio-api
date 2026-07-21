@@ -10,11 +10,11 @@ export default function WelcomePanel() {
       <div className="max-w-md text-center">
 
         <h1 className="text-4xl font-bold mb-4">
-          {t("login.welcome.title", { defaultValue: "Welcome!" })}
+          {t("pages.login.title", { defaultValue: "Welcome!" })}
         </h1>
 
         <p className="text-lg text-blue-200">
-          {t("login.welcome.description", { defaultValue: "Manage your portfolio" })}
+          {t("pages.login.description", { defaultValue: "Manage your portfolio" })}
         </p>
       </div>
     </div>

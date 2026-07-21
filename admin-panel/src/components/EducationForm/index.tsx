@@ -46,9 +46,9 @@ export default function EducationForm({
               <div>
                 <Select
                   id="type"
-                  label={t('educations.form.labels.type', { defaultValue: 'Type' })}
+                  label={t('forms.educations.labels.type', { defaultValue: 'Type' })}
                   options={['college', 'course', 'certification', 'bootcamp']}
-                  translationGroup="educations.type"
+                  translationGroup="forms.educations.types"
                   {...register('type')}
                 />
                 <FormError error={!!errors.type?.message} message={t(errors.type?.message as string)} />
@@ -57,9 +57,9 @@ export default function EducationForm({
               <div>
                 <Select
                   id="status"
-                  label={t('educations.form.labels.status', { defaultValue: 'Status' })}
+                  label={t('forms.educations.labels.status', { defaultValue: 'Status' })}
                   options={['completed', 'in_progress', 'paused']}
-                  translationGroup="educations.status"
+                  translationGroup="forms.educations.statuses"
                   {...register('status')}
                 />
                 <FormError error={!!errors.status?.message} message={t(errors.status?.message as string)} />
@@ -70,7 +70,7 @@ export default function EducationForm({
               <div>
                 <Input
                   id="startDate"
-                  label={t('educations.form.labels.startDate', { defaultValue: 'Start Date' })}
+                  label={t('forms.educations.labels.start_date', { defaultValue: 'Start Date' })}
                   type="date"
                   placeholder=""
                   {...register('startDate')}
@@ -83,7 +83,7 @@ export default function EducationForm({
               <div>
                 <Input
                   id="endDate"
-                  label={t('educations.form.labels.endDate', { defaultValue: 'End Date' })}
+                  label={t('forms.educations.labels.end_date', { defaultValue: 'End Date' })}
                   type="date"
                   placeholder=""
                   {...register('endDate')}
@@ -99,8 +99,8 @@ export default function EducationForm({
                 <Input
                   id="durationHours"
                   type="number"
-                  label={t('educations.form.labels.duration', { defaultValue: 'Duration (Hours)' })}
-                  placeholder={t('educations.form.placeholders.duration', { defaultValue: 'Ex: 120' })}
+                  label={t('forms.educations.labels.duration', { defaultValue: 'Duration (Hours)' })}
+                  placeholder={t('forms.educations.placeholders.duration', { defaultValue: 'Ex: 120' })}
                   {...register('durationHours')}
                 >
                   <IconWrapper>⏱️</IconWrapper>
@@ -111,9 +111,9 @@ export default function EducationForm({
               <div>
                 <Input
                   id="certificateUrl"
-                  label={t('educations.form.labels.certificate_url', { defaultValue: 'Certificate URL' })}
+                  label={t('forms.educations.labels.certificate_url', { defaultValue: 'Certificate URL' })}
                   type="url"
-                  placeholder={t('educations.form.placeholders.certificate_url', { defaultValue: 'https://...' })}
+                  placeholder={t('forms.educations.placeholders.certificate_url', { defaultValue: 'https://...' })}
                   {...register('certificateUrl')}
                 >
                   <IconWrapper>🔗</IconWrapper>
@@ -128,9 +128,9 @@ export default function EducationForm({
 
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100">{t('educations.form.titles.translations', { defaultValue: 'Content & Translations' })}</h3>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100">{t('pages.educations.create.content_and_translations', { defaultValue: 'Content & Translations' })}</h3>
             <button type="button" onClick={appendTranslation} className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center gap-1">
-              {t('buttons.add_language', { defaultValue: '+ Add Language' })}
+              {t('forms.educations.buttons.add_translation', { defaultValue: '+ Add Language' })}
             </button>
           </div>
 
@@ -144,9 +144,9 @@ export default function EducationForm({
                     <button
                       type="button"
                       onClick={() => removeTranslation(index)}
-                      aria-label={t('buttons.delete', { defaultValue: 'Delete' })}
-                      title={t('buttons.delete', { defaultValue: 'Delete' })}
-                      className="absolute top-4 right-4 text-zinc-400 hover:text-red-500 transition-colors"
+                      aria-label={t('forms.educations.buttons.delete_translation', { defaultValue: 'Delete' })}
+                      title={t('forms.educations.buttons.delete_translation', { defaultValue: 'Delete' })}
+                      className="cursor-pointer absolute top-4 right-4 text-zinc-400 hover:text-red-500 transition-colors"
                     >
                       ✕
                     </button>
@@ -156,9 +156,9 @@ export default function EducationForm({
                     <div className="md:col-span-1">
                       <Select
                         id={`language-${index}`}
-                        label={t('educations.form.labels.language', { defaultValue: 'Language' })}
+                        label={t('forms.educations.labels.language', { defaultValue: 'Language' })}
                         options={['pt', 'en', 'es']}
-                        translationGroup="languages"
+                        translationGroup="global.languages"
                         disabled={index === 0}
                         {...register(`translations.${index}.language` as const)}
                       />
@@ -168,8 +168,8 @@ export default function EducationForm({
                     <div className="md:col-span-1">
                       <Input
                         id={`institution-${index}`}
-                        label={t('educations.form.labels.institution', { defaultValue: 'Institution' })}
-                        placeholder={t('educations.form.placeholders.institution', { defaultValue: 'Ex: Harvard' })}
+                        label={t('forms.educations.labels.institution', { defaultValue: 'Institution' })}
+                        placeholder={t('forms.educations.placeholders.institution', { defaultValue: 'Ex: Harvard' })}
                         {...register(`translations.${index}.institution` as const)}
                       >
                         <IconWrapper>🏛️</IconWrapper>
@@ -180,8 +180,8 @@ export default function EducationForm({
                     <div className="md:col-span-2">
                       <Input
                         id={`name-${index}`}
-                        label={t('educations.form.labels.course_name', { defaultValue: 'Course Name' })}
-                        placeholder={t('educations.form.placeholders.course_name', { defaultValue: 'Ex: Computer Science' })}
+                        label={t('forms.educations.labels.course_name', { defaultValue: 'Course Name' })}
+                        placeholder={t('forms.educations.placeholders.course_name', { defaultValue: 'Ex: Computer Science' })}
                         {...register(`translations.${index}.name` as const)}
                       >
                         <IconWrapper>🎓</IconWrapper>
@@ -192,8 +192,8 @@ export default function EducationForm({
                     <div className="md:col-span-4 mt-2 flex flex-col gap-2">
                       <Textarea
                         id={`description-${index}`}
-                        label={t('educations.form.labels.description', { defaultValue: 'Description' })}
-                        placeholder={t('educations.form.placeholders.description', { defaultValue: 'Ex: Computer Science' })}
+                        label={t('forms.educations.labels.description', { defaultValue: 'Description' })}
+                        placeholder={t('forms.educations.placeholders.description', { defaultValue: 'Ex: Computer Science' })}
                         {...register(`translations.${index}.description` as const)}
                       />
                       <FormError error={!!fieldErrors?.description?.message} message={t(fieldErrors?.description?.message as string)} />
@@ -209,7 +209,7 @@ export default function EducationForm({
       </div>
 
       <div className="bg-gray-50 dark:bg-zinc-900 px-6 py-4 flex items-center justify-end border-t border-gray-200 dark:border-zinc-700">
-        <SaveButton isSubmitting={isSubmitting} customLabel={t('educations.buttons.save_education', { defaultValue: 'Save Education' })} />
+        <SaveButton isSubmitting={isSubmitting} customLabel={t('forms.educations.buttons.save_education', { defaultValue: 'Save Education' })} />
       </div>
     </form>
   );

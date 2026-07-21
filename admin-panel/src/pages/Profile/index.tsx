@@ -33,10 +33,10 @@ export default function Profile() {
       <main className="flex-1 px-8 py-8 w-full space-y-8 relative z-10">
         <div className="flex items-center justify-between">
           <div>
-            <Heading level={1} title={t('profile.title', { defaultValue: 'My Profile' })} />
-            <SubTitle content={t('profile.description', { defaultValue: 'Manage your account information and security.' })} />
+            <Heading level={1} title={t('pages.profile.title', { defaultValue: 'My Profile' })} />
+            <SubTitle content={t('pages.profile.description', { defaultValue: 'Manage your account information and security.' })} />
           </div>
-          <BackButton to={{ pathname: '/panel' }} label={t('buttons.back_to_panel', { defaultValue: 'Back to Panel' })} />
+          <BackButton to={{ pathname: '/panel' }} label={t('global.buttons.back_to_panel', { defaultValue: 'Back to Panel' })} />
         </div>
 
         <ProfileForm

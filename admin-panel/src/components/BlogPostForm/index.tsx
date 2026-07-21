@@ -55,7 +55,7 @@ export default function BlogPostForm({
 
       <div className="bg-white dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl p-6 shadow-sm">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-zinc-50 mb-4 border-b border-gray-100 dark:border-zinc-700 pb-2">
-          {t('blog_posts.form.general_settings', { defaultValue: 'General Settings' })}
+          {t('pages.blog_posts.create.sections.general_settings', { defaultValue: 'General Settings' })}
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -64,7 +64,7 @@ export default function BlogPostForm({
             <ImageSelector
               imagePreview={imagePreview}
               onFileChange={handleFileChange}
-              label={t('blog_posts.form.cover_image', { defaultValue: 'Cover Image' })}
+              label={t('forms.blog_posts.labels.cover_image', { defaultValue: 'Cover Image' })}
             />
             <FormError error={!!errors.coverImageUrl} message={t(errors.coverImageUrl?.message as string)} />
           </div>
@@ -80,10 +80,10 @@ export default function BlogPostForm({
             </div>
             <div className="ml-4">
               <label htmlFor="isPublished" className="font-semibold text-gray-900 dark:text-zinc-100 text-base">
-                {t('blog_posts.form.publish_now', { defaultValue: 'Publish immediately' })}
+                {t('forms.blog_posts.labels.publish_now', { defaultValue: 'Publish immediately' })}
               </label>
               <p className="text-sm text-gray-500 dark:text-zinc-400 mt-1">
-                {t('blog_posts.form.publish_help', { defaultValue: 'If unchecked, it will be saved as a draft and hidden from the public.' })}
+                {t('forms.blog_posts.labels.publish_help', { defaultValue: 'If unchecked, it will be saved as a draft and hidden from the public.' })}
               </p>
             </div>
           </div>
@@ -111,12 +111,12 @@ export default function BlogPostForm({
           onClick={appendTranslation}
           className="w-full py-3 border-2 border-dashed border-gray-300 dark:border-zinc-600 rounded-xl text-gray-600 dark:text-zinc-400 hover:bg-gray-50 dark:hover:bg-zinc-800 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium flex justify-center items-center gap-2"
         >
-          <span>➕</span> {t('blog_posts.buttons.add_translation', { defaultValue: 'Add Translation' })}
+          <span>➕</span> {t('forms.blog_posts.buttons.add_translation', { defaultValue: 'Add Translation' })}
         </button>
       </div>
 
       <div className="flex justify-end mt-8">
-        <SaveButton isSubmitting={isSubmitting} customLabel={t('blog_posts.buttons.save_post', { defaultValue: 'Save post' })} />
+        <SaveButton isSubmitting={isSubmitting} customLabel={t('forms.blog_posts.buttons.save_post', { defaultValue: 'Save post' })} />
       </div>
     </form>
   );

@@ -55,10 +55,10 @@ export default function EditEducation() {
       <main className="flex-1 px-8 py-8 w-full relative z-10">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <Heading level={1} title={t('educations.page.edit.subtitle', { defaultValue: 'Update your course or degree information.' })} />
-            <SubTitle content={t('educations.page.edit.description', { defaultValue: 'Update your course or degree information.' })} />
+            <Heading level={1} title={t('pages.educations.edit.title', { defaultValue: 'Update your course or degree information.' })} />
+            <SubTitle content={t('pages.educations.edit.description', { defaultValue: 'Update your course or degree information.' })} />
           </div>
-          <BackButton to={{ pathname: '/educations' }} label={t('educations.buttons.back_to_educations', { defaultValue: 'Back to Educations' })} />
+          <BackButton to={{ pathname: '/educations' }} label={t('pages.educations.buttons.back_to_educations', { defaultValue: 'Back to Educations' })} />
         </div>
 
         {render()}

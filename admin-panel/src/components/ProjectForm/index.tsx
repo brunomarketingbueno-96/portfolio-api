@@ -46,9 +46,9 @@ export default function ProjectForm({
             <div>
               <Input
                 id="liveUrl"
-                label={t('projects.form.labels.liveUrl', { defaultValue: 'Live URL' })}
+                label={t('forms.projects.labels.live_url', { defaultValue: 'Live URL' })}
                 type="url"
-                placeholder={t('projects.form.placeholders.live_url', { defaultValue: 'https://myproject.com' })}
+                placeholder={t('forms.projects.placeholders.live_url', { defaultValue: 'https://myproject.com' })}
                 {...register('liveUrl')}
               >
                 <IconWrapper>🌐</IconWrapper>
@@ -59,9 +59,9 @@ export default function ProjectForm({
             <div>
               <Input
                 id="repoUrl"
-                label={t('projects.form.labels.repoUrl', { defaultValue: 'Repository URL' })}
+                label={t('forms.projects.labels.repo_url', { defaultValue: 'Repository URL' })}
                 type="url"
-                placeholder={t('projects.form.placeholders.repo_url', { defaultValue: 'https://github.com/...' })}
+                placeholder={t('forms.projects.placeholders.repo_url', { defaultValue: 'https://github.com/...' })}
                 {...register('repoUrl')}
               >
                 <IconWrapper>📦</IconWrapper>
@@ -75,9 +75,9 @@ export default function ProjectForm({
 
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100">{t('projects.form.titles.translations', { defaultValue: 'Content & Translations' })}</h3>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100">{t('pages.projects.create.content_and_translations', { defaultValue: 'Content & Translations' })}</h3>
             <button type="button" onClick={appendTranslation} className="cursor-pointer text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center gap-1">
-              {t('buttons.add_language', { defaultValue: '+ Add Language' })}
+              {t('forms.projects.buttons.add_translation', { defaultValue: '+ Add Language' })}
             </button>
           </div>
 
@@ -91,9 +91,9 @@ export default function ProjectForm({
                     <button
                       type="button"
                       onClick={() => removeTranslation(index)}
-                      aria-label={t('buttons.delete', { defaultValue: 'Delete' })}
-                      title={t('buttons.delete', { defaultValue: 'Delete' })}
-                      className="absolute top-4 right-4 text-zinc-400 hover:text-red-500 transition-colors"
+                      aria-label={t('forms.projects.buttons.delete_translation', { defaultValue: 'Delete' })}
+                      title={t('forms.projects.buttons.delete_translation', { defaultValue: 'Delete' })}
+                      className="cursor-pointer absolute top-4 right-4 text-zinc-400 hover:text-red-500 transition-colors"
                     >
                       ✕
                     </button>
@@ -103,9 +103,9 @@ export default function ProjectForm({
                     <div className="md:col-span-1">
                       <Select
                         id={`language-${index}`}
-                        label={t('projects.form.labels.language', { defaultValue: 'Language' })}
+                        label={t('forms.projects.labels.language', { defaultValue: 'Language' })}
                         options={['pt', 'en', 'es']}
-                        translationGroup="languages"
+                        translationGroup="global.languages"
                         disabled={index === 0}
                         {...register(`translations.${index}.language` as const)}
                       />
@@ -115,8 +115,8 @@ export default function ProjectForm({
                     <div className="md:col-span-3">
                       <Input
                         id={`title-${index}`}
-                        label={t('projects.form.labels.title', { defaultValue: 'Project Title' })}
-                        placeholder={t('projects.form.placeholders.title', { defaultValue: 'Ex: E-commerce Website' })}
+                        label={t('forms.projects.labels.title', { defaultValue: 'Project Title' })}
+                        placeholder={t('forms.projects.placeholders.title', { defaultValue: 'Ex: E-commerce Website' })}
                         {...register(`translations.${index}.title` as const)}
                       >
                         <IconWrapper>📝</IconWrapper>
@@ -127,9 +127,9 @@ export default function ProjectForm({
                     <div className="md:col-span-4 mt-2 flex flex-col gap-2">
                       <Textarea
                         id={`description-${index}`}
-                        label={t('projects.form.labels.description', { defaultValue: 'Description' })}
+                        label={t('forms.projects.labels.description', { defaultValue: 'Description' })}
                         rows={4}
-                        placeholder={t('projects.form.placeholders.description', { defaultValue: 'Describe the technologies used, the goal of the project...' })}
+                        placeholder={t('forms.projects.placeholders.description', { defaultValue: 'Describe the technologies used, the goal of the project...' })}
                         {...register(`translations.${index}.description` as const)}
                       />
                       <FormError error={!!fieldErrors?.description} message={t(fieldErrors?.description?.message as string)} />
@@ -145,7 +145,7 @@ export default function ProjectForm({
       </div>
 
       <div className="bg-gray-50 dark:bg-zinc-900 px-6 py-4 flex items-center justify-end border-t border-gray-200 dark:border-zinc-700">
-        <SaveButton isSubmitting={isSubmitting} customLabel={t('projects.buttons.save_project', { defaultValue: 'Save Project' })} />
+        <SaveButton isSubmitting={isSubmitting} customLabel={t('forms.projects.buttons.save_project', { defaultValue: 'Save Project' })} />
       </div>
     </form>
   );

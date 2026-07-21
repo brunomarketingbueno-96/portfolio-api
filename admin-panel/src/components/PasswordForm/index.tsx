@@ -30,14 +30,14 @@ export default function PasswordForm({
     <form onSubmit={updatePasswordSubmit} className="bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-gray-200 dark:border-zinc-700 overflow-hidden">
       <div className="p-6 md:p-8 space-y-6">
         <h2 className="text-lg font-bold text-gray-900 dark:text-zinc-100 border-b border-gray-100 dark:border-zinc-700 pb-3">
-          🔒 {t('profile.sections.security', { defaultValue: 'Security and Password' })}
+          🔒 {t('pages.profile.sections.security', { defaultValue: 'Security and Password' })}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <Input
               id="oldPassword"
-              label={t('profile.labels.old_password', { defaultValue: 'Current Password' })}
+              label={t('forms.password.labels.old_password', { defaultValue: 'Current Password' })}
               type="password"
               placeholder="••••••••"
               {...passwordRegister('oldPassword')}
@@ -50,7 +50,7 @@ export default function PasswordForm({
           <div>
             <Input
               id="newPassword"
-              label={t('profile.labels.new_password', { defaultValue: 'New Password' })}
+              label={t('forms.password.labels.new_password', { defaultValue: 'New Password' })}
               type="password"
               placeholder="••••••••"
               {...passwordRegister('newPassword')}
@@ -63,7 +63,7 @@ export default function PasswordForm({
           <div>
             <Input
               id="confirmPassword"
-              label={t('profile.labels.confirm_password', { defaultValue: 'Confirm New Password' })}
+              label={t('forms.password.labels.confirm_password', { defaultValue: 'Confirm New Password' })}
               type="password"
               placeholder="••••••••"
               {...passwordRegister('confirmPassword')}
@@ -84,7 +84,7 @@ export default function PasswordForm({
           disabled={isSubmittingPassword}
           className="cursor-pointer inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 transition-all"
         >
-          {isSubmittingPassword ? t('profile.buttons.updating', { defaultValue: 'Updating...' }) : t('profile.buttons.update_password', { defaultValue: 'Update Password' })}
+          {isSubmittingPassword ? t('forms.password.buttons.updating', { defaultValue: 'Updating...' }) : t('forms.password.buttons.update_password', { defaultValue: 'Update Password' })}
         </button>
       </div>
     </form>

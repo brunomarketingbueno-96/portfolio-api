@@ -29,8 +29,8 @@ export default function Projects() {
       return (
         <EmptyList
           icon="📁"
-          title={t('projects.page.list.empty_list_title', { defaultValue: 'No projects found.' })}
-          description={t('projects.page.list.empty_list_description', { defaultValue: 'Start by adding your first project.' })}
+          title={t('pages.projects.list.empty_list_title', { defaultValue: 'No projects found.' })}
+          description={t('pages.projects.list.empty_list_description', { defaultValue: 'Start by adding your first project.' })}
         />
       );
     };
@@ -55,10 +55,10 @@ export default function Projects() {
       <main className="flex-1 px-8 py-8 w-full relative z-10">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
           <div>
-            <BackButton to={{ pathname: '/panel' }} label={t('buttons.back_to_panel', { defaultValue: 'Back to panel' })} />
-            <Heading level={1} icon="👨‍💻" title={t('projects.page.list.title', { defaultValue: 'My Projects' })} />
+            <BackButton to={{ pathname: '/panel' }} label={t('global.buttons.back_to_panel', { defaultValue: 'Back to panel' })} />
+            <Heading level={1} icon="👨‍💻" title={t('pages.projects.list.title', { defaultValue: 'My Projects' })} />
           </div>
-          <AddButton to={{ pathname: '/projects/create' }} label={t('projects.buttons.new_project', { defaultValue: 'New Project' })} />
+          <AddButton to={{ pathname: '/projects/create' }} label={t('pages.projects.buttons.new_project', { defaultValue: 'New Project' })} />
         </div>
 
         <GlobalError error={globalError} message={t('projects.list.error_title', { defaultValue: 'Error' })} />

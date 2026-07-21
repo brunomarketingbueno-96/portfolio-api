@@ -38,12 +38,12 @@ export default function BlogPostCard({ post, onDelete }: BlogPostCardProps) {
           {post.isPublished ? (
             <span className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400 text-xs font-semibold px-2 py-1 rounded shadow-sm flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              {t('blog_posts.status.published', { defaultValue: 'Published' })}
+              {t('forms.blog_posts.statuses.published', { defaultValue: 'Published' })}
             </span>
           ) : (
             <span className="bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 text-xs font-semibold px-2 py-1 rounded shadow-sm flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-              {t('blog_posts.status.draft', { defaultValue: 'Draft' })}
+              {t('forms.blog_posts.statuses.draft', { defaultValue: 'Draft' })}
             </span>
           )}
         </div>
@@ -70,19 +70,19 @@ export default function BlogPostCard({ post, onDelete }: BlogPostCardProps) {
           <div className="flex gap-2">
             <ViewButton
               to={{ pathname: `/blog-posts/view/${post.id}` }}
-              title={t('buttons.view', { defaultValue: 'View' })}
+              title={t('pages.blog_posts.buttons.view_post', { defaultValue: 'View Post' })}
               customClass="bg-white p-2 flex items-center justify-center rounded-full text-blue-600 hover:text-blue-800 hover:bg-blue-50 transition-colors"
             />
 
             <EditButton
               to={{ pathname: `/blog-posts/edit/${post.id}` }}
-              title={t('buttons.edit', { defaultValue: 'Edit' })}
+              title={t('pages.blog_posts.buttons.edit_post', { defaultValue: 'Edit Post' })}
               customClass="bg-white p-2 flex items-center justify-center rounded-full text-blue-600 hover:text-blue-800 hover:bg-blue-50 transition-colors"
             />
 
             <DeleteButton
               onDelete={() => onDelete(post.id)}
-              title={t('buttons.delete', { defaultValue: 'Delete' })}
+              title={t('pages.blog_posts.buttons.delete_post', { defaultValue: 'Delete Post' })}
               customClass="cursor-pointer bg-white p-2 flex items-center justify-center rounded-full text-red-600 hover:text-red-800 hover:bg-red-50 transition-colors"
             />
           </div>

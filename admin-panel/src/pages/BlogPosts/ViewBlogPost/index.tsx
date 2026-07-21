@@ -51,22 +51,22 @@ export default function ViewBlogPost() {
         <div className="flex-1 flex flex-col items-center justify-center relative z-10">
           <p className="text-red-500 mb-4">{globalError}</p>
 
-          <BackButton to={{ pathname: '/blog-posts' }} label={t('blog_posts.buttons.back_to_posts', { defaultValue: 'Back to Posts' })} />
+          <BackButton to={{ pathname: '/blog-posts' }} label={t('pages.blog_posts.buttons.back_to_posts', { defaultValue: 'Back to Posts' })} />
         </div>
       ) : (
         <main className="flex-1 max-w-4xl w-full mx-auto px-6 py-8 relative z-10">
 
           <ViewHeader
-            onBack={{ to: '/blog-posts', label: t('blog_posts.buttons.back_to_posts') }}
-            onEdit={{ label: t('buttons.edit'), to: `/blog-posts/edit/${id}/` }}
-            onDelete={{ action: handleDelete, label: t('buttons.delete') }}
+            onBack={{ to: '/blog-posts', label: t('pages.blog_posts.buttons.back_to_posts') }}
+            onEdit={{ label: t('pages.blog_posts.buttons.edit_post'), to: `/blog-posts/edit/${id}/` }}
+            onDelete={{ action: handleDelete, label: t('pages.blog_posts.buttons.delete_post') }}
           />
 
           {imagePreview && (
             <div className="w-full h-64 md:h-96 rounded-xl overflow-hidden mb-8 shadow-sm">
               <img
                 src={imagePreview}
-                alt="Capa do artigo"
+                alt={t('pages.blog_posts.view.alt_image', { defaultValue: 'Blog Post Cover Image' })}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -76,10 +76,10 @@ export default function ViewBlogPost() {
             <div className="bg-white dark:bg-zinc-800 rounded-xl p-8 text-center shadow-sm border border-gray-200 dark:border-zinc-700">
               <span className="text-4xl mb-4 block">🌍</span>
               <h2 className="text-xl font-medium text-gray-900 dark:text-zinc-100 mb-2">
-                {t('blog_posts.page.view.translation_unavailable')}
+                {t('pages.blog_posts.view.translations_unavailable', { defaultValue: 'Translations Unavailable' })}
               </h2>
               <p className="text-gray-500 dark:text-zinc-400 mb-6">
-                {t('blog_posts.page.view.available_in')}
+                {t('pages.blog_posts.view.available_in', { defaultValue: 'Read this post in:' })}
               </p>
 
               <div className="flex justify-center gap-3">

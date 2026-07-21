@@ -32,10 +32,10 @@ export default function CreateEducation() {
       <div className="flex-1 px-16 py-8 w-full relative z-10">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <Heading level={1} title={t('educations.page.create.title', { defaultValue: 'New Education' })} />
-            <SubTitle content={t('educations.page.create.description', { defaultValue: 'Add a new course or degree to your resume' })} />
+            <Heading level={1} title={t('pages.educations.create.title', { defaultValue: 'New Education' })} />
+            <SubTitle content={t('pages.educations.create.description', { defaultValue: 'Add a new course or degree to your resume' })} />
           </div>
-          <BackButton to={{ pathname: '/educations' }} label={t('educations.buttons.back_to_educations', { defaultValue: 'Back to Educations' })} />
+          <BackButton to={{ pathname: '/educations' }} label={t('pages.educations.buttons.back_to_educations', { defaultValue: 'Back to Educations' })} />
         </div>
 
         <EducationForm

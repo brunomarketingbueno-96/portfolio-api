@@ -56,10 +56,10 @@ export default function EditService() {
       <main className="flex-1 px-8 py-8 w-full relative z-10">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <Heading level={1} title={t('services.page.edit.title', { defaultValue: 'Edit Service' })} />
-            <SubTitle content={t('services.page.edit.description', { defaultValue: 'Update the information for the selected service.' })} />
+            <Heading level={1} title={t('pages.services.edit.title', { defaultValue: 'Edit Service' })} />
+            <SubTitle content={t('pages.services.edit.description', { defaultValue: 'Update the information for the selected service.' })} />
           </div>
-          <BackButton to={{ pathname: '/services' }} label={t('services.buttons.back_to_services', { defaultValue: 'Back to services' })} />
+          <BackButton to={{ pathname: '/services' }} label={t('pages.services.buttons.back_to_services', { defaultValue: 'Back to services' })} />
         </div>
 
         {render()}

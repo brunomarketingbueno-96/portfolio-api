@@ -23,7 +23,6 @@ export default function PanelCard({
   const { t } = useTranslation();
   const isDisabled = type === 'disabled';
 
-  // Transformado de função/componente para uma variável simples guardando JSX
   const cardContent = (
     <>
       {bgIcon && !isDisabled && (
@@ -55,7 +54,7 @@ export default function PanelCard({
 
         {type === 'internal' && (
           <div className="mt-4 text-sm font-medium flex items-center gap-1 group-hover:translate-x-1 transition-transform text-blue-600 dark:text-blue-400">
-            {t('panel_card.access')} <span className="text-lg">→</span>
+            {t('pages.panel.buttons.access')} <span className="text-lg">→</span>
           </div>
         )}
       </div>
@@ -67,7 +66,6 @@ export default function PanelCard({
     : 'bg-white dark:bg-zinc-800 border-gray-200 dark:border-zinc-700 hover:shadow-md hover:border-blue-300 dark:hover:border-blue-700 cursor-pointer'
     } ${className}`;
 
-  // Usando a variável entre chaves em vez de chamar como componente
   if (type === 'internal') {
     return <Link to={url} className={baseClasses}>{cardContent}</Link>;
   }

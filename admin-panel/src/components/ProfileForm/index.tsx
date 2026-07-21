@@ -38,7 +38,7 @@ export default function ProfileForm({
     <form onSubmit={updateProfileSubmit} className="bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-gray-200 dark:border-zinc-700 overflow-hidden">
       <div className="p-6 md:p-8 space-y-6">
         <h2 className="text-lg font-bold text-gray-900 dark:text-zinc-100 border-b border-gray-100 dark:border-zinc-700 pb-3">
-          👤 {t('profile.sections.personal_info', { defaultValue: 'Personal Information' })}
+          👤 {t('pages.profile.sections.personal_info', { defaultValue: 'Personal Information' })}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
@@ -50,9 +50,9 @@ export default function ProfileForm({
             <div>
               <Input
                 id="name"
-                label={t('profile.labels.name', { defaultValue: 'Full Name' })}
+                label={t('forms.profile.labels.name', { defaultValue: 'Full Name' })}
                 type="text"
-                placeholder={t('profile.placeholders.name', { defaultValue: 'Your Full Name' })}
+                placeholder={t('forms.profile.placeholders.name', { defaultValue: 'Your Full Name' })}
                 {...profileRegister('name')}
               >
                 <IconWrapper>📝</IconWrapper>
@@ -63,9 +63,9 @@ export default function ProfileForm({
             <div>
               <Input
                 id="email"
-                label={t('profile.labels.email', { defaultValue: 'Email' })}
+                label={t('forms.profile.labels.email', { defaultValue: 'Email' })}
                 type="email"
-                placeholder={t('profile.placeholders.email', { defaultValue: 'your.email@example.com' })}
+                placeholder={t('forms.profile.placeholders.email', { defaultValue: 'your.email@example.com' })}
                 {...profileRegister('email')}
               >
                 <IconWrapper>📧</IconWrapper>
@@ -83,7 +83,7 @@ export default function ProfileForm({
 
         {successProfile &&
           <div className="bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500 p-4 rounded text-green-700 dark:text-green-400 text-sm">
-            {t('profile.messages.profile_success', { defaultValue: 'Profile updated successfully' })}
+            {t('forms.profile.messages.profile_success', { defaultValue: 'Profile updated successfully' })}
           </div>
         }
       </div>
@@ -93,7 +93,7 @@ export default function ProfileForm({
          border-gray-200 dark:border-zinc-700
         "
       >
-        <SaveButton isSubmitting={isSubmittingProfile} customLabel={t('profile.buttons.save_profile', { defaultValue: 'Save Profile' })} />
+        <SaveButton isSubmitting={isSubmittingProfile} customLabel={t('forms.profile.buttons.update_profile', { defaultValue: 'Update Profile' })} />
       </div>
     </form>
   );

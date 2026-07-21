@@ -42,15 +42,17 @@ export default function BlogPostTranslationItem({
     <div className="bg-white dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl p-6 shadow-sm relative">
       <div className="flex justify-between items-center mb-4 border-b border-gray-100 dark:border-zinc-700 pb-2">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-zinc-50 flex items-center gap-2">
-          🌐 {t('blog_posts.form.translation_content', { defaultValue: 'Content' })} - {index + 1}
+          🌐 {t('forms.blog_posts.labels.content', { defaultValue: 'Content' })} - {index + 1}
         </h3>
         {index > 0 && (
           <button
             type="button"
+            aria-label={t('forms.blog_posts.buttons.delete_translation', { defaultValue: 'Delete translation' })}
+            title={t('forms.blog_posts.buttons.delete_translation', { defaultValue: 'Delete translation' })}
             onClick={() => removeTranslation(index)}
-            className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 text-sm font-medium transition-colors"
+            className="cursor-pointer text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 text-sm font-medium transition-colors"
           >
-            {t('buttons.remove', { defaultValue: 'Remove' })}
+            ✕
           </button>
         )}
       </div>
@@ -59,9 +61,9 @@ export default function BlogPostTranslationItem({
         <div className="md:col-span-4">
           <Select
             id={`translations-${index}-language`}
-            label={t('blog_posts.form.language', { defaultValue: 'Language' })}
+            label={t('forms.blog_posts.labels.language', { defaultValue: 'Language' })}
             options={['pt', 'en', 'es']}
-            translationGroup="languages"
+            translationGroup="global.languages"
             {...register(`translations.${index}.language` as const)}
           />
           <FormError error={!!errors?.translations?.[index]?.language} message={t(errors?.translations?.[index]?.language?.message as string)} />
@@ -70,8 +72,8 @@ export default function BlogPostTranslationItem({
         <div className="md:col-span-4">
           <Input
             id={`translations-${index}-title`}
-            label={t('blog_posts.form.title', { defaultValue: 'Title' })}
-            placeholder={t('blog_posts.form.title_placeholder', { defaultValue: 'My Awesome Post' })}
+            label={t('forms.blog_posts.labels.title', { defaultValue: 'Title' })}
+            placeholder={t('forms.blog_posts.placeholders.title', { defaultValue: 'My Awesome Post' })}
             {...register(`translations.${index}.title` as const)}
           >
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-zinc-400 dark:text-zinc-500">
@@ -86,8 +88,8 @@ export default function BlogPostTranslationItem({
         <div className="md:col-span-4">
           <Input
             id={`translations-${index}-slug`}
-            label={t('blog_posts.form.slug', { defaultValue: 'URL Slug' })}
-            placeholder="my-awesome-post"
+            label={t('forms.blog_posts.labels.slug', { defaultValue: 'URL Slug' })}
+            placeholder={t('forms.blog_posts.placeholders.slug', { defaultValue: 'my-awesome-post' })}
             {...register(`translations.${index}.slug` as const)}
             onChange={(e) => {
               register(`translations.${index}.slug`).onChange(e);
@@ -107,10 +109,10 @@ export default function BlogPostTranslationItem({
         <div className="md:col-span-12">
           <Textarea
             id={`translations-${index}-excerpt`}
-            label={t('blog_posts.form.excerpt', { defaultValue: 'Short Summary (SEO)' })}
+            label={t('forms.blog_posts.labels.excerpt', { defaultValue: 'Short Summary (SEO)' })}
             {...register(`translations.${index}.excerpt` as const)}
             rows={3}
-            placeholder={t('blog_posts.form.excerpt_placeholder', { defaultValue: 'A brief description of this post for list views and SEO...' })}
+            placeholder={t('forms.blog_posts.placeholders.excerpt', { defaultValue: 'A brief description of this post for list views and SEO...' })}
           />
           <FormError error={!!errors?.translations?.[index]?.excerpt} message={t(errors?.translations?.[index]?.excerpt?.message as string)} />
         </div>

@@ -17,9 +17,9 @@ export default function SaveButton({ isSubmitting, customLabel }: SaveButtonProp
       {
         isSubmitting
           ?
-          t('buttons.saving', { defaultValue: 'Saving...' })
+          t('global.buttons.saving', { defaultValue: 'Saving...' })
           :
-          customLabel ? customLabel : t('buttons.save', { defaultValue: 'Save' })
+          customLabel ? customLabel : t('global.buttons.save', { defaultValue: 'Save' })
       }
     </button>
   );

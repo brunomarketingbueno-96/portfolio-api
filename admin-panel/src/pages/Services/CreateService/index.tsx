@@ -24,10 +24,10 @@ export default function CreateService() {
       <main className="flex-1 px-8 py-8 w-full relative z-10">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <Heading level={1} title={t('services.page.create.title', { defaultValue: 'Create new service' })} />
-            <SubTitle content={t('services.page.create.description', { defaultValue: 'Create a new service to be displayed on the website.' })} />
+            <Heading level={1} title={t('pages.services.create.title', { defaultValue: 'Create new service' })} />
+            <SubTitle content={t('pages.services.create.description', { defaultValue: 'Create a new service to be displayed on the website.' })} />
           </div>
-          <BackButton to={{ pathname: '/services' }} label={t('services.buttons.back_to_services', { defaultValue: 'Back to services' })} />
+          <BackButton to={{ pathname: '/services' }} label={t('pages.services.buttons.back_to_services', { defaultValue: 'Back to services' })} />
         </div>
 
         <ServiceForm

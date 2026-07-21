@@ -18,10 +18,10 @@ export default function Article({ title, excerpt, content }: ArticleProps) {
         )}
       </header>
 
-
       <div
         className="
-          prose prose-lg dark:prose-invert max-w-none 
+          w-full max-w-none wrap-break-word
+          prose prose-lg dark:prose-invert
           prose-headings:font-bold prose-a:text-blue-600 dark:prose-a:text-blue-400
           prose-img:rounded-xl prose-img:shadow-md
         "

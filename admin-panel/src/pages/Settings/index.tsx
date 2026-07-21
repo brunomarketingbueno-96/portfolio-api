@@ -132,10 +132,10 @@ export default function Settings() {
       <main className="flex-1 px-8 py-8 w-full space-y-8 relative z-10">
         <div className="flex items-center justify-between">
           <div>
-            <Heading level={1} title={t('settings.title', { defaultValue: 'Settings' })} />
-            <SubTitle content={t('settings.description', { defaultValue: 'Manage the panel settings.' })} />
+            <Heading level={1} title={t('pages.settings.title', { defaultValue: 'Settings' })} />
+            <SubTitle content={t('pages.settings.description', { defaultValue: 'Manage the panel settings.' })} />
           </div>
-          <BackButton to={{ pathname: '/panel' }} label={t('buttons.back_to_panel', { defaultValue: 'Back to panel' })} />
+          <BackButton to={{ pathname: '/panel' }} label={t('global.buttons.back_to_panel', { defaultValue: 'Back to panel' })} />
         </div>
 
         {render()}

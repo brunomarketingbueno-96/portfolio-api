@@ -33,10 +33,10 @@ export default function CreateProject() {
       <main className="flex-1 px-8 py-8 w-full relative z-10">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <Heading level={1} title={t('projects.page.create.title', { defaultValue: 'New Project' })} />
-            <SubTitle content={t('projects.page.create.description', { defaultValue: 'Add a new project to your portfolio.' })} />
+            <Heading level={1} title={t('pages.projects.create.title', { defaultValue: 'New Project' })} />
+            <SubTitle content={t('pages.projects.create.description', { defaultValue: 'Add a new project to your portfolio.' })} />
           </div>
-          <BackButton to={{ pathname: '/projects' }} label={t('projects.buttons.back_to_projects', { defaultValue: 'Back to list' })} />
+          <BackButton to={{ pathname: '/projects' }} label={t('pages.projects.buttons.back_to_projects', { defaultValue: 'Back to list' })} />
         </div>
 
         <ProjectForm
