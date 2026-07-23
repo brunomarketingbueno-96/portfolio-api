@@ -47,8 +47,8 @@ describe('ProjectCard Component', () => {
 
     expect(screen.getByText('Test Project')).toBeInTheDocument();
     expect(screen.getByRole('img')).toHaveAttribute('src', mockProject.imageUrl);
-    expect(screen.getByText('🌐 projects.cards.live_url')).toHaveAttribute('href', mockProject.liveUrl);
-    expect(screen.getByText('📦 projects.cards.repo_url')).toHaveAttribute('href', mockProject.repoUrl);
+    expect(screen.getByText('🌐 pages.projects.components.project_cards.live_url')).toHaveAttribute('href', mockProject.liveUrl);
+    expect(screen.getByText('📦 pages.projects.components.project_cards.repo_url')).toHaveAttribute('href', mockProject.repoUrl);
   });
 
   it('should render fallbacks when image and links are missing', () => {
@@ -65,7 +65,7 @@ describe('ProjectCard Component', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText('projects.cards.no_image')).toBeInTheDocument();
+    expect(screen.getByText('pages.projects.components.project_cards.no_image')).toBeInTheDocument();
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
   });
 
@@ -79,7 +79,7 @@ describe('ProjectCard Component', () => {
       </MemoryRouter>
     );
 
-    const deleteButton = screen.getByTitle('Delete');
+    const deleteButton = screen.getByTitle('Delete project');
     await user.click(deleteButton);
 
     expect(mockOnDelete).toHaveBeenCalledTimes(1);

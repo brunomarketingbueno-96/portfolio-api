@@ -6,15 +6,15 @@ import ImageSelector from '@/components/ImageSelector';
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string) => {
+    t: (key: string, options?: { defaultValue?: string }) => {
       const translations: Record<string, string> = {
-        'image_selector.label': 'Image (Logo or Cover)',
-        'image_selector.preview_alt': 'Preview',
-        'image_selector.click_to_change': 'Click to change',
-        'image_selector.click_to_upload': 'Click to upload',
-        'image_selector.file_limits': 'PNG, JPG up to 5MB'
+        'global.components.image_selector.label': 'Image (Logo or Cover)',
+        'global.components.image_selector.preview_alt': 'Preview',
+        'global.components.image_selector.change_image': 'Click to change',
+        'global.components.image_selector.upload_image': 'Click to upload',
+        'global.components.image_selector.file_limit': 'PNG, JPG up to 5MB'
       };
-      return translations[key] || key;
+      return translations[key] || options?.defaultValue || key;
     }
   })
 }));

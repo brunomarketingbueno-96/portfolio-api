@@ -65,7 +65,7 @@ describe('EducationCard Component', () => {
     expect(screen.getByText('Feb 2023')).toBeInTheDocument();
     expect(screen.getByRole('img')).toHaveAttribute('src', mockEducation.imageUrl);
 
-    expect(screen.getByRole('link', { name: 'Certificate URL' })).toHaveAttribute('href', mockEducation.certificateUrl);
+    expect(screen.getByRole('link', { name: 'Certificate' })).toHaveAttribute('href', mockEducation.certificateUrl);
   });
 
   it('should render fallbacks when image and certificate are missing', () => {
@@ -82,7 +82,7 @@ describe('EducationCard Component', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText('educations.card.no_image')).toBeInTheDocument();
+    expect(screen.getByText('pages.educations.components.education_cards.no_image')).toBeInTheDocument();
     expect(screen.getByText('educations.card.no_link')).toBeInTheDocument();
     expect(screen.queryByRole('img')).not.toBeInTheDocument();
   });
@@ -97,7 +97,7 @@ describe('EducationCard Component', () => {
       </MemoryRouter>
     );
 
-    const deleteButton = screen.getByTitle('Excluir');
+    const deleteButton = screen.getByTitle('Delete education');
     await user.click(deleteButton);
 
     expect(mockOnDelete).toHaveBeenCalledTimes(1);

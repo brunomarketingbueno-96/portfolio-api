@@ -6,7 +6,16 @@ import { EducationService } from '@/services/educationService';
 import { UploadService } from '@/services/uploadService';
 import { useImagePreview } from '@/hooks/useImagePreview';
 
+import toast from 'react-hot-toast';
+
 let mockFormData: any = {};
+
+vi.mock('react-hot-toast', () => ({
+  default: {
+    success: vi.fn(),
+    error: vi.fn(),
+  },
+}));
 
 vi.mock('react-router-dom', () => ({
   useNavigate: () => vi.fn(),
@@ -163,34 +172,31 @@ describe('useEducations hook', () => {
   it('should handle delete education error with error property', async () => {
     vi.spyOn(window, 'confirm').mockReturnValue(true);
     vi.mocked(EducationService.delete).mockRejectedValueOnce({ error: 'err.3' });
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => { });
     const { result } = renderHook(() => useEducations());
     await act(async () => {
       await result.current.deleteEducation('123');
     });
-    expect(alertSpy).toHaveBeenCalledWith('err.3');
+    expect(toast.error).toHaveBeenCalledWith('Ocorreu um erro ao excluir a formação');
   });
 
   it('should handle delete education error with message property', async () => {
     vi.spyOn(window, 'confirm').mockReturnValue(true);
     vi.mocked(EducationService.delete).mockRejectedValueOnce({ message: 'msg.3' });
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => { });
     const { result } = renderHook(() => useEducations());
     await act(async () => {
       await result.current.deleteEducation('123');
     });
-    expect(alertSpy).toHaveBeenCalledWith('msg.3');
+    expect(toast.error).toHaveBeenCalledWith('Ocorreu um erro ao excluir a formação');
   });
 
   it('should handle delete education error with no property', async () => {
     vi.spyOn(window, 'confirm').mockReturnValue(true);
     vi.mocked(EducationService.delete).mockRejectedValueOnce({});
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => { });
     const { result } = renderHook(() => useEducations());
     await act(async () => {
       await result.current.deleteEducation('123');
     });
-    expect(alertSpy).toHaveBeenCalledWith('api.error.unknown');
+    expect(toast.error).toHaveBeenCalledWith('Ocorreu um erro ao excluir a formação');
   });
 
   it('should reject submit if no image is present', async () => {

@@ -67,7 +67,7 @@ describe('PanelCard', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText('panel_card.access')).toBeInTheDocument();
+    expect(screen.getByText('pages.panel.buttons.access')).toBeInTheDocument();
   });
 
   it('should render bgIcon when provided and not disabled', () => {
