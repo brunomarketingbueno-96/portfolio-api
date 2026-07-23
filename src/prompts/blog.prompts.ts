@@ -1,5 +1,3 @@
-import { handleResponse } from "../../admin-panel/src/helpers/fetchHelpers.js";
-
 export type SupportedLanguage = 'pt' | 'en' | 'es';
 
 export interface BlogPostPromptContext {
