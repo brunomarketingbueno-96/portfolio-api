@@ -6,8 +6,17 @@ import { ProjectService } from '@/services/projectService';
 import { UploadService } from '@/services/uploadService';
 import { useImagePreview } from '@/hooks/useImagePreview';
 
+import toast from 'react-hot-toast';
+
 let mockFormData: any = {};
 const mockNavigate = vi.fn();
+
+vi.mock('react-hot-toast', () => ({
+  default: {
+    success: vi.fn(),
+    error: vi.fn(),
+  },
+}));
 
 vi.mock('react-router-dom', () => ({
   useNavigate: () => mockNavigate,
@@ -163,34 +172,31 @@ describe('useProjects hook', () => {
   it('should handle delete project error with error property', async () => {
     vi.spyOn(window, 'confirm').mockReturnValue(true);
     vi.mocked(ProjectService.delete).mockRejectedValueOnce({ error: 'err.3' });
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => { });
     const { result } = renderHook(() => useProjects());
     await act(async () => {
       await result.current.deleteProject('123');
     });
-    expect(alertSpy).toHaveBeenCalledWith('err.3');
+    expect(toast.error).toHaveBeenCalledWith('Ocorreu um erro ao excluir o projeto');
   });
 
   it('should handle delete project error with message property', async () => {
     vi.spyOn(window, 'confirm').mockReturnValue(true);
     vi.mocked(ProjectService.delete).mockRejectedValueOnce({ message: 'msg.3' });
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => { });
     const { result } = renderHook(() => useProjects());
     await act(async () => {
       await result.current.deleteProject('123');
     });
-    expect(alertSpy).toHaveBeenCalledWith('msg.3');
+    expect(toast.error).toHaveBeenCalledWith('Ocorreu um erro ao excluir o projeto');
   });
 
   it('should handle delete project error with no property', async () => {
     vi.spyOn(window, 'confirm').mockReturnValue(true);
     vi.mocked(ProjectService.delete).mockRejectedValueOnce({});
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => { });
     const { result } = renderHook(() => useProjects());
     await act(async () => {
       await result.current.deleteProject('123');
     });
-    expect(alertSpy).toHaveBeenCalledWith('api.error.unknown');
+    expect(toast.error).toHaveBeenCalledWith('Ocorreu um erro ao excluir o projeto');
   });
 
   it('should submit create with minimal payload', async () => {

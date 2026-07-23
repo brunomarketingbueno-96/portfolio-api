@@ -145,7 +145,8 @@ describe('Settings Page Component', () => {
     render(<Settings />);
 
     expect(mockReset).toHaveBeenCalledWith({
-      ...mockGlobalSettings,
+      theme: 'system',
+      panelLanguage: 'en',
       customConfig: {},
       siteUrl: 'https://example.com',
       publicEmail: 'admin@example.com',

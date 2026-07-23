@@ -7,7 +7,7 @@ vi.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string) => {
       const translations: Record<string, string> = {
-        'loader.verifying_session': 'Verifying session...'
+        'global.components.loader.verifying_session': 'Verifying session...'
       };
       return translations[key] || key;
     }
