@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
 
-import LogoutButton from '@/components/LogoutButton';
+import LogoutButton from '@/components/Buttons/LogoutButton';
 
 describe('LogoutButton', () => {
   it('should render the label correctly', () => {

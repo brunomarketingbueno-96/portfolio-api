@@ -2,8 +2,10 @@ import { useTranslation } from 'react-i18next';
 
 import { getServiceData } from '@/helpers/serviceHelpers';
 
-import DeleteButton from '@/components/DeleteButton';
-import EditButton from '@/components/EditButton';
+import DeleteButton from '@/components/Buttons/DeleteButton';
+import EditButton from '@/components/Buttons/EditButton';
+
+import type { Service } from '@/typings/Services';
 
 interface ServiceCardProps {
   service: Service;
@@ -23,25 +25,25 @@ export default function ServiceCard({ service, onDelete }: ServiceCardProps) {
         {service.imageUrl ? (
           <img
             src={service.imageUrl}
-            alt={t('services.card.image_alt', { defaultValue: 'Service image' })}
+            alt={t('pages.services.components.service_cards.image_alt', { defaultValue: 'Service image' })}
             className="w-full h-full object-contain block group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
           <div className="flex flex-col items-center justify-center w-full h-full text-gray-400 dark:text-zinc-600">
             <span className="text-3xl mb-2">🖼️</span>
-            <span className="text-sm">{t('services.card.no_image', { defaultValue: 'No image' })}</span>
+            <span className="text-sm">{t('pages.services.components.service_cards.no_image', { defaultValue: 'No image' })}</span>
           </div>
         )}
 
         <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
           <EditButton
             to={{ pathname: `/services/edit/${service.id}` }}
-            title={t('buttons.edit', { defaultValue: 'Edit' })}
+            title={t('pages.services.buttons.edit_service', { defaultValue: 'Edit' })}
           />
 
           <DeleteButton
             onDelete={() => onDelete(service.id!)}
-            title={t('buttons.delete', { defaultValue: 'Delete' })}
+            title={t('pages.services.buttons.delete_service', { defaultValue: 'Delete' })}
           />
         </div>
       </div>
@@ -58,11 +60,11 @@ export default function ServiceCard({ service, onDelete }: ServiceCardProps) {
         {service.link ? (
           <a href={service.link} target="_blank" rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors rounded-lg w-full">
-            🔗 {t('services.card.link', { defaultValue: 'Access Service' })}
+            🔗 {t('pages.services.components.service_cards.link', { defaultValue: 'Access Service' })}
           </a>
         ) : (
           <span className="flex items-center justify-center px-3 py-2 text-xs font-medium text-gray-400 dark:text-zinc-500 bg-gray-100 dark:bg-zinc-700 cursor-not-allowed rounded-lg w-full">
-            {t('services.card.no_link', { defaultValue: 'Indisponible link' })}
+            {t('pages.services.components.service_cards.no_link', { defaultValue: 'Indisponible link' })}
           </span>
         )}
       </div>

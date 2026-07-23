@@ -1,10 +1,10 @@
 import { Context } from 'hono';
+
 import { sign } from 'hono/jwt';
 import { setCookie, deleteCookie } from 'hono/cookie';
-
 import * as bcrypt from 'bcryptjs';
 
-import { loginSchema } from '../schemas/auth.schema.js';
+import type { LoginSchema } from '../schemas/auth.schema.js';
 
 import {
   findUserByEmail,
@@ -14,7 +14,7 @@ import {
 } from '../repositories/users.repository.js';
 
 export const login = async (c: Context) => {
-  const { email, password } = loginSchema.parse(await c.req.json());
+  const { email, password } = await c.req.json<LoginSchema>();
 
   const user = await findUserByEmail(email);
   if (!user) return c.json({ error: 'login.error.credentials', message: 'Invalid credentials' }, 401);

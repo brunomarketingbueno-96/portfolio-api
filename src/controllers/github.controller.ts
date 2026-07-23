@@ -7,7 +7,7 @@ import {
   upsertProjectGithubStats
 } from '../repositories/github.repository.js';
 
-import { githubSchema } from '../schemas/github.schema.js';
+import type { Github } from '../schemas/github.schema.js';
 
 export const syncGithubData = async (c: Context) => {
   try {
@@ -44,7 +44,7 @@ export const syncGithubData = async (c: Context) => {
 
 export const previewGithubData = async (c: Context) => {
   try {
-    const { repoUrl } = githubSchema.parse(await c.req.json());
+    const { repoUrl } = await c.req.json<Github>();
 
     const stats = await fetchGithubProjectStats(repoUrl);
     if (!stats) return c.json({

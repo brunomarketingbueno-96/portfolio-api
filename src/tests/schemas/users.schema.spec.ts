@@ -77,7 +77,7 @@ describe('Users Zod Schemas', () => {
 
       expect(result.success).toBe(false)
       if (!result.success) {
-        expect(result.error.issues[0].message).toBe('users.error.name')
+        expect(result.error.issues[0].message).toBe('errors.users.name')
       }
     })
 
@@ -91,7 +91,7 @@ describe('Users Zod Schemas', () => {
 
       expect(result.success).toBe(false)
       if (!result.success) {
-        expect(result.error.issues[0].message).toBe('users.error.email')
+        expect(result.error.issues[0].message).toBe('errors.users.email')
       }
     })
 
@@ -105,7 +105,7 @@ describe('Users Zod Schemas', () => {
 
       expect(result.success).toBe(false)
       if (!result.success) {
-        expect(result.error.issues[0].message).toBe('users.error.avatar_url')
+        expect(result.error.issues[0].message).toBe('errors.users.avatar_url')
       }
     })
   })
@@ -178,7 +178,7 @@ describe('Users Zod Schemas', () => {
 
       expect(result.success).toBe(false)
       if (!result.success) {
-        expect(result.error.issues[0].message).toBe('users.error.old_password')
+        expect(result.error.issues[0].message).toBe('errors.users.old_password')
       }
     })
 
@@ -192,7 +192,7 @@ describe('Users Zod Schemas', () => {
 
       expect(result.success).toBe(false)
       if (!result.success) {
-        expect(result.error.issues[0].message).toBe('users.error.new_password')
+        expect(result.error.issues[0].message).toBe('errors.users.new_password')
       }
     })
   })

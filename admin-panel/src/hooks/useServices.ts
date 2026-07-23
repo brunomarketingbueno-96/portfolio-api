@@ -7,15 +7,16 @@ import { UploadService } from '@/services/uploadService';
 
 import { useImagePreview } from '@/hooks/useImagePreview';
 
-import { z } from 'zod';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { serviceSchema } from '../../../src/schemas/services.schema';
 
-type ServiceFormData = z.infer<typeof serviceSchema>;
+import type { NewService, Service } from '@/typings/Services';
 
-const initialForm: ServiceFormData = {
+import toast from 'react-hot-toast';
+
+const initialForm: NewService = {
   link: '',
   imageUrl: '',
   translations: [{ language: 'pt', title: '', description: '' }]
@@ -43,7 +44,7 @@ export function useServices(options?: { fetchList?: boolean; editId?: string }) 
     handleSubmit,
     reset,
     formState: { errors, isSubmitting }
-  } = useForm<ServiceFormData>({
+  } = useForm<NewService>({
     resolver: zodResolver(serviceSchema),
     defaultValues: initialForm
   });
@@ -106,13 +107,17 @@ export function useServices(options?: { fetchList?: boolean; editId?: string }) 
     try {
       await ServiceService.delete(id);
       setServices(prev => prev.filter(s => s.id !== id));
+
+      toast.success('Serviço excluido com sucesso');
     } catch (error) {
       const err = error as ApiError;
-      alert(err.error ? t(err.error) : t('api.error.unknown'));
+      console.error(err);
+
+      toast.error('Ocorreu um erro ao excluir o serviço');
     }
   };
 
-  const processFormSubmit = async (data: ServiceFormData, id?: string) => {
+  const processFormSubmit = async (data: NewService, id?: string) => {
     setGlobalError(null);
     console.log(data);
     try {
@@ -129,8 +134,10 @@ export function useServices(options?: { fetchList?: boolean; editId?: string }) 
 
       if (id) {
         await ServiceService.update(id, payload);
+        toast.success('Serviço atualizado com sucesso');
       } else {
         await ServiceService.create(payload);
+        toast.success('Serviço criado com sucesso');
       }
 
       setSelectedFile(null);
@@ -139,6 +146,8 @@ export function useServices(options?: { fetchList?: boolean; editId?: string }) 
       const err = error as ApiError;
       const errorKey = err.error;
       setGlobalError(errorKey ? t(errorKey) : t('api.error.unknown'));
+
+      toast.error('Ocorreu um erro ao criar o serviço');
     }
   };
 

@@ -1,136 +1,305 @@
 {
-  "menu": {},
-  "header": {
-    "title": "Admin Panel",
-    "logout": "Logout",
-    "confirm_logout": "Are you sure you want to log out?",
-    "error_logout": "Error while logging out. Please try again.",
-    "edit_profile": "My Profile"
-  },
-  "buttons": {
-    "back_to_panel": "Back to Panel",
-    "add_language": "+ Add Language",
-    "saving": "Saving...",
-    "save_changes": "Save Changes",
-    "back": "Back",
-    "save": "Save",
-    "edit": "Edit",
-    "delete": "Delete",
-    "add": "Add"
-  },
-  "login": {
-    "titles": {
-      "admin_access": "Admin Access",
-      "panel_subtitle": "Portfolio Panel",
-      "sign_in": "Sign In",
-      "credentials_subtitle": "Enter your credentials"
-    },
-    "labels": {
-      "email": "E-mail",
-      "password": "Password"
-    },
-    "placeholders": {
-      "email": "admin@example.com",
-      "password": "••••••••"
+  "global": {
+    "components": {
+      "header": {
+        "title": "Admin Panel"
+      },
+      "user_menu": {
+        "profile": "My Profile",
+        "logout": "Logout"
+      },
+      "full_screen_loader": {
+        "verifying_session": "Verifying session..."
+      },
+      "ai_generator": {
+        "label": "✨ AI Assistant",
+        "placeholder": "Enter prompt for AI...",
+        "button": "Generate",
+        "save": "Save",
+        "saving": "Saving..."
+      },
+      "loader": {
+        "verifying_session": "Verifying session..."
+      },
+      "image_selector": {
+        "change_image": "Change image",
+        "remove_image": "Remove image",
+        "upload_image": "Click to upload an image",
+        "file_limit": "PNG, JPG or WEBP up to 5MB",
+        "label": "Image",
+        "preview_alt": "Preview"
+      }
     },
     "buttons": {
-      "signing_in": "Signing in...",
-      "access_panel": "Access Panel"
+      "back_to_panel": "Back to Panel"
     },
-    "error": {
-      "email": "Invalid e-mail",
-      "password": "Password must be at least 6 characters long"
-    }
+    "languages": {
+      "en": "English",
+      "pt": "Portuguese",
+      "es": "Spanish"
+    },
+    "errors": {}
   },
-  "projects": {
-    "page": {
-      "list": {
-        "title": "Projects",
-        "error_title": "Error",
-        "empty_list_title": "No projects found.",
-        "empty_list_description": "Create your first project to see it here."
+  "pages": {
+    "login": {
+      "title": "Admin Panel",
+      "description": "Manage your Portfolio",
+      "sign_in": "Sign In",
+      "credentials_subtitle": "Enter your credentials to access the panel."
+    },
+    "panel": {
+      "title": "Welcome back!",
+      "description": "What would you like to manage today?",
+      "components": {
+        "panel_cards": {
+          "projects": {
+            "title": "My Projects",
+            "description": "Manage, edit and add new projects to the portfolio."
+          },
+          "educations": {
+            "title": "My Educations",
+            "description": "Manage, edit and add new educations to the portfolio."
+          },
+          "services": {
+            "title": "My Services",
+            "description": "Manage, edit and add new services to the portfolio."
+          },
+          "settings": {
+            "title": "Settings",
+            "description": "Change panel settings."
+          },
+          "public_website": {
+            "title": "Visit Website",
+            "description": "Access the public portfolio website."
+          },
+          "blog_posts": {
+            "title": "Blog",
+            "description": "Manage your articles, drafts, and publications."
+          }
+        }
       },
+      "buttons": {
+        "access": "Access"
+      }
+    },
+    "settings": {
+      "title": "General Settings",
+      "description": "Manage the general settings of the panel.",
+      "themes": {
+        "dark": "Dark",
+        "light": "Light",
+        "system": "System"
+      },
+      "buttons": {
+        "new_provider": "+ Add Provider",
+        "edit_provider": "Edit Provider",
+        "delete_provider": "Delete Provider"
+      },
+      "components": {},
+      "sections": {
+        "system": {
+          "title": "System Settings",
+          "description": "Panel system settings."
+        },
+        "ai_provider": {
+          "title": "Configure AI Providers",
+          "description": "Register and manage your API keys for content generation.",
+          "registered_providers": "Registered Keys"
+        }
+      }
+    },
+    "profile": {
+      "title": "My Profile",
+      "description": "Manage your personal information.",
+      "sections": {
+        "personal_info": "Personal Information",
+        "security": "Security and Password"
+      }
+    },
+    "projects": {
       "create": {
         "title": "Create New Project",
-        "description": "Fill in the details below to add a new project to your catalog."
+        "description": "Fill in the details below to add a new project.",
+        "content_and_translations": "Content & Translations"
       },
       "edit": {
         "title": "Edit Project",
-        "description": "Update your project information."
+        "description": "Update your project's information."
+      },
+      "list": {
+        "title": "My Projects",
+        "empty_list_title": "No projects found.",
+        "empty_list_description": "Register your first project to see it here."
+      },
+      "components": {
+        "project_cards": {
+          "live_url": "View Online",
+          "repo_url": "Repository",
+          "no_image": "No image"
+        }
+      },
+      "buttons": {
+        "new_project": "New Project",
+        "back_to_projects": "Back to projects",
+        "delete_project": "Delete Project",
+        "edit_project": "Edit Project"
       }
     },
-    "cards": {
-      "no_image": "No image",
-      "image_alt": "Project image",
-      "live_url": "View Online",
-      "repo_url": "Repository"
-    },
-    "buttons": {
-      "new_project": "New Project",
-      "back_to_projects": "Back to projects",
-      "save_project": "Save Project"
-    },
-    "form": {
-      "titles": {
-        "translations": "Translations & Content"
+    "services": {
+      "create": {
+        "title": "Create New Service",
+        "description": "Fill in the details below to add a new service.",
+        "content_and_translations": "Content & Translations"
       },
+      "edit": {
+        "title": "Edit Service",
+        "description": "Update your service's information."
+      },
+      "list": {
+        "title": "My Services",
+        "empty_list_title": "No services found.",
+        "empty_list_description": "Register your first service to see it here."
+      },
+      "buttons": {
+        "new_service": "New Service",
+        "back_to_services": "Back to services",
+        "edit_service": "Edit Service",
+        "delete_service": "Delete Service"
+      },
+      "components": {
+        "service_cards": {
+          "no_image": "No image",
+          "image_alt": "Service image",
+          "link": "Service Link",
+          "no_link": "No link"
+        }
+      }
+    },
+    "educations": {
+      "create": {
+        "title": "Create New Education",
+        "description": "Fill in the details below to add a new education.",
+        "content_and_translations": "Content & Translations"
+      },
+      "edit": {
+        "title": "Edit Education",
+        "description": "Update your education's information."
+      },
+      "list": {
+        "title": "My Educations",
+        "empty_list_title": "No educations found.",
+        "empty_list_description": "Register your first education to see it here."
+      },
+      "buttons": {
+        "new_education": "New Education",
+        "back_to_educations": "Back to educations",
+        "delete_education": "Delete Education",
+        "edit_education": "Edit Education"
+      },
+      "components": {
+        "education_cards": {
+          "no_image": "No image",
+          "image_alt": "Education image",
+          "certificate_url": "Certificate"
+        }
+      }
+    },
+    "blog_posts": {
+      "create": {
+        "title": "Create New Post",
+        "description": "Fill in the details below to add a new post.",
+        "sections": {
+          "general_settings": "General Settings",
+          "post_content": "Post Content"
+        }
+      },
+      "edit": {
+        "title": "Edit Post",
+        "description": "Update your post's information."
+      },
+      "list": {
+        "title": "My Posts",
+        "empty_list_title": "No posts found.",
+        "empty_list_description": "Register your first post to see it here."
+      },
+      "view": {
+        "translation_unavailable": "The translation of this post is not yet available in the selected language.",
+        "available_in": "Read this post in:",
+        "alt_image": "Post Cover Image"
+      },
+      "buttons": {
+        "new_post": "New Post",
+        "back_to_posts": "Back to posts",
+        "view_post": "View Post",
+        "delete_post": "Delete Post",
+        "edit_post": "Edit Post"
+      }
+    }
+  },
+  "hooks": {
+    "useSettings": {},
+    "useProfile": {},
+    "useImagePreview": {},
+    "useProjects": {},
+    "useServices": {},
+    "useEducations": {},
+    "useBlogPosts": {}
+  },
+  "forms": {
+    "projects": {
       "labels": {
-        "liveUrl": "Project URL",
-        "repoUrl": "Repository URL",
+        "live_url": "Project URL",
+        "repo_url": "Repository URL",
         "language": "Language",
         "title": "Project Title",
         "description": "Project Description"
       },
       "placeholders": {
-        "live_url": "https://myproject.com/",
+        "live_url": "https://myproject.com",
         "repo_url": "https://github.com/...",
         "title": "Ex: Website Development",
         "description": "Describe in detail what this project offers..."
+      },
+      "errors": {
+        "live_url": "Invalid URL",
+        "repo_url": "Invalid URL",
+        "title": "Invalid Title - Required",
+        "description": "Invalid Description - Required"
+      },
+      "buttons": {
+        "save_project": "Save Project",
+        "update_project": "Update Project",
+        "add_translation": "+ Add Language",
+        "delete_translation": "Delete Translation"
       }
     },
-    "error": {
-      "live_url": "Invalid URL",
-      "repo_url": "Invalid URL",
-      "title": "Invalid title - Required",
-      "description": "Invalid description - Required"
-    }
-  },
-  "educations": {
-    "page": {
-      "list": {
-        "title": "Education",
-        "error_title": "Error",
-        "empty_list_title": "No education records found.",
-        "empty_list_description": "Create your first education record to see it here."
+    "services": {
+      "labels": {
+        "link": "Service Link",
+        "info_link": "* Optional: Enter an external link for more details or contracting.",
+        "language": "Language",
+        "title": "Service Title",
+        "description": "Service Description"
       },
-      "create": {
-        "title": "Create New Education",
-        "description": "Fill in the details below to add a new education record."
+      "placeholders": {
+        "link": "https://",
+        "title": "Ex: Website Development",
+        "description": "Describe in detail what this service offers..."
       },
-      "edit": {
-        "title": "Edit Education",
-        "description": "Update your education information."
-      }
-    },
-    "cards": {
-      "no_image": "No image",
-      "image_alt": "Education image",
-      "certificate_url": "Certificate"
-    },
-    "buttons": {
-      "new_education": "New Education",
-      "back_to_educations": "Back to education",
-      "save_education": "Save Education"
-    },
-    "form": {
-      "titles": {
-        "translations": "Translations & Content"
+      "buttons": {
+        "save_service": "Save Service",
+        "update_service": "Update Service",
+        "add_translation": "+ Add Language",
+        "delete_translation": "Delete Translation"
       },
+      "errors": {}
+    },
+    "educations": {
       "labels": {
         "type": "Education Type",
         "status": "Status",
-        "startDate": "Start Date",
-        "endDate": "End Date",
+        "start_date": "Start Date",
+        "end_date": "End Date",
         "duration": "Duration (in hours)",
         "institution": "Institution",
         "course_name": "Education Name",
@@ -144,141 +313,144 @@
         "institution": "Ex: Harvard University",
         "course_name": "Ex: Data Science",
         "description": "Describe the education in detail..."
-      }
-    },
-    "error": {
-      "start_date": "Invalid date - Required",
-      "end_date": "Invalid date",
-      "duration": "Invalid duration - Required",
-      "institution": "Invalid institution - Required",
-      "name": "Invalid education name - Required",
-      "description": "Invalid description - Required",
-      "certificate_url": "Invalid URL"
-    },
-    "type": {
-      "college": "College",
-      "course": "Course",
-      "certification": "Certification",
-      "bootcamp": "Bootcamp"
-    },
-    "status": {
-      "completed": "Completed",
-      "in_progress": "In Progress",
-      "paused": "Paused"
-    }
-  },
-  "services": {
-    "page": {
-      "list": {
-        "title": "Services",
-        "error_title": "Error",
-        "empty_list_title": "No services found.",
-        "empty_list_description": "Create your first service to see it here."
       },
-      "create": {
-        "title": "Create New Service",
-        "description": "Fill in the details below to add a new service to your catalog."
+      "buttons": {
+        "save_education": "Save Education",
+        "update_education": "Update Education",
+        "add_translation": "+ Add Language",
+        "delete_translation": "Delete Translation"
       },
-      "edit": {
-        "title": "Edit Service",
-        "description": "Update your service information."
-      }
-    },
-    "buttons": {
-      "new_service": "New Service",
-      "back_to_services": "Back to services",
-      "save_service": "Save Service"
-    },
-    "form": {
-      "titles": {
-        "translations": "Translations & Content"
+      "types": {
+        "course": "Course",
+        "college": "College",
+        "certification": "Certification",
+        "bootcamp": "Bootcamp"
       },
+      "statuses": {
+        "in_progress": "In progress",
+        "completed": "Completed",
+        "paused": "Paused"
+      },
+      "errors": {}
+    },
+    "blog_posts": {
       "labels": {
-        "link": "Service Link",
-        "info_link": "* Optional: Enter an external link for more details or hiring.",
+        "title": "Post Title",
+        "status": "Status",
+        "content": "Content",
         "language": "Language",
-        "title": "Service Title",
-        "description": "Service Description"
+        "excerpt": "Short Description",
+        "slug": "URL Slug",
+        "publish_now": "Publish Immediately",
+        "publish_help": "If unchecked, it will be saved as a draft and hidden from the public.",
+        "cover_image": "Cover Image"
       },
       "placeholders": {
-        "link": "https://",
-        "title": "Ex: Website Development",
-        "description": "Describe in detail what this service offers..."
-      }
+        "title": "Ex: How to create an API with Hono",
+        "excerpt": "A brief description of this article for lists and SEO...",
+        "content": "Describe in detail what this article offers...",
+        "slug": "Ex: how-to-create-an-api-with-hono"
+      },
+      "buttons": {
+        "save_post": "Save Post",
+        "update_post": "Update Post",
+        "add_translation": "Add Language",
+        "delete_translation": "Delete Translation",
+        "source_code": "Source Code",
+        "preview": "Preview"
+      },
+      "statuses": {
+        "draft": "Draft",
+        "published": "Published"
+      },
+      "errors": {}
     },
-    "error": {
-      "link": "Invalid URL",
-      "title": "Invalid title - Required",
-      "description": "Invalid description - Required"
-    }
-  },
-  "loader": {
-    "verifying_session": "Verifying session..."
-  },
-  "image_selector": {
-    "label": "Image (Logo or Cover)",
-    "preview_alt": "Preview",
-    "click_to_change": "Click to change",
-    "click_to_upload": "Click to upload",
-    "file_limits": "PNG, JPG up to 5MB"
-  },
-  "panel_card": {
-    "soon": "Coming Soon",
-    "access": "Access"
-  },
-  "panel": {
-    "title": "Welcome back!",
-    "description": "What would you like to manage today?",
-    "cards": {
-      "projects": {
-        "title": "My Projects",
-        "description": "Manage, edit, and add new projects to the portfolio."
-      },
-      "educations": {
-        "title": "My Education",
-        "description": "Manage, edit, and add new education records to the portfolio."
-      },
-      "services": {
-        "title": "My Services",
-        "description": "Manage, edit, and add new services to the portfolio."
-      },
-      "config": {
-        "title": "Settings",
-        "description": "Change panel settings."
-      },
-      "public_website": {
-        "title": "Visit Website",
-        "description": "Access the public portfolio website."
-      }
-    }
-  },
-  "languages": {
-    "pt": "🇧🇷 Portuguese",
-    "en": "🇺🇸 English",
-    "es": "🇪🇸 Spanish"
-  },
-  "settings": {
-    "title": "Settings",
-    "description": "Manage panel settings.",
-    "themes": {
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
-    },
-    "form": {
+    "settings": {
       "labels": {
         "theme": "Panel Theme",
         "panel_language": "Panel Language",
         "site_url": "Site URL",
-        "public_email": "Public E-mail",
+        "public_email": "Public Email",
         "logo_url": "Logo URL",
         "custom_config": "Custom Settings",
-        "logo": "Site Logo (Favicon)"
+        "logo": "Panel Logo (Favicon)"
       },
       "placeholders": {
         "site_url": "https://",
         "public_email": "my-email@my-domain.com"
+      },
+      "buttons": {
+        "update_settings": "Update Settings"
+      },
+      "themes": {
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System"
+      },
+      "errors": {}
+    },
+    "ai_providers": {
+      "labels": {
+        "name": "Key Name",
+        "api_key": "API Key",
+        "provider": "AI Provider",
+        "active": "Active"
+      },
+      "placeholders": {
+        "name": "Ex: OpenAI Premium"
+      },
+      "providers": {
+        "openai": "OpenAI",
+        "gemini": "Gemini",
+        "groq": "Groq"
+      },
+      "buttons": {
+        "cancel": "Cancel",
+        "save_provider": "Save Provider",
+        "update_provider": "Update Provider"
       }
+    },
+    "login": {
+      "labels": {
+        "email": "Email",
+        "password": "Password"
+      },
+      "placeholders": {
+        "email": "my-email@my-domain.com"
+      },
+      "buttons": {
+        "access_panel": "Sign In"
+      }
+    },
+    "profile": {
+      "labels": {
+        "name": "Full Name",
+        "email": "Email"
+      },
+      "placeholders": {
+        "name": "Ex: John Doe",
+        "email": "my-email@my-domain.com"
+      },
+      "buttons": {
+        "update_profile": "Update Profile",
+        "updating": "Updating..."
+      },
+      "messages": {
+        "profile_success": "Profile updated successfully!"
+      },
+      "errors": {}
+    },
+    "password": {
+      "labels": {
+        "old_password": "Current Password",
+        "new_password": "New Password",
+        "confirm_password": "Confirm New Password"
+      },
+      "buttons": {
+        "updating": "Updating...",
+        "update_password": "Update Password"
+      },
+      "errors": {}
     }
   }
 }

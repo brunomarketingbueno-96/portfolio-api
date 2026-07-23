@@ -1,19 +1,20 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { educationSchema } from '../../../src/schemas/educations.schema';
 
 import { EducationService } from '@/services/educationService';
 import { UploadService } from '@/services/uploadService';
 import { useImagePreview } from '@/hooks/useImagePreview';
 
-import { educationSchema } from '../../../src/schemas/educations.schema';
+import type { NewEducation, Education } from '@/typings/Educations';
 
-type EducationFormData = z.infer<typeof educationSchema>;
+import toast from 'react-hot-toast';
 
-const initialForm: EducationFormData = {
+const initialForm: NewEducation = {
   type: 'college',
   status: 'completed',
   startDate: '',
@@ -46,7 +47,7 @@ export function useEducations(options?: { fetchList?: boolean; editId?: string }
     handleSubmit,
     reset,
     formState: { errors, isSubmitting }
-  } = useForm<EducationFormData>({
+  } = useForm<NewEducation>({
     resolver: zodResolver(educationSchema) as never,
     defaultValues: initialForm
   });
@@ -85,12 +86,11 @@ export function useEducations(options?: { fetchList?: boolean; editId?: string }
         : initialForm.translations;
 
       reset({
-        type: (data.type as EducationFormData['type']) ?? 'college',
-        status: (data.status as EducationFormData['status']) ?? 'completed',
+        type: (data.type as NewEducation['type']) ?? 'college',
+        status: (data.status as NewEducation['status']) ?? 'completed',
         startDate: data.startDate ? data.startDate.split('T')[0] : '',
         endDate: data.endDate ? data.endDate.split('T')[0] : '',
 
-        // 💡 Correção: Convertendo explicitamente para Number para satisfazer o TypeScript e o Zod
         durationHours: data.durationHours ? Number(data.durationHours) : undefined,
 
         certificateUrl: data.certificateUrl ?? '',
@@ -121,14 +121,15 @@ export function useEducations(options?: { fetchList?: boolean; editId?: string }
     try {
       await EducationService.delete(id);
       setEducations(prev => prev.filter(e => e.id !== id));
+      toast.success('Formação excluida com sucesso');
     } catch (error) {
       const err = error as ApiError;
-      const errorKey = err.error || err.message;
-      alert(errorKey ? t(errorKey) : t('api.error.unknown'));
+      console.error(err);
+      toast.error('Ocorreu um erro ao excluir a formação');
     }
   };
 
-  const processFormSubmit = async (data: EducationFormData, id?: string) => {
+  const processFormSubmit = async (data: NewEducation, id?: string) => {
     setGlobalError(null);
     try {
       if (!selectedFile && !imagePreview) {
@@ -153,8 +154,10 @@ export function useEducations(options?: { fetchList?: boolean; editId?: string }
 
       if (id) {
         await EducationService.update(id, payload);
+        toast.success('Formação atualizada com sucesso');
       } else {
         await EducationService.create(payload);
+        toast.success('Formação criada com sucesso');
       }
 
       setSelectedFile(null);
@@ -163,6 +166,7 @@ export function useEducations(options?: { fetchList?: boolean; editId?: string }
       const err = error as ApiError;
       const errorKey = err.error || err.message;
       setGlobalError(errorKey ? t(errorKey) : t('api.error.unknown'));
+      toast.error('Ocorreu um erro ao salvar a formação');
     }
   };
 

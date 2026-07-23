@@ -1,15 +1,8 @@
-interface ProjectTranslation {
-  language: string;
-  title: string;
-  description: string;
-}
+import { z } from 'zod'
+import { projectSchema } from '../../../src/schemas/projects.schema';
 
-interface Project {
-  id?: string;
-  imageUrl?: string;
-  liveUrl: string;
-  repoUrl: string;
-  translations: ProjectTranslation[];
-  createdAt?: string;
-  updatedAt?: string;
+export type NewProject = z.infer<typeof projectSchema>;
+
+export type Project = NewProject & {
+  id: string;
 }

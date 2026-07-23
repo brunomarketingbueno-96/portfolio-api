@@ -2,24 +2,24 @@ import { z } from 'zod';
 
 export const settingsSchema = z.object({
   theme: z.enum(['light', 'dark', 'system'] as const, {
-    error: 'settings.error.theme'
-  }).default('system'),
+    error: 'errors.settings.theme'
+  }),
 
-  panelLanguage: z.string().min(2, { error: 'settings.error.panel_language' }).default('pt'),
+  panelLanguage: z.string().min(2, { error: 'errors.settings.panel_language' }),
 
-  siteUrl: z.url({ error: 'settings.error.site_url' })
-    .startsWith('http', { message: 'settings.error.site_url' })
+  siteUrl: z.url({ error: 'errors.settings.site_url' })
+    .startsWith('http', { error: 'errors.settings.site_url' })
     .optional()
     .or(z.literal(''))
     .nullable(),
 
-  publicEmail: z.string().email({ error: 'settings.error.public_email' })
+  publicEmail: z.string().email({ error: 'errors.settings.public_email' })
     .optional()
     .or(z.literal(''))
     .nullable(),
 
-  logoUrl: z.url({ error: 'settings.error.logo_url' })
-    .startsWith('http', { message: 'settings.error.logo_url' })
+  logoUrl: z.url({ error: 'errors.settings.logo_url' })
+    .startsWith('http', { error: 'errors.settings.logo_url' })
     .optional()
     .or(z.literal(''))
     .nullable(),
@@ -28,3 +28,5 @@ export const settingsSchema = z.object({
     .optional()
     .nullable(),
 }).strict();
+
+export type Settings = z.infer<typeof settingsSchema>;

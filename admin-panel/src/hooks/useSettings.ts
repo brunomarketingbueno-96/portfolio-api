@@ -1,3 +1,5 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { settingsSchema } from '../../../src/schemas/settings.schema';
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -6,15 +8,13 @@ import { UploadService } from '@/services/uploadService';
 
 import { useImagePreview } from '@/hooks/useImagePreview';
 
-import { z } from 'zod';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 
-import { settingsSchema } from '../../../src/schemas/settings.schema';
+import type { GlobalSettings, Settings } from '@/typings/Settings';
 
-type SettingsFormData = z.infer<typeof settingsSchema>;
+import toast from 'react-hot-toast';
 
-const initialForm: SettingsFormData = {
+const initialForm: Settings = {
   theme: 'system',
   panelLanguage: 'en',
   siteUrl: '',
@@ -26,7 +26,7 @@ const initialForm: SettingsFormData = {
 export function useSettings(options?: { fetchOnMount?: boolean }) {
   const { t } = useTranslation();
 
-  const [settings, setSettings] = useState<SettingsFormData | null>(null);
+  const [settings, setSettings] = useState<GlobalSettings | null>(null);
   const [loading, setLoading] = useState(!!options?.fetchOnMount);
   const [globalError, setGlobalError] = useState<string | null>(null);
 
@@ -43,8 +43,8 @@ export function useSettings(options?: { fetchOnMount?: boolean }) {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting }
-  } = useForm<SettingsFormData>({
-    resolver: zodResolver(settingsSchema as never),
+  } = useForm<Settings>({
+    resolver: zodResolver(settingsSchema),
     defaultValues: initialForm
   });
 
@@ -62,7 +62,7 @@ export function useSettings(options?: { fetchOnMount?: boolean }) {
         logoUrl: data.logoUrl ?? '',
       };
 
-      setSettings(parsedData);
+      setSettings(data);
       reset(parsedData);
       setImagePreview(parsedData.logoUrl ?? null);
 
@@ -82,7 +82,7 @@ export function useSettings(options?: { fetchOnMount?: boolean }) {
 
   }, [options?.fetchOnMount, loadSettings]);
 
-  const processFormSubmit = async (data: SettingsFormData, onSuccess?: (updated: SettingsFormData) => void) => {
+  const processFormSubmit = async (data: Settings, onSuccess?: (updated: Settings) => void) => {
     setGlobalError(null);
     try {
       let finalLogoUrl = imagePreview || '';
@@ -99,36 +99,63 @@ export function useSettings(options?: { fetchOnMount?: boolean }) {
           : data.customConfig,
       };
 
-      const updated = await SettingsService.update(payload);
+      const updatedSettings = await SettingsService.update(payload);
 
-      setSettings(prev => prev ? { ...prev, ...updated } : updated);
+      const settedSettings = {
+        theme: updatedSettings.theme ?? 'system',
+        panelLanguage: updatedSettings.panelLanguage ?? 'en',
+        customConfig: updatedSettings.customConfig ?? {},
+        siteUrl: updatedSettings.siteUrl ?? '',
+        publicEmail: updatedSettings.publicEmail ?? '',
+        logoUrl: updatedSettings.logoUrl ?? '',
+      };
+
+      setSettings((prev) => {
+        if (!prev) return null;
+
+        return {
+          ...prev,
+          ...updatedSettings,
+          id: prev.id,
+          aiKeys: prev.aiKeys
+        };
+      });
+
+      reset(settedSettings);
       setSelectedFile(null);
+      setImagePreview(settedSettings.logoUrl ?? null);
 
-      if (onSuccess) onSuccess(updated);
+      if (onSuccess) onSuccess(updatedSettings);
+      toast.success('Configurações atualizadas com sucesso');
 
     } catch (error) {
       const err = error as ApiError;
       setGlobalError(err.message || t('settings.error.update'));
+
+      toast.error('Ocorreu um erro ao atualizar as configurações');
     }
   };
 
-  const updateSettings = (onSuccess?: (updated: SettingsFormData) => void) =>
-    handleSubmit((data) => processFormSubmit(data, onSuccess));
+  const updateSettings = (onSuccess?: (updated: Settings) => void) =>
+    handleSubmit(
+      (data) => processFormSubmit(data, onSuccess),
+      (validationErrors) => console.error('❌ Zod barrou o formulário de configurações:', validationErrors)
+    );
 
   return {
     settings,
     loading,
-    globalError,
-    loadSettings,
-
-    register,
-    errors,
     isSubmitting,
-    reset,
+    loadSettings,
     updateSettings,
+    setImagePreview,
 
-    imagePreview,
     handleFileChange,
-    setImagePreview
+    register,
+    reset,
+    globalError,
+    errors,
+
+    imagePreview
   };
 }

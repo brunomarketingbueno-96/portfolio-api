@@ -17,11 +17,11 @@ vi.mock('@/helpers/projectHelpers', () => ({
   getProjectData: vi.fn()
 }));
 
-vi.mock('@/components/EditButton', () => ({
+vi.mock('@/components/Buttons/EditButton', () => ({
   default: ({ title }: any) => <button title={title}>Edit</button>
 }));
 
-vi.mock('@/components/DeleteButton', () => ({
+vi.mock('@/components/Buttons/DeleteButton', () => ({
   default: ({ title, onDelete }: any) => <button title={title} onClick={onDelete}>Delete</button>
 }));
 
@@ -32,7 +32,7 @@ const mockProject: any = {
   repoUrl: 'https://github.com'
 };
 
-describe('ProjectCard', () => {
+describe('ProjectCard Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.mocked(projectHelpers.getProjectData).mockReturnValue('Test Project');
@@ -47,8 +47,8 @@ describe('ProjectCard', () => {
 
     expect(screen.getByText('Test Project')).toBeInTheDocument();
     expect(screen.getByRole('img')).toHaveAttribute('src', mockProject.imageUrl);
-    expect(screen.getByRole('link', { name: /projects.cards.live_url/i })).toHaveAttribute('href', mockProject.liveUrl);
-    expect(screen.getByRole('link', { name: /projects.cards.repo_url/i })).toHaveAttribute('href', mockProject.repoUrl);
+    expect(screen.getByText('🌐 projects.cards.live_url')).toHaveAttribute('href', mockProject.liveUrl);
+    expect(screen.getByText('📦 projects.cards.repo_url')).toHaveAttribute('href', mockProject.repoUrl);
   });
 
   it('should render fallbacks when image and links are missing', () => {

@@ -17,11 +17,11 @@ vi.mock('@/helpers/serviceHelpers', () => ({
   getServiceData: vi.fn()
 }));
 
-vi.mock('@/components/EditButton', () => ({
+vi.mock('@/components/Buttons/EditButton', () => ({
   default: ({ title }: any) => <button title={title}>Edit</button>
 }));
 
-vi.mock('@/components/DeleteButton', () => ({
+vi.mock('@/components/Buttons/DeleteButton', () => ({
   default: ({ title, onDelete }: any) => <button title={title} onClick={onDelete}>Delete</button>
 }));
 
@@ -68,7 +68,7 @@ describe('ServiceCard', () => {
     );
 
     expect(screen.getByText('No image')).toBeInTheDocument();
-    expect(screen.getByText('Indisponible link')).toBeInTheDocument(); // Ajustado aqui
+    expect(screen.getByText('Indisponible link')).toBeInTheDocument();
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
   });
 

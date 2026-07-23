@@ -45,7 +45,7 @@ describe('Cloudinary Signature Zod Schema', () => {
 
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('cloudinary.error.invalid_folder')
+      expect(result.error.issues[0].message).toBe('errors.cloudinary.invalid_folder')
     }
   })
 
@@ -58,7 +58,7 @@ describe('Cloudinary Signature Zod Schema', () => {
 
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('cloudinary.error.invalid_folder')
+      expect(result.error.issues[0].message).toBe('errors.cloudinary.invalid_folder')
     }
   })
 
@@ -72,7 +72,7 @@ describe('Cloudinary Signature Zod Schema', () => {
 
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('cloudinary.error.invalid_folder')
+      expect(result.error.issues[0].message).toBe('errors.cloudinary.invalid_folder')
     }
   })
 
@@ -86,7 +86,7 @@ describe('Cloudinary Signature Zod Schema', () => {
 
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('cloudinary.error.invalid_identifier')
+      expect(result.error.issues[0].message).toBe('errors.cloudinary.invalid_identifier')
     }
   })
 })

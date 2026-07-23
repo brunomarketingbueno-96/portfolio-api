@@ -1,21 +1,21 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import type { UseFormRegister, FieldErrors, FieldArrayWithId } from 'react-hook-form';
+import type { NewEducation } from '@/typings/Educations';
 
 import Input from '@/components/Input';
 import Select from '@/components/Select';
 import ImageSelector from '@/components/ImageSelector';
 import IconWrapper from '@/components/IconWrapper';
-
-import { z } from 'zod';
-import { educationSchema } from '../../../../src/schemas/educations.schema';
-
-type EducationFormData = z.infer<typeof educationSchema>;
+import Textarea from '@/components/Textarea';
+import FormError from '@/components/FormError';
+import SaveButton from '@/components/Buttons/SaveButton';
 
 interface EducationFormProps {
-  register: UseFormRegister<EducationFormData>;
-  errors: FieldErrors<EducationFormData>;
-  fields: FieldArrayWithId<EducationFormData, "translations", "id">[];
+  register: UseFormRegister<NewEducation>;
+  errors: FieldErrors<NewEducation>;
+  fields: FieldArrayWithId<NewEducation, "translations", "id">[];
   appendTranslation: () => void;
   removeTranslation: (index: number) => void;
 
@@ -24,19 +24,15 @@ interface EducationFormProps {
   globalError: string | null;
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmitAction: (e: React.FormEvent<HTMLFormElement>) => void;
-  submitButtonText: string;
 }
 
 export default function EducationForm({
   register, errors, fields, appendTranslation, removeTranslation,
   imagePreview, isSubmitting, globalError,
-  handleFileChange, onSubmitAction, submitButtonText
+  handleFileChange, onSubmitAction
 }: EducationFormProps) {
 
   const { t } = useTranslation();
-
-  const getTextAreaClass = (hasError: boolean) =>
-    `w-full px-4 py-3 rounded-lg text-sm transition-all duration-300 bg-zinc-50 dark:bg-zinc-950 border text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-blue-500 ${hasError ? 'border-red-500 bg-red-50 dark:bg-red-900/20' : 'border-zinc-200 dark:border-zinc-700'}`;
 
   return (
     <form onSubmit={onSubmitAction} className="bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-gray-200 dark:border-zinc-700 overflow-hidden">
@@ -50,27 +46,23 @@ export default function EducationForm({
               <div>
                 <Select
                   id="type"
-                  label={t('educations.form.labels.type', { defaultValue: 'Type' })}
+                  label={t('forms.educations.labels.type', { defaultValue: 'Type' })}
                   options={['college', 'course', 'certification', 'bootcamp']}
-                  translationGroup="educations.type"
+                  translationGroup="forms.educations.types"
                   {...register('type')}
                 />
-                {errors.type?.message && (
-                  <span className="text-red-500 text-xs">{t(errors.type.message as string)}</span>
-                )}
+                <FormError error={!!errors.type?.message} message={t(errors.type?.message as string)} />
               </div>
 
               <div>
                 <Select
                   id="status"
-                  label={t('educations.form.labels.status', { defaultValue: 'Status' })}
+                  label={t('forms.educations.labels.status', { defaultValue: 'Status' })}
                   options={['completed', 'in_progress', 'paused']}
-                  translationGroup="educations.status"
+                  translationGroup="forms.educations.statuses"
                   {...register('status')}
                 />
-                {errors.status?.message && (
-                  <span className="text-red-500 text-xs">{t(errors.status.message as string)}</span>
-                )}
+                <FormError error={!!errors.status?.message} message={t(errors.status?.message as string)} />
               </div>
             </div>
 
@@ -78,31 +70,27 @@ export default function EducationForm({
               <div>
                 <Input
                   id="startDate"
-                  label={t('educations.form.labels.startDate', { defaultValue: 'Start Date' })}
+                  label={t('forms.educations.labels.start_date', { defaultValue: 'Start Date' })}
                   type="date"
                   placeholder=""
                   {...register('startDate')}
                 >
                   <IconWrapper>📅</IconWrapper>
                 </Input>
-                {errors.startDate?.message && (
-                  <span className="text-red-500 text-xs">{t(errors.startDate.message as string)}</span>
-                )}
+                <FormError error={!!errors.startDate?.message} message={t(errors.startDate?.message as string)} />
               </div>
 
               <div>
                 <Input
                   id="endDate"
-                  label={t('educations.form.labels.endDate', { defaultValue: 'End Date' })}
+                  label={t('forms.educations.labels.end_date', { defaultValue: 'End Date' })}
                   type="date"
                   placeholder=""
                   {...register('endDate')}
                 >
                   <IconWrapper>📅</IconWrapper>
                 </Input>
-                {errors.endDate?.message && (
-                  <span className="text-red-500 text-xs">{t(errors.endDate.message as string)}</span>
-                )}
+                <FormError error={!!errors.endDate?.message} message={t(errors.endDate?.message as string)} />
               </div>
             </div>
 
@@ -111,30 +99,26 @@ export default function EducationForm({
                 <Input
                   id="durationHours"
                   type="number"
-                  label={t('educations.form.labels.duration', { defaultValue: 'Duration (Hours)' })}
-                  placeholder={t('educations.form.placeholders.duration', { defaultValue: 'Ex: 120' })}
+                  label={t('forms.educations.labels.duration', { defaultValue: 'Duration (Hours)' })}
+                  placeholder={t('forms.educations.placeholders.duration', { defaultValue: 'Ex: 120' })}
                   {...register('durationHours')}
                 >
                   <IconWrapper>⏱️</IconWrapper>
                 </Input>
-                {errors.durationHours?.message && (
-                  <span className="text-red-500 text-xs">{t(errors.durationHours.message as string)}</span>
-                )}
+                <FormError error={!!errors?.durationHours} message={t(errors.durationHours?.message as string)} />
               </div>
 
               <div>
                 <Input
                   id="certificateUrl"
-                  label={t('educations.form.labels.certificate_url', { defaultValue: 'Certificate URL' })}
+                  label={t('forms.educations.labels.certificate_url', { defaultValue: 'Certificate URL' })}
                   type="url"
-                  placeholder={t('educations.form.placeholders.certificate_url', { defaultValue: 'https://...' })}
+                  placeholder={t('forms.educations.placeholders.certificate_url', { defaultValue: 'https://...' })}
                   {...register('certificateUrl')}
                 >
                   <IconWrapper>🔗</IconWrapper>
                 </Input>
-                {errors.certificateUrl?.message && (
-                  <span className="text-red-500 text-xs">{t(errors.certificateUrl.message as string)}</span>
-                )}
+                <FormError error={!!errors.certificateUrl?.message} message={t(errors.certificateUrl?.message as string)} />
               </div>
             </div>
           </div>
@@ -144,9 +128,9 @@ export default function EducationForm({
 
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100">{t('educations.form.titles.translations', { defaultValue: 'Content & Translations' })}</h3>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-zinc-100">{t('pages.educations.create.content_and_translations', { defaultValue: 'Content & Translations' })}</h3>
             <button type="button" onClick={appendTranslation} className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center gap-1">
-              {t('buttons.add_language', { defaultValue: '+ Add Language' })}
+              {t('forms.educations.buttons.add_translation', { defaultValue: '+ Add Language' })}
             </button>
           </div>
 
@@ -160,9 +144,9 @@ export default function EducationForm({
                     <button
                       type="button"
                       onClick={() => removeTranslation(index)}
-                      aria-label={t('buttons.delete', { defaultValue: 'Delete' })}
-                      title={t('buttons.delete', { defaultValue: 'Delete' })}
-                      className="absolute top-4 right-4 text-zinc-400 hover:text-red-500 transition-colors"
+                      aria-label={t('forms.educations.buttons.delete_translation', { defaultValue: 'Delete' })}
+                      title={t('forms.educations.buttons.delete_translation', { defaultValue: 'Delete' })}
+                      className="cursor-pointer absolute top-4 right-4 text-zinc-400 hover:text-red-500 transition-colors"
                     >
                       ✕
                     </button>
@@ -172,58 +156,47 @@ export default function EducationForm({
                     <div className="md:col-span-1">
                       <Select
                         id={`language-${index}`}
-                        label={t('educations.form.labels.language', { defaultValue: 'Language' })}
+                        label={t('forms.educations.labels.language', { defaultValue: 'Language' })}
                         options={['pt', 'en', 'es']}
-                        translationGroup="languages"
+                        translationGroup="global.languages"
                         disabled={index === 0}
                         {...register(`translations.${index}.language` as const)}
                       />
-                      {fieldErrors?.language?.message && (
-                        <span className="text-red-500 text-xs">{t(fieldErrors.language.message as string)}</span>
-                      )}
+                      <FormError error={!!fieldErrors?.language?.message} message={t(fieldErrors?.language?.message as string)} />
                     </div>
 
                     <div className="md:col-span-1">
                       <Input
                         id={`institution-${index}`}
-                        label={t('educations.form.labels.institution', { defaultValue: 'Institution' })}
-                        placeholder={t('educations.form.placeholders.institution', { defaultValue: 'Ex: Harvard' })}
+                        label={t('forms.educations.labels.institution', { defaultValue: 'Institution' })}
+                        placeholder={t('forms.educations.placeholders.institution', { defaultValue: 'Ex: Harvard' })}
                         {...register(`translations.${index}.institution` as const)}
                       >
                         <IconWrapper>🏛️</IconWrapper>
                       </Input>
-                      {fieldErrors?.institution?.message && (
-                        <span className="text-red-500 text-xs">{t(fieldErrors.institution.message as string)}</span>
-                      )}
+                      <FormError error={!!fieldErrors?.institution?.message} message={t(fieldErrors?.institution?.message as string)} />
                     </div>
 
                     <div className="md:col-span-2">
                       <Input
                         id={`name-${index}`}
-                        label={t('educations.form.labels.course_name', { defaultValue: 'Course Name' })}
-                        placeholder={t('educations.form.placeholders.course_name', { defaultValue: 'Ex: Computer Science' })}
+                        label={t('forms.educations.labels.course_name', { defaultValue: 'Course Name' })}
+                        placeholder={t('forms.educations.placeholders.course_name', { defaultValue: 'Ex: Computer Science' })}
                         {...register(`translations.${index}.name` as const)}
                       >
                         <IconWrapper>🎓</IconWrapper>
                       </Input>
-                      {fieldErrors?.name?.message && (
-                        <span className="text-red-500 text-xs">{t(fieldErrors.name.message as string)}</span>
-                      )}
+                      <FormError error={!!fieldErrors?.name?.message} message={t(fieldErrors?.name?.message as string)} />
                     </div>
 
                     <div className="md:col-span-4 mt-2 flex flex-col gap-2">
-                      <label className="ml-1 text-sm font-semibold text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
-                        {t('educations.form.labels.description', { defaultValue: 'Description' })}
-                      </label>
-                      <textarea
-                        rows={3}
-                        placeholder={t('educations.form.placeholders.description', { defaultValue: 'Describe what you learned, projects...' })}
-                        className={getTextAreaClass(!!fieldErrors?.description)}
+                      <Textarea
+                        id={`description-${index}`}
+                        label={t('forms.educations.labels.description', { defaultValue: 'Description' })}
+                        placeholder={t('forms.educations.placeholders.description', { defaultValue: 'Ex: Computer Science' })}
                         {...register(`translations.${index}.description` as const)}
                       />
-                      {fieldErrors?.description?.message && (
-                        <span className="text-red-500 text-xs">{t(fieldErrors.description.message as string)}</span>
-                      )}
+                      <FormError error={!!fieldErrors?.description?.message} message={t(fieldErrors?.description?.message as string)} />
                     </div>
                   </div>
                 </div>
@@ -236,13 +209,7 @@ export default function EducationForm({
       </div>
 
       <div className="bg-gray-50 dark:bg-zinc-900 px-6 py-4 flex items-center justify-end border-t border-gray-200 dark:border-zinc-700">
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="cursor-pointer inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 transition-all"
-        >
-          {isSubmitting ? t('buttons.saving', { defaultValue: 'Saving...' }) : submitButtonText}
-        </button>
+        <SaveButton isSubmitting={isSubmitting} customLabel={t('forms.educations.buttons.save_education', { defaultValue: 'Save Education' })} />
       </div>
     </form>
   );

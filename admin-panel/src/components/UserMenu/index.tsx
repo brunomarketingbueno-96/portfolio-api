@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useAuth } from "@/contexts/AuthContext";
 
-import LogoutButton from '@/components/LogoutButton';
+import LogoutButton from '@/components/Buttons/LogoutButton';
 
 export default function UserMenu() {
   const { user, logout } = useAuth();
@@ -67,13 +67,13 @@ export default function UserMenu() {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
-            {t('header.edit_profile', { defaultValue: 'My profile' })}
+            {t('global.components.user_menu.profile', { defaultValue: 'My profile' })}
           </Link>
 
           <div className="h-px bg-gray-100 my-1"></div>
 
           <LogoutButton onClick={handleLogout}
-            label={t('header.logout', { defaultValue: 'Logout' })}
+            label={t('global.components.user_menu.logout', { defaultValue: 'Logout' })}
           />
         </div>
       )}

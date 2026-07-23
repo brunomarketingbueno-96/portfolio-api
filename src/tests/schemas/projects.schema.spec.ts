@@ -73,7 +73,7 @@ describe('Projects Zod Schema', () => {
 
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('projects.error.repo_url')
+      expect(result.error.issues[0].message).toBe('errors.projects.repo_url')
     }
   })
 

@@ -11,10 +11,6 @@ vi.mock('react-i18next', () => ({
   }),
 }));
 
-vi.mock('react-router-dom', () => ({
-  Link: ({ children, to }: any) => <a href={to} data-testid="mock-link">{children}</a>,
-}));
-
 vi.mock('@/hooks/useProjects', () => ({
   useProjects: vi.fn(),
 }));
@@ -23,8 +19,20 @@ vi.mock('@/components/Background', () => ({
   default: () => <div data-testid="mock-background" />
 }));
 
+vi.mock('@/components/Heading', () => ({
+  default: ({ title }: any) => <h1 data-testid="mock-heading">{title}</h1>
+}));
+
+vi.mock('@/components/SubTitle', () => ({
+  default: ({ content }: any) => <p data-testid="mock-subtitle">{content}</p>
+}));
+
+vi.mock('@/components/Buttons/BackButton', () => ({
+  default: ({ to, label }: any) => <a href={to.pathname} data-testid="mock-back-button">{label}</a>
+}));
+
 vi.mock('@/components/ProjectForm', () => ({
-  default: ({ submitButtonText, onSubmitAction, globalError, isSubmitting }: any) => (
+  default: ({ onSubmitAction, globalError, isSubmitting }: any) => (
     <form
       data-testid="mock-project-form"
       onSubmit={(e) => {
@@ -34,7 +42,7 @@ vi.mock('@/components/ProjectForm', () => ({
     >
       <span data-testid="form-global-error">{globalError}</span>
       <span data-testid="form-is-submitting">{isSubmitting ? 'submitting' : 'idle'}</span>
-      <button type="submit" data-testid="form-submit-btn">{submitButtonText}</button>
+      <button type="submit" data-testid="form-submit-btn">Submit</button>
     </form>
   )
 }));
@@ -63,11 +71,10 @@ describe('CreateProject Page Component', () => {
     render(<CreateProject />);
 
     expect(screen.getByTestId('mock-background')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-heading')).toHaveTextContent('New Project');
+    expect(screen.getByTestId('mock-subtitle')).toHaveTextContent('Add a new project to your portfolio.');
 
-    expect(screen.getByText('New Project')).toBeInTheDocument();
-    expect(screen.getByText('Add a new project to your portfolio.')).toBeInTheDocument();
-
-    const link = screen.getByTestId('mock-link');
+    const link = screen.getByTestId('mock-back-button');
     expect(link).toHaveAttribute('href', '/projects');
     expect(link).toHaveTextContent('Back to list');
   });
@@ -81,10 +88,7 @@ describe('CreateProject Page Component', () => {
 
     render(<CreateProject />);
 
-    expect(screen.getByTestId('form-submit-btn')).toHaveTextContent('Save Project');
-
     expect(screen.getByTestId('form-is-submitting')).toHaveTextContent('submitting');
-
     expect(screen.getByTestId('form-global-error')).toHaveTextContent('Some validation error');
   });
 

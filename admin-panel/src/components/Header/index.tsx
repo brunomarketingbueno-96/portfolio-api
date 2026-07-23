@@ -10,7 +10,7 @@ export default function Header() {
     <header className="dark:bg-zinc-900 bg-white shadow-sm border-b border-gray-200 sticky top-0 z-30">
       <div className="px-8 h-16 flex items-center justify-between">
 
-        <Logo title={t('header.title', { defaultValue: 'Admin Panel' })} />
+        <Logo title={t('global.components.header.title', { defaultValue: 'Admin Panel' })} />
 
         <UserMenu />
 

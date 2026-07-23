@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
@@ -11,10 +10,6 @@ vi.mock('react-i18next', () => ({
   }),
 }));
 
-vi.mock('react-router-dom', () => ({
-  Link: ({ children, to }: any) => <a href={to} data-testid="mock-link">{children}</a>,
-}));
-
 vi.mock('@/hooks/useProfile', () => ({
   useProfile: vi.fn(),
 }));
@@ -23,22 +18,40 @@ vi.mock('@/components/Background', () => ({
   default: () => <div data-testid="mock-background" />
 }));
 
-vi.mock('@/components/IconWrapper', () => ({
-  default: ({ children }: any) => <span data-testid="mock-icon">{children}</span>
+vi.mock('@/components/Heading', () => ({
+  default: ({ title }: any) => <h1 data-testid="mock-heading">{title}</h1>
 }));
 
-vi.mock('@/components/ImageSelector', () => ({
-  default: ({ imagePreview }: any) => <div data-testid="mock-image-selector">{imagePreview}</div>
+vi.mock('@/components/SubTitle', () => ({
+  default: ({ content }: any) => <p data-testid="mock-subtitle">{content}</p>
 }));
 
-vi.mock('@/components/Input', () => ({
-  default: React.forwardRef(({ id, label, placeholder, children, ...rest }: any, ref: any) => (
-    <div data-testid={`mock-input-container-${id}`}>
-      <label htmlFor={id}>{label}</label>
-      <input ref={ref} id={id} placeholder={placeholder} {...rest} />
-      {children}
-    </div>
-  ))
+vi.mock('@/components/Buttons/BackButton', () => ({
+  default: ({ to, label }: any) => <a href={to.pathname} data-testid="mock-back-button">{label}</a>
+}));
+
+vi.mock('@/components/PageLoader', () => ({
+  default: () => <div data-testid="mock-page-loader" />
+}));
+
+vi.mock('@/components/ProfileForm', () => ({
+  default: ({ updateProfileSubmit, globalErrorProfile, successProfile }: any) => (
+    <form data-testid="mock-profile-form" onSubmit={updateProfileSubmit}>
+      {globalErrorProfile && <span>{globalErrorProfile}</span>}
+      {successProfile && <span>Profile updated successfully</span>}
+      <button type="submit">Submit Profile</button>
+    </form>
+  )
+}));
+
+vi.mock('@/components/PasswordForm', () => ({
+  default: ({ updatePasswordSubmit, globalErrorPassword, successPassword }: any) => (
+    <form data-testid="mock-password-form" onSubmit={updatePasswordSubmit}>
+      {globalErrorPassword && <span>{globalErrorPassword}</span>}
+      {successPassword && <span>Password updated successfully</span>}
+      <button type="submit">Submit Password</button>
+    </form>
+  )
 }));
 
 describe('Profile Page Component', () => {
@@ -73,37 +86,32 @@ describe('Profile Page Component', () => {
       loading: true,
     } as any);
 
-    const { container } = render(<Profile />);
+    render(<Profile />);
 
-    const spinner = container.querySelector('.animate-spin');
-    expect(spinner).toBeInTheDocument();
-    expect(screen.queryByText('Meu Perfil')).not.toBeInTheDocument();
+    expect(screen.getByTestId('mock-page-loader')).toBeInTheDocument();
+    expect(screen.queryByTestId('mock-profile-form')).not.toBeInTheDocument();
   });
 
-  it('should render profile layout, headers, inputs, and forms correctly when loaded', () => {
+  it('should render profile layout, headers, background, and forms correctly when loaded', () => {
     render(<Profile />);
 
     expect(screen.getByTestId('mock-background')).toBeInTheDocument();
-    expect(screen.getByText('My Profile')).toBeInTheDocument();
-    expect(screen.getByText('Manage your account information and security.')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-heading')).toHaveTextContent('My Profile');
+    expect(screen.getByTestId('mock-subtitle')).toHaveTextContent('Manage your account information and security.');
 
-    const link = screen.getByTestId('mock-link');
+    const link = screen.getByTestId('mock-back-button');
     expect(link).toHaveAttribute('href', '/panel');
-    expect(link).toHaveTextContent('Back to Dashboard');
+    expect(link).toHaveTextContent('Back to Panel');
 
-    expect(screen.getByTestId('mock-input-container-name')).toBeInTheDocument();
-    expect(screen.getByTestId('mock-input-container-email')).toBeInTheDocument();
-    expect(screen.getByTestId('mock-input-container-oldPassword')).toBeInTheDocument();
-    expect(screen.getByTestId('mock-input-container-newPassword')).toBeInTheDocument();
-    expect(screen.getByTestId('mock-input-container-confirmPassword')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-profile-form')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-password-form')).toBeInTheDocument();
   });
 
   it('should trigger updateProfileSubmit when the personal info form is submitted', () => {
     render(<Profile />);
 
-    const forms = document.querySelectorAll('form');
-    // The first form is the personal info form
-    fireEvent.submit(forms[0]);
+    const form = screen.getByTestId('mock-profile-form');
+    fireEvent.submit(form);
 
     expect(mockUpdateProfileSubmit).toHaveBeenCalledTimes(1);
   });
@@ -111,9 +119,8 @@ describe('Profile Page Component', () => {
   it('should trigger updatePasswordSubmit when the security form is submitted', () => {
     render(<Profile />);
 
-    const forms = document.querySelectorAll('form');
-    // The second form is the security / password form
-    fireEvent.submit(forms[1]);
+    const form = screen.getByTestId('mock-password-form');
+    fireEvent.submit(form);
 
     expect(mockUpdatePasswordSubmit).toHaveBeenCalledTimes(1);
   });

@@ -14,7 +14,7 @@ vi.mock('@/components/Input', () => ({
   default: React.forwardRef(({ label, children, ...props }: any, ref: any) => (
     <div>
       <label>{label}</label>
-      <input {...props} ref={ref} />
+      <input {...props} ref={ref} data-testid={`mock-input-${props.id}`} />
       {children}
     </div>
   ))
@@ -24,17 +24,36 @@ vi.mock('@/components/Select', () => ({
   default: React.forwardRef(({ label, ...props }: any, ref: any) => (
     <div>
       <label>{label}</label>
-      <select {...props} ref={ref} />
+      <select {...props} ref={ref} data-testid={`mock-select-${props.id}`} />
     </div>
   ))
 }));
 
+vi.mock('@/components/Textarea', () => ({
+  default: React.forwardRef(({ label, ...props }: any, ref: any) => (
+    <div>
+      <label>{label}</label>
+      <textarea {...props} ref={ref} data-testid={`mock-textarea-${props.id}`} />
+    </div>
+  ))
+}));
+
+vi.mock('@/components/FormError', () => ({
+  default: ({ error, message }: any) => error ? <span data-testid="mock-form-error">{message}</span> : null
+}));
+
 vi.mock('@/components/ImageSelector', () => ({
-  default: () => <div data-testid="image-selector" />
+  default: () => <div data-testid="mock-image-selector" />
 }));
 
 vi.mock('@/components/IconWrapper', () => ({
-  default: ({ children }: any) => <span>{children}</span>
+  default: ({ children }: any) => <span data-testid="mock-icon-wrapper">{children}</span>
+}));
+
+vi.mock('@/components/Buttons/SaveButton', () => ({
+  default: ({ isSubmitting, customLabel }: any) => (
+    <button type="submit" disabled={isSubmitting}>{customLabel}</button>
+  )
 }));
 
 const mockFields = [
@@ -58,11 +77,10 @@ const mockProps = {
   isSubmitting: false,
   globalError: null,
   handleFileChange: vi.fn(),
-  onSubmitAction: vi.fn((e) => e.preventDefault()),
-  submitButtonText: 'projects.form.buttons.save_project'
+  onSubmitAction: vi.fn((e) => e.preventDefault())
 };
 
-describe('ProjectForm', () => {
+describe('ProjectForm Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -71,9 +89,11 @@ describe('ProjectForm', () => {
     render(<ProjectForm {...mockProps} />);
 
     expect(screen.getByText('Content & Translations')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'projects.form.buttons.save_project' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Save Project' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '+ Add Language' })).toBeInTheDocument();
-    expect(screen.getByTestId('image-selector')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-image-selector')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-input-liveUrl')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-input-repoUrl')).toBeInTheDocument();
   });
 
   it('should display an error message if globalError prop is provided', () => {
@@ -82,10 +102,10 @@ describe('ProjectForm', () => {
     expect(screen.getByText('An unexpected error occurred')).toBeInTheDocument();
   });
 
-  it('should disable the submit button and change text when isSubmitting is true', () => {
+  it('should disable the submit button when isSubmitting is true', () => {
     render(<ProjectForm {...mockProps} isSubmitting={true} />);
 
-    const submitButton = screen.getByRole('button', { name: 'Saving...' });
+    const submitButton = screen.getByRole('button', { name: 'Save Project' });
     expect(submitButton).toBeDisabled();
   });
 
@@ -93,7 +113,7 @@ describe('ProjectForm', () => {
     const user = userEvent.setup();
     render(<ProjectForm {...mockProps} />);
 
-    const submitButton = screen.getByRole('button', { name: 'projects.form.buttons.save_project' });
+    const submitButton = screen.getByRole('button', { name: 'Save Project' });
     await user.click(submitButton);
 
     expect(mockProps.onSubmitAction).toHaveBeenCalledTimes(1);
@@ -125,7 +145,7 @@ describe('ProjectForm', () => {
     expect(mockProps.removeTranslation).toHaveBeenCalledWith(1);
   });
 
-  it('should render field errors when provided', () => {
+  it('should render form errors when validation errors exist for main fields', () => {
     const mockErrors = {
       liveUrl: { message: 'errors.invalid_url', type: 'pattern' },
       repoUrl: { message: 'errors.invalid_url', type: 'pattern' }
@@ -137,65 +157,27 @@ describe('ProjectForm', () => {
     expect(errorMessages).toHaveLength(2);
   });
 
-  it('should render translation field errors correctly', () => {
+  it('should render form errors when validation errors exist for translation fields', () => {
     const mockErrorsWithTranslations = {
-      translations: [
-        { title: { message: 'errors.required', type: 'required' } }
-      ]
-    };
-
-    render(<ProjectForm {...mockProps} errors={mockErrorsWithTranslations as any} />);
-
-    expect(screen.getByText('errors.required')).toBeInTheDocument();
-  });
-
-  it('should NOT render delete button for the first translation (index 0)', () => {
-    render(<ProjectForm {...mockProps} fields={[mockFields[0]] as any} />);
-
-    expect(screen.queryByTitle('Delete')).not.toBeInTheDocument();
-  });
-
-  it('should NOT render globalError div when it is null', () => {
-    render(<ProjectForm {...mockProps} globalError={null} />);
-
-    const errorDiv = document.querySelector('.bg-red-50');
-    expect(errorDiv).not.toBeInTheDocument();
-  });
-
-  it('should render the default submit text when not submitting', () => {
-    render(<ProjectForm {...mockProps} isSubmitting={false} />);
-
-    expect(screen.getByText('projects.form.buttons.save_project')).toBeInTheDocument();
-    expect(screen.queryByText('Saving...')).not.toBeInTheDocument();
-  });
-
-  it('should apply default border classes when there is no description error', () => {
-    render(<ProjectForm {...mockProps} errors={{}} />);
-
-    const textarea = screen.getByPlaceholderText(/Describe the technologies/i);
-    expect(textarea.className).toContain('border-zinc-200');
-    expect(textarea.className).not.toContain('border-red-500');
-  });
-
-  it('should NOT render error messages when there are no errors in translations', () => {
-    render(<ProjectForm {...mockProps} errors={{}} />);
-
-    const errorMessages = screen.queryByText('errors.required'); // ou o texto que você usa
-    expect(errorMessages).not.toBeInTheDocument();
-  });
-
-  it('should render error messages only for the specific translation field that has an error', () => {
-    const mockErrors = {
       translations: [
         { title: { message: 'errors.title_required', type: 'required' } }
       ]
     };
 
-    render(<ProjectForm {...mockProps} errors={mockErrors as any} />);
+    render(<ProjectForm {...mockProps} errors={mockErrorsWithTranslations as any} />);
 
     expect(screen.getByText('errors.title_required')).toBeInTheDocument();
+  });
 
-    expect(screen.queryByText('errors.language_required')).not.toBeInTheDocument();
-    expect(screen.queryByText('errors.description_required')).not.toBeInTheDocument();
+  it('should NOT render delete button for the first translation', () => {
+    render(<ProjectForm {...mockProps} fields={[mockFields[0]] as any} />);
+
+    expect(screen.queryByTitle('Delete')).not.toBeInTheDocument();
+  });
+
+  it('should NOT render form errors when fields are valid', () => {
+    render(<ProjectForm {...mockProps} errors={{}} />);
+
+    expect(screen.queryByTestId('mock-form-error')).not.toBeInTheDocument();
   });
 });

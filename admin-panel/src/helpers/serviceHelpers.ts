@@ -1,3 +1,5 @@
+import type { Service } from "@/typings/Services";
+
 export const getServiceData = (service: Service, field: 'title' | 'description', currentLanguage: string) => {
   if (!service.translations || service.translations.length === 0) return null;
 

@@ -19,6 +19,14 @@ vi.mock('@/components/Background', () => ({
   default: () => <div data-testid="mock-background" />
 }));
 
+vi.mock('@/components/Heading', () => ({
+  default: ({ title }: any) => <h1 data-testid="mock-heading">{title}</h1>
+}));
+
+vi.mock('@/components/SubTitle', () => ({
+  default: ({ content }: any) => <p data-testid="mock-subtitle">{content}</p>
+}));
+
 vi.mock('@/components/PanelCard', () => ({
   default: ({ title, description, url, type }: any) => (
     <div data-testid="mock-panel-card">
@@ -40,13 +48,13 @@ describe('Panel Component', () => {
 
     render(<Panel />);
 
-    expect(screen.getByText('Welcome back!')).toBeInTheDocument();
-    expect(screen.getByText('What would you like to manage today?')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-heading')).toHaveTextContent('Welcome back!');
+    expect(screen.getByTestId('mock-subtitle')).toHaveTextContent('What would you like to manage today?');
     expect(screen.getByTestId('mock-background')).toBeInTheDocument();
   });
 
-  it('should render exactly 5 PanelCards with correct data', () => {
-    const mockSiteUrl = 'https://meu-portfolio.com';
+  it('should render exactly 6 PanelCards with correct data', () => {
+    const mockSiteUrl = 'https://example-portfolio.com';
 
     vi.mocked(useSettingsContext).mockReturnValue({
       globalSettings: { siteUrl: mockSiteUrl },
@@ -55,12 +63,13 @@ describe('Panel Component', () => {
     render(<Panel />);
 
     const cards = screen.getAllByTestId('mock-panel-card');
-    expect(cards).toHaveLength(5);
+    expect(cards).toHaveLength(6);
 
     const expectedCards = [
       { title: 'My Projects', url: '/projects', type: 'internal' },
       { title: 'My Educations', url: '/educations', type: 'internal' },
       { title: 'My Services', url: '/services', type: 'internal' },
+      { title: 'Blog Posts', url: '/blog-posts', type: 'internal' },
       { title: 'Settings', url: '/settings', type: 'internal' },
       { title: 'Visit Website', url: mockSiteUrl, type: 'external' },
     ];

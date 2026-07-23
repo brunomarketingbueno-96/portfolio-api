@@ -1,4 +1,5 @@
 import { handleResponse } from '@/helpers/fetchHelpers';
+import type { Project } from '@/typings/Projects';
 
 export const ProjectService = {
   async getAll(): Promise<Project[]> {

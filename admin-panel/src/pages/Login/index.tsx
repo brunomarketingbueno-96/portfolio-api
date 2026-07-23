@@ -5,7 +5,6 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 
 import { useAuth } from '@/contexts/AuthContext';
 
-import { z } from 'zod';
 import { loginSchema } from '../../../../src/schemas/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -13,7 +12,7 @@ import FullScreenLoader from '@/components/FullScreenLoader';
 import WelcomePanel from '@/components/WelcomePanel';
 import LoginForm from '@/components/LoginForm';
 
-type LoginFormData = z.infer<typeof loginSchema>;
+import type { LoginForm as LoginFormData } from '@/typings/Profile';
 
 export default function Login() {
   const { checkingAuth, isAuthenticated, login } = useAuth();
@@ -59,12 +58,12 @@ export default function Login() {
       <div className="flex h-full w-full flex-1 items-center justify-center p-6 md:w-1/2">
         <div className="w-full max-w-sm">
           <div className="mb-8 text-center md:hidden">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-zinc-50">{t('login.titles.admin_access', { defaultValue: 'Admin Access' })}</h2>
-            <p className="text-sm text-gray-500 dark:text-zinc-400">{t('login.titles.panel_subtitle', { defaultValue: 'Access to the admin panel' })}</p>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-zinc-50">{t('pages.login.sign_in', { defaultValue: 'Admin Access' })}</h2>
+            <p className="text-sm text-gray-500 dark:text-zinc-400">{t('pages.login.credentials_subtitle', { defaultValue: 'Access to the admin panel' })}</p>
           </div>
           <div className="hidden md:block mb-8 text-center">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-zinc-50">{t('login.titles.sign_in', { defaultValue: 'Sign In' })}</h2>
-            <p className="text-sm text-gray-500 dark:text-zinc-400">{t('login.titles.credentials_subtitle', { defaultValue: 'Enter your credentials to access the admin panel' })}</p>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-zinc-50">{t('pages.login.sign_in', { defaultValue: 'Sign In' })}</h2>
+            <p className="text-sm text-gray-500 dark:text-zinc-400">{t('pages.login.credentials_subtitle', { defaultValue: 'Enter your credentials to access the admin panel' })}</p>
           </div>
 
           <LoginForm

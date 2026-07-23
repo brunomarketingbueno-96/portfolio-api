@@ -1,7 +1,8 @@
 import { handleResponse } from "@/helpers/fetchHelpers";
+import type { Profile, ChangePassword } from "@/typings/Profile";
 
 export const UserService = {
-  async updateProfile(payload: Partial<User>): Promise<User> {
+  async updateProfile(payload: Partial<Profile>): Promise<Profile> {
     const res = await fetch('/api/user/profile', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -12,7 +13,7 @@ export const UserService = {
     return handleResponse(res);
   },
 
-  async updatePassword(payload: Pick<PasswordForm, 'oldPassword' | 'newPassword'>): Promise<User> {
+  async updatePassword(payload: Pick<ChangePassword, 'oldPassword' | 'newPassword'>): Promise<Profile> {
     const res = await fetch('/api/user/password', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },

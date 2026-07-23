@@ -64,7 +64,7 @@ describe('Contact Zod Schema', () => {
 
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('contact.error.email_or_whatsapp')
+      expect(result.error.issues[0].message).toBe('errors.contact.email_or_whatsapp')
       expect(result.error.issues[0].path).toContain('email')
     }
   })
@@ -80,7 +80,7 @@ describe('Contact Zod Schema', () => {
 
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('contact.error.email_or_whatsapp')
+      expect(result.error.issues[0].message).toBe('errors.contact.email_or_whatsapp')
       expect(result.error.issues[0].path).toContain('email')
     }
   })
@@ -92,7 +92,7 @@ describe('Contact Zod Schema', () => {
 
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('contact.error.name')
+      expect(result.error.issues[0].message).toBe('errors.contact.name')
     }
   })
 
@@ -103,7 +103,7 @@ describe('Contact Zod Schema', () => {
 
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('contact.error.company')
+      expect(result.error.issues[0].message).toBe('errors.contact.company')
     }
   })
 
@@ -114,7 +114,7 @@ describe('Contact Zod Schema', () => {
 
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('contact.error.email')
+      expect(result.error.issues[0].message).toBe('errors.contact.email')
     }
   })
 
@@ -125,7 +125,7 @@ describe('Contact Zod Schema', () => {
 
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('contact.error.whatsapp')
+      expect(result.error.issues[0].message).toBe('errors.contact.whatsapp')
     }
   })
 
@@ -136,7 +136,7 @@ describe('Contact Zod Schema', () => {
 
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('contact.error.message')
+      expect(result.error.issues[0].message).toBe('errors.contact.message')
     }
   })
 

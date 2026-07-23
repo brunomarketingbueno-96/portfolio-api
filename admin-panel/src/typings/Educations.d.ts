@@ -1,20 +1,8 @@
-interface EducationTranslation {
-  language: string;
-  name?: string;
-  institution?: string;
-  description?: string;
-}
+import { z } from 'zod'
+import { educationSchema } from '../../../src/schemas/educations.schema';
 
-interface Education {
-  id?: string;
-  type: string;
-  status: string;
-  imageUrl?: string;
-  durationHours?: number | string;
-  startDate?: string;
-  endDate?: string;
-  certificateUrl?: string;
-  translations: EducationTranslation[];
-  createdAt?: string;
-  updatedAt?: string;
-}
+export type NewEducation = z.infer<typeof educationSchema>;
+
+export type Education = NewEducation & {
+  id: string;
+};

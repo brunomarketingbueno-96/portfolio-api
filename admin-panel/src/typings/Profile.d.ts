@@ -1,10 +1,11 @@
-interface ProfileForm {
-  name: string;
-  email: string;
-}
+import { z } from 'zod'
+import { updateProfileSchema, changePasswordSchema } from '../../../src/schemas/users.schema';
+import { loginSchema } from '../../../src/schemas/auth.schema';
 
-interface PasswordForm {
-  oldPassword: string;
-  newPassword: string;
+type Profile = z.infer<typeof updateProfileSchema>;
+
+export type ChangePassword = z.infer<typeof changePasswordSchema> & {
   confirmPassword: string;
-}
+};
+
+export type LoginForm = z.infer<typeof loginSchema>;

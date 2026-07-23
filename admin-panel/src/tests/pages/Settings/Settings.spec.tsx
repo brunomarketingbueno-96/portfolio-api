@@ -4,15 +4,12 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import Settings from '@/pages/Settings';
 import { useSettingsContext } from '@/contexts/SettingsContext';
 import { useSettings } from '@/hooks/useSettings';
+import { useAiProviders } from '@/hooks/useAiProviders';
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string, options?: { defaultValue: string }) => options?.defaultValue || key,
   }),
-}));
-
-vi.mock('react-router-dom', () => ({
-  Link: ({ children, to }: any) => <a href={to} data-testid="mock-link">{children}</a>,
 }));
 
 vi.mock('@/contexts/SettingsContext', () => ({
@@ -23,8 +20,28 @@ vi.mock('@/hooks/useSettings', () => ({
   useSettings: vi.fn(),
 }));
 
+vi.mock('@/hooks/useAiProviders', () => ({
+  useAiProviders: vi.fn(),
+}));
+
 vi.mock('@/components/Background', () => ({
   default: () => <div data-testid="mock-background" />
+}));
+
+vi.mock('@/components/Heading', () => ({
+  default: ({ title }: any) => <h1 data-testid="mock-heading">{title}</h1>
+}));
+
+vi.mock('@/components/SubTitle', () => ({
+  default: ({ content }: any) => <p data-testid="mock-subtitle">{content}</p>
+}));
+
+vi.mock('@/components/Buttons/BackButton', () => ({
+  default: ({ to, label }: any) => <a href={to.pathname} data-testid="mock-back-button">{label}</a>
+}));
+
+vi.mock('@/components/PageLoader', () => ({
+  default: () => <div data-testid="mock-page-loader" />
 }));
 
 vi.mock('@/components/SettingsForm', () => ({
@@ -60,6 +77,7 @@ describe('Settings Page Component', () => {
     publicEmail: 'admin@example.com',
     logoUrl: 'https://example.com/logo.png',
     customConfig: {},
+    aiKeys: []
   };
 
   beforeEach(() => {
@@ -82,6 +100,17 @@ describe('Settings Page Component', () => {
       reset: mockReset,
       setImagePreview: mockSetImagePreview,
     } as any);
+
+    vi.mocked(useAiProviders).mockReturnValue({
+      register: vi.fn() as any,
+      errors: {},
+      isSubmitting: false,
+      globalError: null,
+      createAiProvider: vi.fn(),
+      updateAiProvider: vi.fn(),
+      deleteAiProvider: vi.fn(),
+      reset: vi.fn(),
+    } as any);
   });
 
   it('should render loading spinner when isLoadingSettings is true', () => {
@@ -91,21 +120,21 @@ describe('Settings Page Component', () => {
       applyNewSettings: mockApplyNewSettings,
     } as any);
 
-    const { container } = render(<Settings />);
+    render(<Settings />);
 
-    const spinner = container.querySelector('.animate-spin');
-    expect(spinner).toBeInTheDocument();
-    expect(screen.queryByText('Settings')).not.toBeInTheDocument();
+    expect(screen.getByTestId('mock-page-loader')).toBeInTheDocument();
+    expect(screen.queryByTestId('mock-settings-form')).not.toBeInTheDocument();
   });
 
   it('should render Layout, headers, background, back link and SettingsForm correctly when loaded', () => {
     render(<Settings />);
 
     expect(screen.getByTestId('mock-background')).toBeInTheDocument();
-    expect(screen.getByText('Settings')).toBeInTheDocument();
-    expect(screen.getByText('Manage the panel settings.')).toBeInTheDocument();
 
-    const link = screen.getByTestId('mock-link');
+    expect(screen.getAllByTestId('mock-heading')[0]).toHaveTextContent('Settings');
+    expect(screen.getAllByTestId('mock-subtitle')[0]).toHaveTextContent('Manage the panel settings.');
+
+    const link = screen.getByTestId('mock-back-button');
     expect(link).toHaveAttribute('href', '/panel');
     expect(link).toHaveTextContent('Back to panel');
 

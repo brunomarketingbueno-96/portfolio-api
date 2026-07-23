@@ -1,4 +1,5 @@
 import { handleResponse } from '@/helpers/fetchHelpers';
+import type { Education, NewEducation } from '@/typings/Educations';
 
 export const EducationService = {
   async getAll(): Promise<Education[]> {
@@ -11,7 +12,7 @@ export const EducationService = {
     return handleResponse(res);
   },
 
-  async create(payload: Partial<Education>): Promise<Education> {
+  async create(payload: NewEducation): Promise<Education> {
     const res = await fetch('/api/educations', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

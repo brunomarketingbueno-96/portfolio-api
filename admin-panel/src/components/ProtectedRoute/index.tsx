@@ -1,8 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 
-import Header from '../Header';
-
+import Header from '@/components/Header';
 import FullScreenLoader from '@/components/FullScreenLoader';
 
 export default function ProtectedRoute() {

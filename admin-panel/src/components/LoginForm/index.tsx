@@ -1,19 +1,16 @@
 import { useTranslation } from 'react-i18next';
+
 import type { UseFormRegister, UseFormHandleSubmit, SubmitHandler, FieldErrors } from 'react-hook-form';
+import type { LoginForm } from '@/typings/Profile';
 
-import Input from '../Input';
-import ErrorAlert from '../ErrorAlert';
-
-export interface LoginFormInputs {
-  email: string;
-  password: string;
-}
+import Input from '@/components/Input';
+import ErrorAlert from '@/components/ErrorAlert';
 
 interface LoginFormProps {
-  register: UseFormRegister<LoginFormInputs>;
-  handleSubmit: UseFormHandleSubmit<LoginFormInputs>;
-  errors: FieldErrors<LoginFormInputs>;
-  onSubmit: SubmitHandler<LoginFormInputs>;
+  register: UseFormRegister<LoginForm>;
+  handleSubmit: UseFormHandleSubmit<LoginForm>;
+  errors: FieldErrors<LoginForm>;
+  onSubmit: SubmitHandler<LoginForm>;
   globalError: string | null;
   isSubmitting: boolean;
 }
@@ -35,9 +32,9 @@ export default function LoginForm({
       <div>
         <Input
           id="email"
-          label={t('login.labels.email', { defaultValue: 'Email' })}
+          label={t('forms.login.labels.email', { defaultValue: 'Email' })}
           type="email"
-          placeholder={t('login.placeholders.email', { defaultValue: 'admin@example.com' })}
+          placeholder={t('forms.login.placeholders.email', { defaultValue: 'admin@example.com' })}
           {...register('email')}
         >
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-zinc-400 dark:text-zinc-500">
@@ -54,9 +51,9 @@ export default function LoginForm({
       <div>
         <Input
           id="password"
-          label={t('login.labels.password', { defaultValue: 'Password' })}
+          label={t('forms.login.labels.password', { defaultValue: 'Password' })}
           type="password"
-          placeholder={t('login.placeholders.password', { defaultValue: '••••••••' })}
+          placeholder={t('forms.login.placeholders.password', { defaultValue: '••••••••' })}
           {...register('password')}
         >
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-zinc-400 dark:text-zinc-500">
@@ -83,9 +80,9 @@ export default function LoginForm({
         )}
         {isSubmitting
           ?
-          `${t('login.buttons.signign_in', { defaultValue: 'Signing in' })}`
+          `${t('forms.login.buttons.signing_in', { defaultValue: 'Signing in' })}`
           :
-          `${t('login.buttons.access_panel', { defaultValue: 'Access Panel' })}`}
+          `${t('forms.login.buttons.access_panel', { defaultValue: 'Access Panel' })}`}
       </button>
     </form>
   );

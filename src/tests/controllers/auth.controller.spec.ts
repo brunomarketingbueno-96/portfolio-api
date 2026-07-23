@@ -49,12 +49,6 @@ describe('Auth Controller', () => {
   })
 
   describe('login', () => {
-    it('should throw an error if email or password is missing', async () => {
-      mockContext.req.json.mockResolvedValue({ email: 'test@test.com' })
-
-      await expect(login(mockContext)).rejects.toThrow()
-    })
-
     it('should return 401 if user is not found', async () => {
       mockContext.req.json.mockResolvedValue({ email: 'test@test.com', password: 'password' })
       vi.mocked(findUserByEmail).mockResolvedValue(undefined as any)

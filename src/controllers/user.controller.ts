@@ -1,13 +1,13 @@
 import { Context } from 'hono';
 import * as bcrypt from 'bcryptjs';
 
+import type { UpdateProfile, ChangePassword } from '../schemas/users.schema.js';
+
 import {
   findUserById,
   updateUserProfile,
   updateUserPassword
 } from '../repositories/users.repository.js';
-
-import { updateProfileSchema, changePasswordSchema } from '../schemas/users.schema.js';
 
 export const getProfile = async (c: Context) => {
   try {
@@ -31,7 +31,7 @@ export const updateProfile = async (c: Context) => {
   try {
     const payload = c.get('jwtPayload');
 
-    const profileData = updateProfileSchema.parse(await c.req.json());
+    const profileData = await c.req.json<UpdateProfile>();
 
     const updatedUser = await updateUserProfile(payload.id, profileData);
 
@@ -58,7 +58,7 @@ export const changePassword = async (c: Context) => {
   try {
     const payload = c.get('jwtPayload');
 
-    const { oldPassword, newPassword } = changePasswordSchema.parse(await c.req.json());
+    const { oldPassword, newPassword } = await c.req.json<ChangePassword>();
 
     const user = await findUserById(payload.id);
 

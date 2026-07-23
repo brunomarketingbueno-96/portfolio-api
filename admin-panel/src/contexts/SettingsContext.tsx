@@ -4,15 +4,13 @@ import { useTranslation } from 'react-i18next';
 
 import { useSettings as useSettingsHook } from '@/hooks/useSettings';
 
-import { z } from 'zod';
-import { settingsSchema } from '../../../src/schemas/settings.schema';
-
-type Settings = z.infer<typeof settingsSchema>;
+import type { Settings, GlobalSettings } from '@/typings/Settings';
 
 interface SettingsContextType {
-  globalSettings: Settings | null;
+  globalSettings: GlobalSettings | null;
   isLoadingSettings: boolean;
   applyNewSettings: (newSettings: Settings) => void;
+  refreshSettings: () => void;
 }
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
@@ -79,7 +77,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       value={{
         globalSettings: settings,
         isLoadingSettings: loading,
-        applyNewSettings
+        applyNewSettings,
+        refreshSettings: loadSettings
       }}
     >
       {children}

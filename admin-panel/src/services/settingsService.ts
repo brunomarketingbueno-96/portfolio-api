@@ -1,12 +1,8 @@
 import { handleResponse } from '@/helpers/fetchHelpers';
-
-import { z } from 'zod';
-import { settingsSchema } from '../../../src/schemas/settings.schema';
-
-type Settings = z.infer<typeof settingsSchema>;
+import type { GlobalSettings, Settings } from '@/typings/Settings';
 
 export const SettingsService = {
-  async get(): Promise<Settings> {
+  async get(): Promise<GlobalSettings> {
     const res = await fetch('/api/settings', { credentials: 'include' });
     return handleResponse(res);
   },

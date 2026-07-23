@@ -1,14 +1,9 @@
-interface ServiceTranslation {
-  language: string;
-  title: string;
-  description: string;
-}
+import { z } from 'zod';
 
-interface Service {
-  id?: string;
-  link: string | null;
-  imageUrl: string | null;
-  translations: ServiceTranslation[];
-  createdAt?: string;
-  updatedAt?: string;
-}
+import { serviceSchema } from '../../../src/schemas/services.schema';
+
+export type NewService = z.infer<typeof serviceSchema>;
+
+export type Service = NewService & {
+  id: string;
+};

@@ -1,10 +1,13 @@
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { useProjects } from '@/hooks/useProjects';
 
-import ProjectForm from '@/components/ProjectForm';
+import Heading from '@/components/Heading';
+import SubTitle from '@/components/SubTitle';
 import Background from '@/components/Background';
+import ProjectForm from '@/components/ProjectForm';
+
+import BackButton from '@/components/Buttons/BackButton';
 
 export default function CreateProject() {
   const { t } = useTranslation();
@@ -30,16 +33,10 @@ export default function CreateProject() {
       <main className="flex-1 px-8 py-8 w-full relative z-10">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-zinc-50">
-              {t('projects.page.create.title', { defaultValue: 'New Project' })}
-            </h1>
-            <p className="text-sm text-gray-500 dark:text-zinc-400">
-              {t('projects.page.create.description', { defaultValue: 'Add a new project to your portfolio.' })}
-            </p>
+            <Heading level={1} title={t('pages.projects.create.title', { defaultValue: 'New Project' })} />
+            <SubTitle content={t('pages.projects.create.description', { defaultValue: 'Add a new project to your portfolio.' })} />
           </div>
-          <Link to="/projects" className="text-sm text-gray-600 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium flex items-center gap-1 transition-colors">
-            ← {t('projects.buttons.back_to_projects', { defaultValue: 'Back to list' })}
-          </Link>
+          <BackButton to={{ pathname: '/projects' }} label={t('pages.projects.buttons.back_to_projects', { defaultValue: 'Back to list' })} />
         </div>
 
         <ProjectForm
@@ -53,7 +50,6 @@ export default function CreateProject() {
           globalError={globalError}
           handleFileChange={handleFileChange}
           onSubmitAction={createProject}
-          submitButtonText={t('projects.buttons.save_project', { defaultValue: 'Save Project' })}
         />
       </main>
     </div>

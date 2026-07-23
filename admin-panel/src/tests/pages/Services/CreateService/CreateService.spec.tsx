@@ -24,7 +24,7 @@ vi.mock('@/components/Background', () => ({
 }));
 
 vi.mock('@/components/ServiceForm', () => ({
-  default: ({ submitButtonText, onSubmitAction, globalError, isSubmitting }: any) => (
+  default: ({ onSubmitAction, globalError, isSubmitting }: any) => (
     <form
       data-testid="mock-service-form"
       onSubmit={(e) => {
@@ -34,7 +34,6 @@ vi.mock('@/components/ServiceForm', () => ({
     >
       <span data-testid="form-global-error">{globalError}</span>
       <span data-testid="form-is-submitting">{isSubmitting ? 'submitting' : 'idle'}</span>
-      <button type="submit" data-testid="form-submit-btn">{submitButtonText}</button>
     </form>
   )
 }));
@@ -81,7 +80,6 @@ describe('CreateService Page Component', () => {
 
     render(<CreateService />);
 
-    expect(screen.getByTestId('form-submit-btn')).toHaveTextContent('Save service');
     expect(screen.getByTestId('form-is-submitting')).toHaveTextContent('submitting');
     expect(screen.getByTestId('form-global-error')).toHaveTextContent('Some validation error');
   });

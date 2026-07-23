@@ -1,4 +1,5 @@
 import { handleResponse } from '@/helpers/fetchHelpers';
+import type { Service } from '@/typings/Services';
 
 export const ServiceService = {
   async getAll(): Promise<Service[]> {
