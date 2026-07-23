@@ -1,9 +1,9 @@
 import { z } from 'zod';
 
 const projectTranslationSchema = z.object({
-  language: z.string().min(2, { error: 'projects.error.language' }),
-  title: z.string().min(3, { error: 'projects.error.title' }),
-  description: z.string().min(10, { error: 'projects.error.description' }),
+  language: z.string().min(2, { error: 'errors.projects.language' }),
+  title: z.string().min(3, { error: 'errors.projects.title' }),
+  description: z.string().min(10, { error: 'errors.projects.description' }),
 }).strict();
 
 const githubStatsSchema = z.object({
@@ -13,22 +13,22 @@ const githubStatsSchema = z.object({
 }).strict();
 
 export const projectSchema = z.object({
-  imageUrl: z.url({ error: 'projects.error.image_url' })
-    .startsWith('http', { error: 'projects.error.image_url' })
+  imageUrl: z.url({ error: 'errors.projects.image_url' })
+    .startsWith('http', { error: 'errors.projects.image_url' })
     .optional()
     .or(z.literal('')),
 
-  liveUrl: z.url({ error: 'projects.error.live_url' })
-    .startsWith('http', { error: 'projects.error.live_url' })
+  liveUrl: z.url({ error: 'errors.projects.live_url' })
+    .startsWith('http', { error: 'errors.projects.live_url' })
     .optional()
     .or(z.literal('')),
 
-  repoUrl: z.url({ error: 'projects.error.repo_url' })
-    .startsWith('http', { error: 'projects.error.repo_url' })
+  repoUrl: z.url({ error: 'errors.projects.repo_url' })
+    .startsWith('http', { error: 'errors.projects.repo_url' })
     .optional()
     .or(z.literal('')),
 
-  translations: z.array(projectTranslationSchema).min(1, { error: 'projects.error.translations_required' }),
+  translations: z.array(projectTranslationSchema).min(1, { error: 'errors.projects.translations_required' }),
 
   githubStats: githubStatsSchema.optional().nullable(),
 }).strict();

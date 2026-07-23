@@ -56,7 +56,7 @@ describe('Settings Zod Schema', () => {
     const result = settingsSchema.safeParse(payload);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('settings.error.panel_language');
+      expect(result.error.issues[0].message).toBe('errors.settings.panel_language');
     }
   });
 
@@ -69,7 +69,7 @@ describe('Settings Zod Schema', () => {
     const result = settingsSchema.safeParse(payload);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('settings.error.site_url');
+      expect(result.error.issues[0].message).toBe('errors.settings.site_url');
     }
   });
 
@@ -82,7 +82,7 @@ describe('Settings Zod Schema', () => {
     const result = settingsSchema.safeParse(payload);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('settings.error.public_email');
+      expect(result.error.issues[0].message).toBe('errors.settings.public_email');
     }
   });
 
@@ -95,7 +95,7 @@ describe('Settings Zod Schema', () => {
     const result = settingsSchema.safeParse(payload);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('settings.error.logo_url');
+      expect(result.error.issues[0].message).toBe('errors.settings.logo_url');
     }
   });
 

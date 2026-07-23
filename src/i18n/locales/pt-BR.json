@@ -1,1 +1,87 @@
-{}
+{
+  "errors": {
+    "blog_posts": {
+      "image_url": "A URL da imagem de capa é inválida.",
+      "language": "O idioma deve ter no mínimo 2 caracteres.",
+      "slug": "O slug deve ter no mínimo 3 caracteres.",
+      "title": "O título deve ter no mínimo 3 caracteres.",
+      "excerpt": "O resumo deve ter no mínimo 10 caracteres.",
+      "content": "O conteúdo deve ter no mínimo 10 caracteres.",
+      "translations_required": "É necessário fornecer pelo menos uma tradução.",
+      "invalid_provider_id": "O ID do provedor deve ser um UUID válido.",
+      "language_invalid": "O idioma informado é inválido.",
+      "title_required": "O título é obrigatório e deve ter no mínimo 3 caracteres."
+    },
+    "cloudinary": {
+      "invalid_folder": "A pasta selecionada é inválida.",
+      "invalid_identifier": "O identificador é obrigatório."
+    },
+    "contact": {
+      "name": "O nome deve ter no mínimo 3 caracteres.",
+      "company": "O nome da empresa deve ter no mínimo 3 caracteres.",
+      "email": "O e-mail informado é inválido.",
+      "whatsapp": "O WhatsApp deve ter no mínimo 10 caracteres.",
+      "message": "A mensagem deve ter no mínimo 10 caracteres.",
+      "email_or_whatsapp": "É necessário fornecer um e-mail ou WhatsApp para contato."
+    },
+    "educations": {
+      "language": "O idioma deve ter entre 2 e 4 caracteres.",
+      "name": "O nome do curso/formação deve ter no mínimo 3 caracteres.",
+      "institution": "O nome da instituição deve ter no mínimo 2 caracteres.",
+      "description": "A descrição deve ter no mínimo 10 caracteres.",
+      "start_date": "A data de início deve ser uma data válida.",
+      "end_date": "A data de término deve ser uma data válida.",
+      "type": "O tipo deve ser 'college', 'course', 'certification' ou 'bootcamp'.",
+      "duration_hours": "A carga horária deve ser um número inteiro positivo.",
+      "image_url": "A URL da imagem é inválida.",
+      "certificate_url": "A URL do certificado é inválida.",
+      "status": "O status deve ter no mínimo 2 caracteres.",
+      "translations_required": "É necessário fornecer pelo menos uma tradução."
+    },
+    "github": {
+      "repo_url": "A URL do repositório do GitHub é inválida."
+    },
+    "login": {
+      "email": "O e-mail informado é inválido.",
+      "password": "A senha deve ter no mínimo 6 caracteres."
+    },
+    "profile": {
+      "password_mismatch": "A confirmação de senha não confere com a nova senha."
+    },
+    "projects": {
+      "language": "O idioma deve ter no mínimo 2 caracteres.",
+      "title": "O título do projeto deve ter no mínimo 3 caracteres.",
+      "description": "A descrição deve ter no mínimo 10 caracteres.",
+      "image_url": "A URL da imagem do projeto é inválida.",
+      "live_url": "A URL de visualização (live) é inválida.",
+      "repo_url": "A URL do repositório é inválida.",
+      "translations_required": "É necessário fornecer pelo menos uma tradução."
+    },
+    "services": {
+      "link": "O link do serviço deve ser uma URL válida.",
+      "image_url": "A URL da imagem do serviço é inválida.",
+      "language": "O idioma deve ter no mínimo 2 caracteres.",
+      "title": "O título do serviço deve ter no mínimo 3 caracteres.",
+      "description": "A descrição do serviço deve ter no mínimo 10 caracteres.",
+      "translations_required": "É necessário fornecer pelo menos uma tradução."
+    },
+    "settings": {
+      "ai_provider_name_min": "O nome do provedor de IA deve ter no mínimo 3 caracteres.",
+      "ai_provider": "Selecione um provedor de IA válido (openai, groq ou gemini).",
+      "ai_provider_key_required": "A chave de API é obrigatória para um novo provedor de IA.",
+      "theme": "O tema deve ser 'light', 'dark' ou 'system'.",
+      "panel_language": "O idioma do painel deve ter no mínimo 2 caracteres.",
+      "site_url": "A URL do site deve ser uma URL válida.",
+      "public_email": "O e-mail público deve ser um e-mail válido.",
+      "logo_url": "A URL do logo deve ser uma URL válida."
+    },
+    "users": {
+      "name": "O nome deve ter no mínimo 2 caracteres.",
+      "email": "O e-mail informado é inválido.",
+      "avatar_url": "A URL do avatar é inválida.",
+      "empty_payload": "Ao menos um campo deve ser fornecido para atualização.",
+      "old_password": "A senha atual deve ter no mínimo 6 caracteres.",
+      "new_password": "A nova senha deve ter no mínimo 6 caracteres."
+    }
+  }
+}

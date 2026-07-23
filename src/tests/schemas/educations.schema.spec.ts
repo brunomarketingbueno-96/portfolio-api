@@ -77,7 +77,7 @@ describe('Education Zod Schema', () => {
 
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('educations.error.image_url')
+      expect(result.error.issues[0].message).toBe('errors.educations.image_url')
     }
   })
 
@@ -115,7 +115,7 @@ describe('Education Zod Schema', () => {
 
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('educations.error.type')
+      expect(result.error.issues[0].message).toBe('errors.educations.type')
     }
   })
 
@@ -137,7 +137,7 @@ describe('Education Zod Schema', () => {
 
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('educations.error.duration_hours')
+      expect(result.error.issues[0].message).toBe('errors.educations.duration_hours')
     }
   })
 
@@ -175,7 +175,7 @@ describe('Education Zod Schema', () => {
 
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('educations.error.certificate_url')
+      expect(result.error.issues[0].message).toBe('errors.educations.certificate_url')
     }
   })
 })

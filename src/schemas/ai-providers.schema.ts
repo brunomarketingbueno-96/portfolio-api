@@ -4,10 +4,10 @@ export const aiProviderSchema = z.object({
   id: z.string().optional(),
 
   name: z.string()
-    .min(3, { message: 'settings.error.ai_provider_name_min' }),
+    .min(3, { message: 'errors.settings.ai_provider_name_min' }),
 
   provider: z.enum(['openai', 'groq', 'gemini'] as const, {
-    error: 'settings.error.ai_provider'
+    error: 'errors.settings.ai_provider'
   }),
 
   key: z.string().optional().or(z.literal('')),
@@ -21,7 +21,7 @@ export const aiProviderSchema = z.object({
   return true;
 
 }, {
-  message: 'settings.error.ai_provider_key_required',
+  message: 'errors.settings.ai_provider_key_required',
   path: ['key']
 }).strict();
 

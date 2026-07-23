@@ -59,7 +59,7 @@ describe('Blog Posts Zod Schema', () => {
     const result = blogPostSchema.safeParse(payload);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('blog_posts.error.image_url');
+      expect(result.error.issues[0].message).toBe('errors.blog_posts.image_url');
     }
   });
 
@@ -84,7 +84,7 @@ describe('Blog Posts Zod Schema', () => {
     const result = blogPostSchema.safeParse(payload);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('blog_posts.error.translations_required');
+      expect(result.error.issues[0].message).toBe('errors.blog_posts.translations_required');
     }
   });
 
@@ -105,11 +105,11 @@ describe('Blog Posts Zod Schema', () => {
     expect(result.success).toBe(false);
     if (!result.success) {
       const messages = result.error.issues.map(i => i.message);
-      expect(messages).toContain('blog_posts.error.language');
-      expect(messages).toContain('blog_posts.error.slug');
-      expect(messages).toContain('blog_posts.error.title');
-      expect(messages).toContain('blog_posts.error.excerpt');
-      expect(messages).toContain('blog_posts.error.content');
+      expect(messages).toContain('errors.blog_posts.language');
+      expect(messages).toContain('errors.blog_posts.slug');
+      expect(messages).toContain('errors.blog_posts.title');
+      expect(messages).toContain('errors.blog_posts.excerpt');
+      expect(messages).toContain('errors.blog_posts.content');
     }
   });
 

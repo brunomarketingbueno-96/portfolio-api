@@ -34,7 +34,7 @@ describe('AI Providers Zod Schema', () => {
     const result = aiProviderSchema.safeParse(payload);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('settings.error.ai_provider_name_min');
+      expect(result.error.issues[0].message).toBe('errors.settings.ai_provider_name_min');
     }
   });
 
@@ -46,7 +46,7 @@ describe('AI Providers Zod Schema', () => {
     const result = aiProviderSchema.safeParse(payload);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('settings.error.ai_provider');
+      expect(result.error.issues[0].message).toBe('errors.settings.ai_provider');
     }
   });
 
@@ -58,7 +58,7 @@ describe('AI Providers Zod Schema', () => {
     const result = aiProviderSchema.safeParse(payload);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('settings.error.ai_provider_key_required');
+      expect(result.error.issues[0].message).toBe('errors.settings.ai_provider_key_required');
     }
   });
 

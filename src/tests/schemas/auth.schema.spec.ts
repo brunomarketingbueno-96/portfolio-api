@@ -30,7 +30,7 @@ describe('Auth Zod Schema', () => {
     const result = loginSchema.safeParse(payload);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('login.error.email');
+      expect(result.error.issues[0].message).toBe('errors.login.email');
     }
   });
 
@@ -39,7 +39,7 @@ describe('Auth Zod Schema', () => {
     const result = loginSchema.safeParse(payload);
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0].message).toBe('login.error.password');
+      expect(result.error.issues[0].message).toBe('errors.login.password');
     }
   });
 });
